@@ -1,3 +1,5 @@
+#' Set MEGATION_KEY as an environment variable
+#' @param key The API key.
 #' @export
 
 set_api_key <- function(key = NULL) {
