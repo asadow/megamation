@@ -15,7 +15,8 @@ req_mm_wo <- function(url, status = NULL, type = NULL, date) {
     "workorder",
     # status = status,
     type = type
-  ) |>
+  )  |>
+    httr2::req_perform() |>
     httr2::resp_body_raw() |>
     rawToChar()
 
