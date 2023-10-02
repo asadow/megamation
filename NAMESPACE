@@ -3,5 +3,6 @@
 export(find_data)
 export(mm_error_body)
 export(mm_req)
+export(mm_req_paginate)
 export(req_mm_wo)
 export(set_api_key)
