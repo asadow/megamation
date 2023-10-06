@@ -8,7 +8,8 @@ mm_req_paginate <- function(req) {
       parse_resp = function(resp) {
         parsed <- resp |>
           httr2::resp_body_raw() |>
-          rawToChar() |>
+          rawToChar()
+          stringi::stri_encode(from = "UTF-8", to = "UTF-8") |>
           jsonlite::fromJSON() |>
           purrr::list_flatten()
 

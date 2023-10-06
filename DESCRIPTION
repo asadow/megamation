@@ -1,5 +1,5 @@
 Package: megamation
-Title: What the Package Does (One Line, Title Case)
+Title: Functions for downloading Megamation data directly in R
 Version: 0.0.0.9000
 Authors@R: 
     person("Adam", "Sadowski", , "asadowsk@uoguelph.ca", role = c("aut", "cre"),
@@ -14,6 +14,7 @@ Imports:
     httr2,
     jsonlite,
     purrr,
+    stringi,
     tibble
 URL: https://github.com/asadow/megamation
 BugReports: https://github.com/asadow/megamation/issues
