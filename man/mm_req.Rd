@@ -4,11 +4,9 @@
 \alias{mm_req}
 \title{Perform a Megamation API request}
 \usage{
-mm_req(url, resource, ..., username = "APIDL", api_key = get_api_key())
+mm_req(resource, ..., url = get_url(), user = get_user(), key = get_key())
 }
 \arguments{
-\item{url}{A URL starting with "https://api.megamation.com/".}
-
 \item{resource}{The resource endpoint. For example,
 "timecard" for employee transactions, and
 "workorder" for work orders. All endpoints are listed here:
@@ -16,7 +14,7 @@ mm_req(url, resource, ..., username = "APIDL", api_key = get_api_key())
 
 \item{...}{API parameters to filter the request.}
 
-\item{username}{The API key username.}
+\item{user}{The API key user.}
 
 \item{api_key}{The API key.}
 }

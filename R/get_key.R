@@ -1,4 +1,4 @@
-get_api_key <- function() {
+get_key <- function() {
   key <- Sys.getenv("MEGAMATION_KEY")
   if (!identical(key, "")) {
     return(key)
@@ -16,5 +16,5 @@ is_testing <- function() {
 }
 
 testing_key <- function() {
-  httr2::secret_decrypt("4E5GlxeUybPJnCQQnwyDGsPIncZI526gyfk", "MEGAMATION_KEY")
+  httr2::secret_decrypt("4E5GlxeUybPJnCQQnwyDGsPIncZI526gyfk", "HTTR2_KEY")
 }

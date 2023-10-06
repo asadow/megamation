@@ -38,28 +38,41 @@ devtools::install_github("asadow/megamation")
 
 ## Authorization
 
-Your Megamation representative will provide your username, URL, and key. 
+Your Megamation representative will provide your key and URL. A helper function is provided to install these credentials (it creates name-value pairs in your `.Renviron` file, a safe place for secrets.) Edit and run the function below:
 
-```{r}
-username <- "APIDL"
-url <- "https://api.megamation.com/uog/dl"
-resource <- "timecard"
-params <- list(date = I("<>09-01-2023,09-02-2023"))
-api_key <- httr2::secret_decrypt(
-  "4E5GlxeUybPJnCQQnwyDGsPIncZI526gyfk", 
-  "MEGAMATION_KEY"
-)
-
+``` r
 library(megamation)
+mm_set_creds(
+   key = "<YOUR-MEGAMATION_KEY>",
+   url = "<YOUR-MEGAMATION_URL>",
+   install = TRUE
+   )
 ```
 
+### Aside
+
+You can set your own name-value pairs by using `Sys.setenv(NAME = "VALUE")`. For, example.
+
+``` r
+Sys.setenv(MEGAMATION_KEY = "R&RwillNeverDie")
+Sys.setenv(MEGAMATION_URL = "https://api.megamation.com/uog/dl")
+```
+
+Alternatively you can open your `.Renviron` (`usethis::edit_r_environ()`) and enter each `NAME = "VALUE"` on separate lines.
+
+## A simple request
+
+TBD
+```{r}
+```
 
 ## Building a custom request
 
 `mm_req()` allows you to define a request for any resource: `"timecard"`, `"workorder"`, etc.
 
 ```{r}
-req <- mm_req(url, resource, date = I("<>09-01-2023,09-29-2023"), api_key = api_key)
+library(megamation)
+req <- mm_req("timecard", date = I("<>09-01-2023,09-29-2023"))
 ```
 
 You would normally run `httr2::req_perform()`. Here I run `httr2::req_dry_run()` to show exactly what `httr2` will send to the server, without actually sending it.
