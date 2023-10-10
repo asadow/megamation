@@ -8,5 +8,6 @@ mm_resp_data <- function(resp) {
     rawToChar() |>
     stringi::stri_encode(from = "UTF-8", to = "UTF-8") |>
     jsonlite::fromJSON() |>
-    mm_keep_df()
+    mm_keep_df() |>
+    tibble::as_tibble()
 }
