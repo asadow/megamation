@@ -1,4 +1,4 @@
-#' Perform a Megamation API request
+#' Define a Megamation API request
 #' @param resource The resource endpoint. For example,
 #' "timecard" for employee transactions, and
 #' "workorder" for work orders. All endpoints are listed here:

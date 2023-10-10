@@ -1,3 +1,7 @@
+#' Get MEGAMATION_URL env var
+#' @export
+#' @keywords internal
+
 get_url <- function() {
   key <- Sys.getenv("MEGAMATION_URL")
   if (!identical(key, "")) {

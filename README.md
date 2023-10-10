@@ -92,8 +92,8 @@ req |> httr2::req_dry_run()
 
 A custom request can be performed using `httr2::req_perform()`. An API
 response is returned. As the body of the response is unwieldy (it
-contains the data in an embedded list as raw bytes), the helper function
-`mm_resp_data()` returns the data.
+contains raw bytes of a list), the helper function `mm_resp_data()`
+returns the data.
 
 ``` r
 resp <- req |> httr2::req_perform() 

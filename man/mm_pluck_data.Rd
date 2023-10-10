@@ -12,3 +12,4 @@ mm_pluck_data(list_from_json)
 \description{
 Extract data in the JSON list returned by Megamation's API
 }
+\keyword{internal}

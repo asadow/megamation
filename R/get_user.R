@@ -1,3 +1,7 @@
+#' Get MEGAMATION_USER env var
+#' @export
+#' @keywords internal
+
 get_user <- function() {
   key <- Sys.getenv("MEGAMATION_USER")
   if (!identical(key, "")) {

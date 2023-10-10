@@ -6,16 +6,11 @@ mm_req_paginate <- function(req) {
   req |>
     httr2::req_paginate_next_url(
       parse_resp = function(resp) {
-        parsed <- resp |>
-          httr2::resp_body_raw() |>
-          rawToChar()
-          stringi::stri_encode(from = "UTF-8", to = "UTF-8") |>
-          jsonlite::fromJSON() |>
-          purrr::list_flatten()
+        parsed <- mm_parse(resp)
 
-        parsed$next_page <- if(parsed$next_page == "") NULL else(parsed$next_page)
+        parsed$next_url <- if(parsed$next_page == "") NULL else(parsed$next_page)
 
-        list(data = find_data(parsed), next_url = parsed$next_page)
+        list(data = mm_pluck_data(parsed), next_url = parsed$next_url)
       }
     )
 }
