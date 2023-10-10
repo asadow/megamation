@@ -10,7 +10,7 @@ mm_req_paginate <- function(req) {
 
         parsed$next_url <- if(parsed$next_page == "") NULL else(parsed$next_page)
 
-        list(data = mm_pluck_data(parsed), next_url = parsed$next_url)
+        list(data = mm_keep_df(parsed), next_url = parsed$next_url)
       }
     )
 }

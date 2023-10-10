@@ -8,5 +8,5 @@ mm_resp_data <- function(resp) {
     rawToChar() |>
     stringi::stri_encode(from = "UTF-8", to = "UTF-8") |>
     jsonlite::fromJSON() |>
-    mm_pluck_data()
+    mm_keep_df()
 }

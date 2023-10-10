@@ -3,7 +3,7 @@
 #' @export
 #' @keywords internal
 
-mm_pluck_data <- function(list_from_json) {
+mm_keep_df <- function(list_from_json) {
   list_from_json |>
     purrr::list_flatten() |>
     purrr::keep(\(x) is.data.frame(x)) |>
