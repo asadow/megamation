@@ -15,6 +15,6 @@ mm_pull <- function(resource,
                     key = get_key()) {
   mm_req(resource, url = url, user = user, key = key) |>
     mm_req_paginate() |>
-    httr2::req_perform() |>
+    httr2::paginate_req_perform() |>
     mm_resp_data()
 }

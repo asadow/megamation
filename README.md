@@ -62,25 +62,35 @@ separate lines.
 
 ## A simple request
 
-TBD
+With your credentials installed, you can request any endpoint using
+`mm_pull()`. Here we request the `"trade"` endpoint.
+
+``` r
+trade <- mm_pull("trade")
+```
 
 ## Building a custom request
 
-`mm_req()` allows you to define a request for any resource:
+`mm_req()` allows you to define a request for any endpoint resource:
 `"timecard"`, `"workorder"`, etc.
 
 ``` r
 library(megamation)
-req <- mm_req("timecard", date = I("<>09-01-2023,09-29-2023"))
+req <- mm_req("timecard", date = I("<>09-01-2023,09-02-2023"))
 ```
 
-You would normally run `httr2::req_perform()`. Here I run
-`httr2::req_dry_run()` to show exactly what `httr2` will send to the
-server, without actually sending it.
+You can optionally paginate the request by using `mm_req_paginate()`.
+
+``` r
+# req <- req |> mm_req_paginate()
+```
+
+Here I run `httr2::req_dry_run()` to show exactly what `httr2` will send
+to the server, without actually sending it.
 
 ``` r
 req |> httr2::req_dry_run()
-#> GET /uog/dl/timecard?DATE=<>09-01-2023,09-29-2023 HTTP/1.1
+#> GET /uog/dl/timecard?DATE=<>09-01-2023,09-02-2023 HTTP/1.1
 #> Host: api.megamation.com
 #> User-Agent: megamation (https://github.com/asadow/megamation)
 #> Accept: */*
@@ -90,20 +100,15 @@ req |> httr2::req_dry_run()
 
 ### Performing the request
 
-A custom request can be performed using `httr2::req_perform()`. An API
-response is returned. As the body of the response is unwieldy (it
-contains raw bytes of a list), the helper function `mm_resp_data()`
-returns the data.
+If you added pagination, use `httr2::paginate_req_perform()` to perform
+the request. If not, use `httr2::req_perform()`. An API response will be
+returned.
+
+The body of the response will be unwieldy (it contains raw bytes of a
+list). The helper function `mm_resp_data()` can extract the data for
+you.
 
 ``` r
 resp <- req |> httr2::req_perform() 
-resp |> mm_resp_data()
-```
-
-### Pagination
-
-To add pagination, use `mm_req_paginate()` before the performance steps.
-
-``` r
-req |> mm_req_paginate() 
+df <- resp |> mm_resp_data()
 ```
