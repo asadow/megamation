@@ -49,7 +49,7 @@ mm_set_creds(
    )
 ```
 
-### Aside
+### An aside
 
 You can set your own name-value pairs by using `Sys.setenv(NAME = "VALUE")`. For, example.
 
@@ -91,9 +91,9 @@ req |> httr2::req_dry_run()
 
 ### Performing the request
 
-If you added pagination,  use `httr2::paginate_req_perform()` to perform the request. If not, use `httr2::req_perform()`. An API response will be returned. 
+If you added pagination,  use `mm_req_paginate_perform()` to perform the request. If not, use `httr2::req_perform()`. The value returned is a Megamation API response. 
 
-The body of the response will be unwieldy (it contains raw bytes of a list). The helper function `mm_resp_data()` can extract the data for you.
+The body of the response will contain raw bytes. It can be parsed using `mm_parse()`. The parsed response is a list which includes the data. If you are only interested in the data, you can skip `mm_parse()` and simply use `mm_resp_data()`.
 
 ```{r eval = FALSE}
 resp <- req |> httr2::req_perform() 

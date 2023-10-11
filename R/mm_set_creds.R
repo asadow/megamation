@@ -51,7 +51,7 @@ mm_set_creds <- function(key,
 
     checkarg_isboolean(report)
 
-    if(report){
+    if (report){
       creds <- c(
         key = Sys.getenv("MEGAMATION_KEY"),
         url = Sys.getenv("MEGAMATION_URL")
