@@ -44,8 +44,7 @@ Your Megamation representative will provide your key and URL. A helper function 
 library(megamation)
 mm_set_creds(
    key = "<YOUR-MEGAMATION_KEY>",
-   url = "<YOUR-MEGAMATION_URL>",
-   install = TRUE
+   url = "<YOUR-MEGAMATION_URL>"
    )
 ```
 

@@ -4,7 +4,7 @@
 \alias{mm_set_creds}
 \title{Install Megamation credentials in your \code{.Renviron} file for repeated use}
 \usage{
-mm_set_creds(key, url, overwrite = FALSE, install = FALSE, report = FALSE)
+mm_set_creds(key, url, overwrite = FALSE)
 }
 \arguments{
 \item{key}{The API key provided to you by Megamation formatted in quotes.}
@@ -14,12 +14,6 @@ formatted in quotes.}
 
 \item{overwrite}{If TRUE, will overwrite existing Megamation
 credentials that you already have in your \code{.Renviron} file.}
-
-\item{install}{If TRUE, will install the key in your \code{.Renviron} file
-for use in future sessions.  Defaults to FALSE (single session use).}
-
-\item{report}{If TRUE, ignores other arguments and outputs credentials as a
-2-element named vector.}
 }
 \description{
 This function adds your Megamation API key and base URL to your
@@ -37,8 +31,7 @@ recovery purposes.
 \dontrun{
 mm_set_creds(
   key = "<YOUR-MEGAMATION_KEY>",
-  url = "<YOUR-MEGAMATION_URL>",
-  install = TRUE
+  url = "<YOUR-MEGAMATION_URL>"
 )
 # Reload your environment so you can use the credentials without restarting R
 readRenviron("~/.Renviron")
@@ -49,9 +42,7 @@ Sys.getenv("MEGAMATION_KEY")
 mm_set_creds(
   key = "<YOUR-MEGAMATION_KEY>",
   url = "<YOUR-MEGAMATION_URL>",
-  install = TRUE,
-  overwrite = TRUE,
-  install = TRUE
+  overwrite = TRUE
 )
 # Reload your environment to use the credentials
 }

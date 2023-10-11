@@ -41,8 +41,7 @@ the function below:
 library(megamation)
 mm_set_creds(
    key = "<YOUR-MEGAMATION_KEY>",
-   url = "<YOUR-MEGAMATION_URL>",
-   install = TRUE
+   url = "<YOUR-MEGAMATION_URL>"
    )
 ```
 

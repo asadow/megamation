@@ -4,7 +4,7 @@
 \alias{mm_req}
 \title{Define a Megamation API request}
 \usage{
-mm_req(resource, ..., url = get_url(), user = get_user(), key = get_key())
+mm_req(resource, ..., url = get_url(), key = get_key())
 }
 \arguments{
 \item{resource}{The resource endpoint. For example,
@@ -14,9 +14,9 @@ mm_req(resource, ..., url = get_url(), user = get_user(), key = get_key())
 
 \item{...}{API parameters to filter the request.}
 
-\item{user}{The API key user.}
+\item{url}{The API URL.}
 
-\item{api_key}{The API key.}
+\item{key}{The API key.}
 }
 \description{
 Define a Megamation API request

@@ -4,14 +4,13 @@
 #' "workorder" for work orders. All endpoints are listed here:
 #' "https://apidocs.megamation.com/".
 #' @param ... API parameters to filter the request.
-#' @param user The API key user.
-#' @param api_key The API key.
+#' @param url The API URL.
+#' @param key The API key.
 #' @export
 
 mm_req <- function(resource,
                    ...,
                    url = get_url(),
-                   user = get_user(),
                    key = get_key()) {
   params <- list(...)
   names(params) <- toupper(names(params))
