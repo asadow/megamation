@@ -12,8 +12,14 @@ mm_pull <- function(resource,
                     ...,
                     url = get_url(),
                     key = get_key()) {
-  mm_req(resource, ..., url = url, key = key) |>
+  resp <- mm_req(resource, ..., url = url, key = key) |>
     mm_req_paginate() |>
-    mm_req_perform_paginate() |>
-    tibble::as_tibble()
+    mm_req_perform_paginate()
+
+  resp <- if(length(resp) == 1) {
+    resp |>
+      purrr::list_flatten() |>
+      mm_keep_df() |>
+      tibble::as_tibble(.name_repair = "minimal")
+  }
 }

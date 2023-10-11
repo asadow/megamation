@@ -18,7 +18,7 @@ Imports:
     rlang,
     stringi,
     tibble
-URL: https://github.com/asadow/megamation
+URL: https://github.com/asadow/megamation, https://asadow.github.io/megamation/
 BugReports: https://github.com/asadow/megamation/issues
 Suggests: 
     testthat (>= 3.0.0)

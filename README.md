@@ -4,7 +4,8 @@
 <!-- badges: start -->
 
 [![R-CMD-check](https://github.com/asadow/megamation/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/asadow/megamation/actions/workflows/R-CMD-check.yaml)
-
+[![Codecov test
+coverage](https://codecov.io/gh/asadow/megamation/branch/master/graph/badge.svg)](https://app.codecov.io/gh/asadow/megamation?branch=master)
 <!-- badges: end -->
 
 The goal of `megamation` is to facilitate Megamation data downloads in
@@ -45,19 +46,24 @@ mm_set_creds(
    )
 ```
 
-### An aside
+### Authorization without `mm_set_creds()`
 
-You can set your own name-value pairs by using
-`Sys.setenv(NAME = "VALUE")`. For, example.
+To set credentials yourself, you can open your `.Renviron`
+(`usethis::edit_r_environ()`) and enter each `NAME = "VALUE"` on
+separate lines like so.
+
+``` r
+MEGAMATION_KEY = "R&RwillNeverDie"
+MEGAMATION_URL = "https://api.megamation.com/uog/dl"
+```
+
+You will then need to restart R to load them. Or you can use
+`Sys.setenv(NAME = "VALUE")`.
 
 ``` r
 Sys.setenv(MEGAMATION_KEY = "R&RwillNeverDie")
 Sys.setenv(MEGAMATION_URL = "https://api.megamation.com/uog/dl")
 ```
-
-Alternatively you can open your `.Renviron`
-(`usethis::edit_r_environ()`) and enter each `NAME = "VALUE"` on
-separate lines.
 
 ## A simple request
 

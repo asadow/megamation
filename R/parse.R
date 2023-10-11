@@ -4,7 +4,6 @@
 #' After converting these bytes to a string, encoding is needed due to
 #' a UTF-8 issue from Megamation's side.
 #' @export
-#' @keywords internal
 
 mm_parse <- function(resp) {
   resp |>

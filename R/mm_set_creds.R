@@ -47,7 +47,7 @@ mm_set_creds <- function(key,
     home <- Sys.getenv("HOME")
     renv <- file.path(home, ".Renviron")
 
-    # If needed, backup original .Renviron before doing anything else here.
+    # If needed, backup original .Renviron before doing anything
     if (file.exists(renv)) {
       file.copy(renv, file.path(home, ".Renviron_backup"))
     }
@@ -57,8 +57,9 @@ mm_set_creds <- function(key,
     } else {
       if (isTRUE(overwrite)) {
         cli::cli_alert_info(
-          "Your original .Renviron will be backed up and stored in your
-          R HOME directory if needed."
+          "If needed, your original {.file {'.Renviron'}}
+          is backed up and stored in
+          {.file {home}}."
           )
         oldenv <- readLines(renv)
         newenv <- oldenv[-grep("MEGAMATION_KEY|MEGAMATION_URL", oldenv)]
@@ -67,10 +68,11 @@ mm_set_creds <- function(key,
       else {
         tv <- readLines(renv)
         if (any(grepl("MEGAMATION_KEY|MEGAMATION_URL", tv))) {
-          cli::cli_abort(
-              "Megamation credentials already exist.
-              You can overwrite them with argument overwrite = TRUE."
-            )
+          cli::cli_abort(c(
+              "Megamation credentials already exist.",
+              "i" = "You can set {.arg overwrite = TRUE}
+              to overwrite them."
+            ))
         }
       }
     }
@@ -82,8 +84,10 @@ mm_set_creds <- function(key,
     write(keyconcat, renv, sep = "\n", append = TRUE)
     write(urlconcat, renv, sep = "\n", append = TRUE)
 
-    cli::cli_alert_success(
-        'Your Megamation key and URL have been stored in your .Renviron.
-        To use now, restart R or run `readRenviron("~/.Renviron")`'
-        )
+    Sys.setenv(
+      QUALTRICS_API_KEY = api_key,
+      QUALTRICS_BASE_URL = base_url
+    )
+
+    cli::cli_alert_success("Set and loaded Megamation API credentials.")
   }

@@ -33,7 +33,8 @@ mm_set_creds(
   key = "<YOUR-MEGAMATION_KEY>",
   url = "<YOUR-MEGAMATION_URL>"
 )
-# Reload your environment so you can use the credentials without restarting R
+# Reload your environment so you can use the credentials
+# without restarting R
 readRenviron("~/.Renviron")
 # You can check it with:
 Sys.getenv("MEGAMATION_KEY")
