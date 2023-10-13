@@ -85,8 +85,8 @@ mm_set_creds <- function(key,
     write(urlconcat, renv, sep = "\n", append = TRUE)
 
     Sys.setenv(
-      QUALTRICS_API_KEY = api_key,
-      QUALTRICS_BASE_URL = base_url
+      QUALTRICS_API_KEY = key,
+      QUALTRICS_BASE_URL = url
     )
 
     cli::cli_alert_success("Set and loaded Megamation API credentials.")

@@ -11,7 +11,7 @@ get_key <- function() {
   if (is_testing()) {
     return(testing_key())
   } else {
-    stop("No API key found, please supply with `api_key` argument or with MEGAMATION_KEY env var")
+    stop("No API key found, please supply with `key` argument or with MEGAMATION_KEY env var")
   }
 }
 

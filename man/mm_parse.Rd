@@ -14,4 +14,3 @@ The body of the response contains raw bytes.
 After converting these bytes to a string, encoding is needed due to
 a UTF-8 issue from Megamation's side.
 }
-\keyword{internal}
