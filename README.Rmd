@@ -11,14 +11,14 @@ knitr::opts_chunk$set(
 )
 ```
 
-# megamation
+# megamation <a href="https://asadow.github.io/megamation/"><img src="man/figures/logo.png" align="right" height="139" alt="megamation website" /></a>
 
 <!-- badges: start -->
 [![R-CMD-check](https://github.com/asadow/megamation/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/asadow/megamation/actions/workflows/R-CMD-check.yaml)
 [![Codecov test coverage](https://codecov.io/gh/asadow/megamation/branch/master/graph/badge.svg)](https://app.codecov.io/gh/asadow/megamation?branch=master)
 <!-- badges: end -->
 
-The goal of `megamation` is to facilitate Megamation data downloads in R. It wraps up the [Megamation REST API](https://apidocs.megamation.com/) so that each API endpoint (i.e. a URL with parameters) becomes an R function with documented arguments.
+The goal of `megamation` is to facilitate [Megamation](https://megamation.com/) data downloads in R. It wraps the [REST API](https://apidocs.megamation.com/) so that each API endpoint (a URL with parameters) becomes an R function with documented arguments.
 
 `megamation` also contains and implements functions to
 
