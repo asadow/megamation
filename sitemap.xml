@@ -13,10 +13,13 @@
     <loc>https://asadow.github.io/megamation/index.html</loc>
   </url>
   <url>
-    <loc>https://asadow.github.io/megamation/reference/checkarg_isboolean.html</loc>
+    <loc>https://asadow.github.io/megamation/reference/check_bool.html</loc>
   </url>
   <url>
-    <loc>https://asadow.github.io/megamation/reference/checkarg_isstring.html</loc>
+    <loc>https://asadow.github.io/megamation/reference/check_date.html</loc>
+  </url>
+  <url>
+    <loc>https://asadow.github.io/megamation/reference/check_string.html</loc>
   </url>
   <url>
     <loc>https://asadow.github.io/megamation/reference/get_key.html</loc>
