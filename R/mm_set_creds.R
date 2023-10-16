@@ -41,8 +41,8 @@ mm_set_creds <- function(key,
                          url,
                          overwrite = FALSE) {
 
-    checkarg_isboolean(overwrite)
-    checkarg_isstring(key)
+    check_bool(overwrite)
+    check_string(key)
 
     home <- Sys.getenv("HOME")
     renv <- file.path(home, ".Renviron")
