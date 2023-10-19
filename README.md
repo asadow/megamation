@@ -76,7 +76,7 @@ trade <- mm_pull("trade")
 
 ## Building a custom request
 
-`mm_req()` allows you to define a request for any endpoint resource:
+`mm_req()` allows you to define a request for any endpoint endpoint:
 `"timecard"`, `"workorder"`, etc.
 
 ``` r

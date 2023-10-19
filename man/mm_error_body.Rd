@@ -2,7 +2,7 @@
 % Please edit documentation in R/mm_error_body.R
 \name{mm_error_body}
 \alias{mm_error_body}
-\title{Extract error body from a Megamation response}
+\title{Extract error body from a Megamation API response}
 \usage{
 mm_error_body(resp)
 }
@@ -10,5 +10,5 @@ mm_error_body(resp)
 \item{resp}{An API response.}
 }
 \description{
-Extract error body from a Megamation response
+Extract error body from a Megamation API response
 }

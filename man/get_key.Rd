@@ -2,11 +2,11 @@
 % Please edit documentation in R/get.R
 \name{get_key}
 \alias{get_key}
-\title{Get MEGAMATION_KEY env var}
+\title{Get \code{MEGAMATION_KEY} env var}
 \usage{
 get_key()
 }
 \description{
-Get MEGAMATION_KEY env var
+Get \code{MEGAMATION_KEY} env var
 }
 \keyword{internal}

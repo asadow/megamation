@@ -7,7 +7,7 @@
 mm_keep_df(list_from_json)
 }
 \arguments{
-\item{list_from_json}{A list returned by \code{jsonlite::fromJSON()}.}
+\item{list_from_json}{A list returned by \code{\link[jsonlite:fromJSON]{jsonlite::fromJSON()}}.}
 }
 \description{
 Keep only data from the JSON list returned by Megamation's API

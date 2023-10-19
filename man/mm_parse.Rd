@@ -4,10 +4,10 @@
 \alias{mm_parse}
 \title{Parse the Megamation API response}
 \usage{
-mm_parse(resp)
+mm_parse(resp_body)
 }
 \arguments{
-\item{resp}{API response given by mm_req() or httr2::req()}
+\item{resp_body}{A Megamation API response body.}
 }
 \description{
 The body of the response contains raw bytes.

@@ -4,19 +4,35 @@
 \alias{mm_req}
 \title{Define a Megamation API request}
 \usage{
-mm_req(resource, ..., url = get_url(), key = get_key())
+mm_req(endpoint, ..., .give = "data", .url = get_url(), .key = get_key())
 }
 \arguments{
-\item{resource}{The resource endpoint. For example,
+\item{endpoint}{The endpoint endpoint. For example,
 "timecard" for employee transactions, and
 "workorder" for work orders. All endpoints are listed here:
 "https://apidocs.megamation.com/".}
 
-\item{...}{API parameters to filter the request.}
+\item{...}{Name-value pairs to filter the request.
+The name should be the lower-case name of a
+field that is filter-enabled
+(that is, a criteria in Megamation's words).
 
-\item{url}{The API URL.}
+The value should can be:
+\itemize{
+\item A character value of said variable.
+\item An as-is, modifier-value(s) combination,
+e.g. \code{I("<>2020-01-01,2020-12-31")}.
+}
 
-\item{key}{The API key.}
+To filter a single variable by multiple values, repeat name-value pairs for
+the same name but different values. e.g. \verb{trade = "DM", trade = "PCO"}.}
+
+\item{.give}{What the response should give:
+\code{"data"}, \code{"criteria"}, \code{"labels"}, or \code{"schema"}.}
+
+\item{.url}{The API URL.}
+
+\item{.key}{The API key.}
 }
 \description{
 Define a Megamation API request

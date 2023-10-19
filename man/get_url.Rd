@@ -2,11 +2,11 @@
 % Please edit documentation in R/get.R
 \name{get_url}
 \alias{get_url}
-\title{Get MEGAMATION_URL env var}
+\title{Get \code{MEGAMATION_URL} env var}
 \usage{
 get_url()
 }
 \description{
-Get MEGAMATION_URL env var
+Get \code{MEGAMATION_URL} env var
 }
 \keyword{internal}

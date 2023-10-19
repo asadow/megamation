@@ -1,4 +1,4 @@
-#' Extract error body from a Megamation response
+#' Extract error body from a Megamation API response
 #' @param resp An API response.
 #' @export
 

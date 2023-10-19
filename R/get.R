@@ -1,4 +1,4 @@
-#' Get MEGAMATION_KEY env var
+#' Get `MEGAMATION_KEY` env var
 #' @export
 #' @keywords internal
 
@@ -23,7 +23,7 @@ testing_key <- function() {
   httr2::secret_decrypt("4E5GlxeUybPJnCQQnwyDGsPIncZI526gyfk", "HTTR2_KEY")
 }
 
-#' Get MEGAMATION_URL env var
+#' Get `MEGAMATION_URL` env var
 #' @export
 #' @keywords internal
 
@@ -35,7 +35,7 @@ get_url <- function() {
   stop("No API URL found, please supply with `url` argument or with MEGAMATION_URL env var")
 }
 
-#' Get MEGAMATION_USER env var
+#' Get `MEGAMATION_USER` env var
 #' @export
 #' @keywords internal
 

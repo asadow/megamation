@@ -2,11 +2,11 @@
 % Please edit documentation in R/get.R
 \name{get_user}
 \alias{get_user}
-\title{Get MEGAMATION_USER env var}
+\title{Get \code{MEGAMATION_USER} env var}
 \usage{
 get_user()
 }
 \description{
-Get MEGAMATION_USER env var
+Get \code{MEGAMATION_USER} env var
 }
 \keyword{internal}

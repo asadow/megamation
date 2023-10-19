@@ -4,10 +4,10 @@
 \alias{mm_pull}
 \title{Define and perform a Megamation API request}
 \usage{
-mm_pull(resource, ..., url = get_url(), key = get_key())
+mm_pull(endpoint, ..., .give = "data", .url = get_url(), .key = get_key())
 }
 \arguments{
-\item{resource}{The resource endpoint. For example,
+\item{endpoint}{The endpoint endpoint. For example,
 "timecard" for employee transactions, and
 "workorder" for work orders. All endpoints are listed here:
 "https://apidocs.megamation.com/".}
