@@ -1,14 +1,19 @@
 #' Install Megamation credentials in your `.Renviron` file for repeated use
 #'
-#' @description This function adds your Megamation API key and base URL to your
-#' `.Renviron` file so it can be called securely without being stored in
-#' your code. After you have installed these two credentials, they can be
-#' called any time with `Sys.getenv("MEGAMATION_KEY")` or
-#' `Sys.getenv("MEGAMATION_URL")`. If you do not have an
+#' @description
+#' This function adds your Megamation API key and base URL to your
+#' [.Renviron] file so it can be called securely without being stored in
+#' your code. After you have installed these two credentials, [mm_request()] and
+#' [mm_get()] will call them automatically. They can be
+#' called manually at any time with `Sys.getenv("MEGAMATION_KEY")` or
+#' `Sys.getenv("MEGAMATION_URL")`.
+#'
+#' If you do not have a
 #' `.Renviron` file, the function will create one for you. If you already
-#' have an `.Renviron` file, the function will append the key to your
+#' have a `.Renviron` file, the function will append the key to your
 #' existing file, while making a backup of your original file for disaster
 #' recovery purposes.
+#'
 #' @param key The API key provided to you by Megamation formatted in quotes.
 #' @param url The API URL provided to you by Megamation
 #' formatted in quotes.

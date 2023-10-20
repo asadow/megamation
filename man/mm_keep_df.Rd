@@ -2,14 +2,19 @@
 % Please edit documentation in R/parse.R
 \name{mm_keep_df}
 \alias{mm_keep_df}
-\title{Keep only data from the JSON list returned by Megamation's API}
+\title{Keep only data from parsed response}
 \usage{
-mm_keep_df(list_from_json)
+mm_keep_df(parsed)
 }
 \arguments{
-\item{list_from_json}{A list returned by \code{\link[jsonlite:fromJSON]{jsonlite::fromJSON()}}.}
+\item{parsed}{Parsed response body.}
+}
+\value{
+The \link{data.frame} object contained in the
+parsed response.
 }
 \description{
-Keep only data from the JSON list returned by Megamation's API
+\code{mm_keep_df()} extracts a data frame from a multi-layer list
+(parsed body of an API response).
 }
 \keyword{internal}

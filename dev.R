@@ -20,7 +20,7 @@ power1 <- function(exp) {
 ## OR
 
 req <- "workorder/@SCHEMA" |>
-  mm_req()
+  mm_request()
 
 resp <- req |> httr2::req_perform()
 
@@ -37,6 +37,18 @@ url |> str_extract("@.*")
 # but a different parsed attr. based on data or CSoL
 
 # S7 ----------------------------------------------------------------------
+
+
+#' Extract data from Megamation response
+#' @param resp A Megamation API response.
+#' @export
+mm_resp_df <- function(resp) {
+  resp |>
+    httr2::resp_body_raw() |>
+    body_parse() |>
+    mm_keep_df()
+}
+
 
 library(S7)
 

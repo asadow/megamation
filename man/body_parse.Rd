@@ -7,10 +7,13 @@
 body_parse(resp_body)
 }
 \arguments{
-\item{resp_body}{A Megamation API response body.}
+\item{resp_body}{An API response body.}
+}
+\value{
+A list.
 }
 \description{
-The body of the response contains raw bytes.
-After converting these bytes to a string, encoding is done to resolve
+\code{body_parse()} converts the raw bytes of an API response to an R list object.
+After converting bytes to characters, encoding is done to resolve
 a UTF-8 issue from Megamation's side.
 }

@@ -76,12 +76,12 @@ trade <- mm_pull("trade")
 
 ## Building a custom request
 
-`mm_req()` allows you to define a request for any endpoint endpoint:
+`mm_request()` allows you to define a request for any endpoint endpoint:
 `"timecard"`, `"workorder"`, etc.
 
 ``` r
 library(megamation)
-req <- mm_req("timecard", date = I("<>09-01-2023,09-02-2023"))
+req <- mm_request("timecard", date = I("<>09-01-2023,09-02-2023"))
 ```
 
 You can optionally paginate the request by using `mm_req_paginate()`.
