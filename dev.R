@@ -31,7 +31,7 @@ url <- "https://api.megamation.com/uog/dl/workorder/@LABELS"
 url |> str_extract("@.*")
 
 # based on this value, dispatch different methods after for the body
-# after mm_parse()
+# after body_parse()
 
 # or, have a mm_resp() function for keeping all response attributes
 # but a different parsed attr. based on data or CSoL
@@ -42,11 +42,18 @@ library(S7)
 
 ## Class -------------------------------------------------------------------
 
-mm_resp <- new_class("mm_resp", properties = list(
-  # url = class_character,
-  body = class_raw,
-  paginated = class_logical
-))
+mm_resp <- new_class("mm_resp",
+  properties = list(
+    # url = class_character,
+    body = class_raw,
+    paginated = class_logical
+  ),
+  validator = function(self) {
+    if (length(self@paginated) != 1) {
+      "@paginated must be length 1"
+    }
+  }
+)
 
 resp_paginated <- new_class("resp_paginated", parent = mm_resp)
 data <- new_class("data", parent = mm_resp)
@@ -73,7 +80,6 @@ method(mm_tibble, criteria) <- function(x) {
 method(mm_tibble, labels) <- method(mm_tibble, criteria)
 
 method(mm_tibble, schema) <- function(x) {
-
   req_properties <- tibble(
     name = names(x),
     value = unname(x)
@@ -90,7 +96,7 @@ method(mm_tibble, schema) <- function(x) {
 
 # Instance of class -------------------------------------------------------
 
-parsed <- resp |> httr2::resp_body_raw() |> mm_parse()
+parsed <- resp |> httr2::resp_body_raw() |> body_parse()
 schema_resp <- schema(body = parsed, paginated = FALSE)
 
 mm_tibble(schema_resp)

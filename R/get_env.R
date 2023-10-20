@@ -1,8 +1,7 @@
 #' Get `MEGAMATION_KEY` env var
 #' @export
 #' @keywords internal
-
-get_key <- function() {
+get_env_key <- function() {
   key <- Sys.getenv("MEGAMATION_KEY")
   if (!identical(key, "")) {
     return(key)
@@ -26,8 +25,7 @@ testing_key <- function() {
 #' Get `MEGAMATION_URL` env var
 #' @export
 #' @keywords internal
-
-get_url <- function() {
+get_env_url <- function() {
   key <- Sys.getenv("MEGAMATION_URL")
   if (!identical(key, "")) {
     return(key)
@@ -38,7 +36,6 @@ get_url <- function() {
 #' Get `MEGAMATION_USER` env var
 #' @export
 #' @keywords internal
-
 get_user <- function() {
   key <- Sys.getenv("MEGAMATION_USER")
   if (!identical(key, "")) {

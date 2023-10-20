@@ -7,13 +7,12 @@
 #' @param url The API URL.
 #' @param key The API key.
 #' @export
-
 mm_pull <- function(endpoint,
                     ...,
-                    .give = "data",
-                    .url = get_url(),
-                    .key = get_key()) {
-  resp <- mm_req(endpoint, ..., .give = .give, .url = .url, .key = .key) |>
+                    .for = "data",
+                    .url = get_env_url(),
+                    .key = get_env_key()) {
+  resp <- mm_req(endpoint, ..., .for = .for, .url = .url, .key = .key) |>
     mm_req_paginate() |>
     mm_req_perform_paginate()
 

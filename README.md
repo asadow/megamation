@@ -110,8 +110,8 @@ request. If not, use `httr2::req_perform()`. The value returned is a
 Megamation API response.
 
 The body of the response will contain raw bytes. It can be parsed using
-`mm_parse()`. The parsed response is a list which includes the data. If
-you are only interested in the data, you can skip `mm_parse()` and
+`body_parse()`. The parsed response is a list which includes the data. If
+you are only interested in the data, you can skip `body_parse()` and
 simply use `mm_resp_data()`.
 
 ``` r

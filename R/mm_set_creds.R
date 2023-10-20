@@ -36,7 +36,6 @@
 #' # Reload your environment to use the credentials
 #' }
 #' @export
-
 mm_set_creds <- function(key,
                          url,
                          overwrite = FALSE) {

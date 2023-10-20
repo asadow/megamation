@@ -4,7 +4,7 @@
 \alias{mm_req}
 \title{Define a Megamation API request}
 \usage{
-mm_req(endpoint, ..., .give = "data", .url = get_url(), .key = get_key())
+mm_req(endpoint, ..., .for = "data", .url = get_env_url(), .key = get_env_key())
 }
 \arguments{
 \item{endpoint}{The endpoint endpoint. For example,
@@ -27,7 +27,7 @@ e.g. \code{I("<>2020-01-01,2020-12-31")}.
 To filter a single variable by multiple values, repeat name-value pairs for
 the same name but different values. e.g. \verb{trade = "DM", trade = "PCO"}.}
 
-\item{.give}{What the response should give:
+\item{.for}{What the response should give:
 \code{"data"}, \code{"criteria"}, \code{"labels"}, or \code{"schema"}.}
 
 \item{.url}{The API URL.}

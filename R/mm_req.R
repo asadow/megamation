@@ -16,21 +16,19 @@
 #'
 #' To filter a single variable by multiple values, repeat name-value pairs for
 #' the same name but different values. e.g. `trade = "DM", trade = "PCO"`.
-#' @param .give What the response should give:
+#' @param .for What the response should give:
 #' `"data"`, `"criteria"`, `"labels"`, or `"schema"`.
 #' @param .url The API URL.
 #' @param .key The API key.
 #' @export
-
 mm_req <- function(endpoint,
                    ...,
-                   .give = "data",
-                   .url = get_url(),
-                   .key = get_key()) {
+                   .for = "data",
+                   .url = get_env_url(),
+                   .key = get_env_key()) {
+  .for <- rlang::arg_match(.for, c("criteria", "labels", "schema", "data"))
 
-  .give <- rlang::arg_match(.give, c("criteria", "labels", "schema", "data"))
-
-  CSoL <- switch(.give,
+  CSoL <- switch(.for,
                  criteria = "CRITERIA",
                  schema = "SCHEMA",
                  labels = "LABELS"

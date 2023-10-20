@@ -39,7 +39,6 @@ check_string <- function(x,
 #' @importFrom rlang expr_text
 #' @keywords internal
 #' @return single string date/time formatted in ISO8601
-
 check_date <- function(x, arg = caller_arg(x), call = caller_env()){
 
   if(is.null(x)){return()}

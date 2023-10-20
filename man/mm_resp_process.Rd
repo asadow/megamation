@@ -4,7 +4,7 @@
 \alias{mm_resp_process}
 \title{Process a Megamation API response}
 \usage{
-mm_resp_process(resp)
+mm_resp_process(resp, .for)
 }
 \arguments{
 \item{resp}{A Meagmation API response.}

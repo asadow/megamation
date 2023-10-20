@@ -4,34 +4,42 @@
 #' "workorder" for work orders. All endpoints are listed here:
 #' "https://apidocs.megamation.com/".
 #' @param ... API parameters to filter the request.
-#' @param .give What the response should give:
+#' @param .for What the request is for/response should give:
 #' `"data"`, `"criteria"`, `"labels"`, or `"schema"`.
 #' @param .url The API URL.
 #' @param .key The API key.
 #' @export
-
 mm_get <- function(endpoint,
                    ...,
-                   .give = "data",
-                   .url = get_url(),
-                   .key = get_key(),
+                   .for = "data",
+                   .url = get_env_url(),
+                   .key = get_env_key(),
                    .full_resp = C(FALSE, TRUE)) {
+  .for <- rlang::arg_match(.for, c("criteria", "labels", "schema", "data"))
 
-  req <- mm_req(endpoint, ..., .give = .give, .url = .url, .key = .key)
+  req <- mm_req(endpoint, ..., .for = .for, .url = .url, .key = .key)
 
-  paginatable <- .give == "data"
+  paginatable <- .for == "data"
 
-# These three steps all depend on paginatable -----------------------------
-
-# Treat as class and use method instead? -----------------------------------------------------
-
-  req <- if(!paginatable) {
-    req
+  result <- if(!paginatable) {
+    resp <- req |>
+      mm_req_perform()
+    resp |>
+      resp_body_parse() |>
+      parsed_to_tbl(.for)
   } else{
-    req |> mm_req_paginate()
+    list_of_resp <- req |>
+      mm_req_paginate() |>
+      mm_req_perform()
+    list_of_resp |>
+      map(
+        \(x) x |>
+          resp_body_parse() |>
+          mm_keep_df(x)
+      ) |>
+      mm_bind_then_tbl()
   }
 
-  resp <- req |> mm_req_perform()
-  mm_resp_process(resp)
+  return(result)
 
 }

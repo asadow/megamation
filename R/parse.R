@@ -4,8 +4,7 @@
 #' After converting these bytes to a string, encoding is done to resolve
 #' a UTF-8 issue from Megamation's side.
 #' @export
-
-mm_parse <- function(resp_body) {
+body_parse <- function(resp_body) {
   resp_body |>
     rawToChar() |>
     stringi::stri_encode(from = "UTF-8", to = "UTF-8") |>
@@ -18,17 +17,16 @@ mm_parse <- function(resp_body) {
 #' After converting these bytes to a string, encoding is done to resolve
 #' a UTF-8 issue from Megamation's side.
 #' @export
-mm_resp_body <- function(resp) {
+resp_body_parse <- function(resp) {
   resp |>
     httr2::resp_body_raw() |>
-    mm_parse()
+    body_parse()
 }
 
 #' Keep only data from the JSON list returned by Megamation's API
 #' @param list_from_json A list returned by [jsonlite::fromJSON()].
 #' @export
 #' @keywords internal
-
 mm_keep_df <- function(list_from_json) {
   list_from_json |>
     purrr::list_flatten() |>
@@ -39,10 +37,9 @@ mm_keep_df <- function(list_from_json) {
 #' Extract data from Megamation response
 #' @param resp A Megamation API response.
 #' @export
-
 mm_resp_df <- function(resp) {
   resp |>
     httr2::resp_body_raw() |>
-    mm_parse() |>
+    body_parse() |>
     mm_keep_df()
 }

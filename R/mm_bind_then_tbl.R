@@ -1,9 +1,7 @@
-#' Bind multiple pages by row
+#' Bind multiple Megamation API pages by row before converting to a tibble
 #' @param pages List of data frames representing Megamation API pages.
 #' @export
-
-bind_pages <- function(pages) {
-
+mm_bind_then_tbl <- function(pages) {
   matrices <- map(pages, \(x) as.matrix(x))
   m <- reduce(matrices, rbind)
   data <- m |> tibble::as_tibble()

@@ -7,9 +7,9 @@
 mm_get(
   endpoint,
   ...,
-  .give = "data",
-  .url = get_url(),
-  .key = get_key(),
+  .for = "data",
+  .url = get_env_url(),
+  .key = get_env_key(),
   .full_resp = C(FALSE, TRUE)
 )
 }
@@ -21,7 +21,7 @@ mm_get(
 
 \item{...}{API parameters to filter the request.}
 
-\item{.give}{What the response should give:
+\item{.for}{What the request is for/response should give:
 \code{"data"}, \code{"criteria"}, \code{"labels"}, or \code{"schema"}.}
 
 \item{.url}{The API URL.}

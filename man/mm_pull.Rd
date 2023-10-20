@@ -4,7 +4,7 @@
 \alias{mm_pull}
 \title{Define and perform a Megamation API request}
 \usage{
-mm_pull(endpoint, ..., .give = "data", .url = get_url(), .key = get_key())
+mm_pull(endpoint, ..., .for = "data", .url = get_env_url(), .key = get_env_key())
 }
 \arguments{
 \item{endpoint}{The endpoint endpoint. For example,
