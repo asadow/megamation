@@ -21,6 +21,12 @@
       <ul class="navbar-nav me-auto"><li class="active nav-item">
   <a class="nav-link" href="../reference/index.html">Reference</a>
 </li>
+<li class="nav-item dropdown">
+  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
+  <div class="dropdown-menu" aria-labelledby="dropdown-articles">
+    <a class="dropdown-item" href="../articles/first_vignette.html">first_vignette</a>
+  </div>
+</li>
       </ul><form class="form-inline my-2 my-lg-0" role="search">
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off"></form>
 
@@ -53,24 +59,34 @@
 
       <dl><dt>
           
+          <code><a href="body_parse.html">body_parse()</a></code> 
+        </dt>
+        <dd>Parse body from Megamation API response</dd>
+      </dl><dl><dt>
+          
+          <code><a href="format_params.html">format_params()</a></code> 
+        </dt>
+        <dd>Format a list of parameters</dd>
+      </dl><dl><dt>
+          
+          <code><a href="is_paginated.html">is_paginated()</a></code> 
+        </dt>
+        <dd>Detect whether a request is paginated</dd>
+      </dl><dl><dt>
+          
+          <code><a href="mm_bind_then_tbl.html">mm_bind_then_tbl()</a></code> 
+        </dt>
+        <dd>Bind multiple Megamation API pages by row before converting to a tibble</dd>
+      </dl><dl><dt>
+          
           <code><a href="mm_error_body.html">mm_error_body()</a></code> 
         </dt>
-        <dd>Extract error body from a Megamation response</dd>
+        <dd>Extract error body from a Megamation API response</dd>
       </dl><dl><dt>
           
-          <code><a href="mm_parse.html">mm_parse()</a></code> 
+          <code><a href="mm_get.html">mm_get()</a></code> 
         </dt>
-        <dd>Parse the Megamation API response</dd>
-      </dl><dl><dt>
-          
-          <code><a href="mm_pull.html">mm_pull()</a></code> 
-        </dt>
-        <dd>Define and perform a Megamation API request</dd>
-      </dl><dl><dt>
-          
-          <code><a href="mm_req.html">mm_req()</a></code> 
-        </dt>
-        <dd>Define a Megamation API request</dd>
+        <dd>Perform a GET request to Megamation's API</dd>
       </dl><dl><dt>
           
           <code><a href="mm_req_paginate.html">mm_req_paginate()</a></code> 
@@ -78,29 +94,39 @@
         <dd>Add pagination to a Megamation API request</dd>
       </dl><dl><dt>
           
-          <code><a href="mm_req_paginate2.html">mm_req_paginate2()</a></code> 
+          <code><a href="mm_req_paginate_custom.html">mm_req_paginate_custom()</a></code> 
         </dt>
         <dd>Add pagination to a Megamation API request</dd>
       </dl><dl><dt>
           
-          <code><a href="mm_req_perform_paginate.html">mm_req_perform_paginate()</a></code> 
+          <code><a href="mm_req_perform.html">mm_req_perform()</a></code> 
+        </dt>
+        <dd>Perform a Megamation API request</dd>
+      </dl><dl><dt>
+          
+          <code><a href="mm_req_perform_paginate_custom.html">mm_req_perform_paginate_custom()</a></code> 
         </dt>
         <dd>Perform a paginated request</dd>
       </dl><dl><dt>
           
-          <code><a href="mm_req_workorder.html">mm_req_workorder()</a></code> 
+          <code><a href="mm_request.html">mm_request()</a></code> 
         </dt>
-        <dd>Extract Megamation workorders</dd>
-      </dl><dl><dt>
-          
-          <code><a href="mm_resp_data.html">mm_resp_data()</a></code> 
-        </dt>
-        <dd>Extract data from Megamation response</dd>
+        <dd>Create a Megamation API request</dd>
       </dl><dl><dt>
           
           <code><a href="mm_set_creds.html">mm_set_creds()</a></code> 
         </dt>
         <dd>Install Megamation credentials in your <code>.Renviron</code> file for repeated use</dd>
+      </dl><dl><dt>
+          
+          <code><a href="parsed_to_tbl.html">parsed_to_tbl()</a></code> <code><a href="parsed_to_tbl.html">to_tbl_data()</a></code> <code><a href="parsed_to_tbl.html">to_tbl_criteria()</a></code> <code><a href="parsed_to_tbl.html">to_tbl_schema()</a></code> <code><a href="parsed_to_tbl.html">parsed_keep_df()</a></code> 
+        </dt>
+        <dd>Create tibble from parsed response</dd>
+      </dl><dl><dt>
+          
+          <code><a href="resp_body_parse.html">resp_body_parse()</a></code> 
+        </dt>
+        <dd>Extract and parse body from Megamation API response</dd>
       </dl></div>
   </main></div>
 

@@ -45,6 +45,12 @@
 <li class="nav-item">
   <a class="nav-link" href="reference/index.html">Reference</a>
 </li>
+<li class="nav-item dropdown">
+  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
+  <div class="dropdown-menu" aria-labelledby="dropdown-articles">
+    <a class="dropdown-item" href="articles/first_vignette.html">first_vignette</a>
+  </div>
+</li>
       </ul>
 <form class="form-inline my-2 my-lg-0" role="search">
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="search.json" id="search-input" placeholder="Search for" autocomplete="off">
@@ -114,17 +120,17 @@
 <div class="section level2">
 <h2 id="a-simple-request">A simple request<a class="anchor" aria-label="anchor" href="#a-simple-request"></a>
 </h2>
-<p>With your credentials installed, you can request any endpoint using <code><a href="reference/mm_pull.html">mm_pull()</a></code>. Here we request the <code>"trade"</code> endpoint.</p>
+<p>With your credentials installed, you can request any endpoint using <code>mm_pull()</code>. Here we request the <code>"trade"</code> endpoint.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">trade</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/mm_pull.html">mm_pull</a></span><span class="op">(</span><span class="st">"trade"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">trade</span> <span class="op">&lt;-</span> <span class="fu">mm_pull</span><span class="op">(</span><span class="st">"trade"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="building-a-custom-request">Building a custom request<a class="anchor" aria-label="anchor" href="#building-a-custom-request"></a>
 </h2>
-<p><code><a href="reference/mm_req.html">mm_req()</a></code> allows you to define a request for any endpoint resource: <code>"timecard"</code>, <code>"workorder"</code>, etc.</p>
+<p><code><a href="reference/mm_request.html">mm_request()</a></code> allows you to define a request for any endpoint endpoint: <code>"timecard"</code>, <code>"workorder"</code>, etc.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/asadow/megamation" class="external-link">megamation</a></span><span class="op">)</span></span>
-<span><span class="va">req</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/mm_req.html">mm_req</a></span><span class="op">(</span><span class="st">"timecard"</span>, date <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/AsIs.html" class="external-link">I</a></span><span class="op">(</span><span class="st">"&lt;&gt;09-01-2023,09-02-2023"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">req</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/mm_request.html">mm_request</a></span><span class="op">(</span><span class="st">"timecard"</span>, date <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/AsIs.html" class="external-link">I</a></span><span class="op">(</span><span class="st">"&lt;&gt;09-01-2023,09-02-2023"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p>You can optionally paginate the request by using <code><a href="reference/mm_req_paginate.html">mm_req_paginate()</a></code>.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># req &lt;- req |&gt; mm_req_paginate()</span></span></code></pre></div>
@@ -141,10 +147,10 @@
 <h3 id="performing-the-request">Performing the request<a class="anchor" aria-label="anchor" href="#performing-the-request"></a>
 </h3>
 <p>If you added pagination, use <code>mm_req_paginate_perform()</code> to perform the request. If not, use <code><a href="https://httr2.r-lib.org/reference/req_perform.html" class="external-link">httr2::req_perform()</a></code>. The value returned is a Megamation API response.</p>
-<p>The body of the response will contain raw bytes. It can be parsed using <code><a href="reference/mm_parse.html">mm_parse()</a></code>. The parsed response is a list which includes the data. If you are only interested in the data, you can skip <code><a href="reference/mm_parse.html">mm_parse()</a></code> and simply use <code><a href="reference/mm_resp_data.html">mm_resp_data()</a></code>.</p>
+<p>The body of the response will contain raw bytes. It can be parsed using <code><a href="reference/body_parse.html">body_parse()</a></code>. The parsed response is a list which includes the data. If you are only interested in the data, you can skip <code><a href="reference/body_parse.html">body_parse()</a></code> and simply use <code>mm_resp_data()</code>.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">resp</span> <span class="op">&lt;-</span> <span class="va">req</span> <span class="op">|&gt;</span> <span class="fu">httr2</span><span class="fu">::</span><span class="fu"><a href="https://httr2.r-lib.org/reference/req_perform.html" class="external-link">req_perform</a></span><span class="op">(</span><span class="op">)</span> </span>
-<span><span class="va">df</span> <span class="op">&lt;-</span> <span class="va">resp</span> <span class="op">|&gt;</span> <span class="fu"><a href="reference/mm_resp_data.html">mm_resp_data</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">df</span> <span class="op">&lt;-</span> <span class="va">resp</span> <span class="op">|&gt;</span> <span class="fu">mm_resp_data</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 </div>
 </div>
 </div>

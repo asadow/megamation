@@ -7,10 +7,19 @@
     <loc>https://asadow.github.io/megamation/LICENSE.html</loc>
   </url>
   <url>
+    <loc>https://asadow.github.io/megamation/articles/first_vignette.html</loc>
+  </url>
+  <url>
+    <loc>https://asadow.github.io/megamation/articles/index.html</loc>
+  </url>
+  <url>
     <loc>https://asadow.github.io/megamation/authors.html</loc>
   </url>
   <url>
     <loc>https://asadow.github.io/megamation/index.html</loc>
+  </url>
+  <url>
+    <loc>https://asadow.github.io/megamation/reference/body_parse.html</loc>
   </url>
   <url>
     <loc>https://asadow.github.io/megamation/reference/check_bool.html</loc>
@@ -22,10 +31,13 @@
     <loc>https://asadow.github.io/megamation/reference/check_string.html</loc>
   </url>
   <url>
-    <loc>https://asadow.github.io/megamation/reference/get_key.html</loc>
+    <loc>https://asadow.github.io/megamation/reference/format_params.html</loc>
   </url>
   <url>
-    <loc>https://asadow.github.io/megamation/reference/get_url.html</loc>
+    <loc>https://asadow.github.io/megamation/reference/get_env_key.html</loc>
+  </url>
+  <url>
+    <loc>https://asadow.github.io/megamation/reference/get_env_url.html</loc>
   </url>
   <url>
     <loc>https://asadow.github.io/megamation/reference/get_user.html</loc>
@@ -34,36 +46,39 @@
     <loc>https://asadow.github.io/megamation/reference/index.html</loc>
   </url>
   <url>
+    <loc>https://asadow.github.io/megamation/reference/is_paginated.html</loc>
+  </url>
+  <url>
+    <loc>https://asadow.github.io/megamation/reference/mm_bind_then_tbl.html</loc>
+  </url>
+  <url>
     <loc>https://asadow.github.io/megamation/reference/mm_error_body.html</loc>
   </url>
   <url>
-    <loc>https://asadow.github.io/megamation/reference/mm_keep_df.html</loc>
-  </url>
-  <url>
-    <loc>https://asadow.github.io/megamation/reference/mm_parse.html</loc>
-  </url>
-  <url>
-    <loc>https://asadow.github.io/megamation/reference/mm_pull.html</loc>
-  </url>
-  <url>
-    <loc>https://asadow.github.io/megamation/reference/mm_req.html</loc>
+    <loc>https://asadow.github.io/megamation/reference/mm_get.html</loc>
   </url>
   <url>
     <loc>https://asadow.github.io/megamation/reference/mm_req_paginate.html</loc>
   </url>
   <url>
-    <loc>https://asadow.github.io/megamation/reference/mm_req_paginate2.html</loc>
+    <loc>https://asadow.github.io/megamation/reference/mm_req_paginate_custom.html</loc>
   </url>
   <url>
-    <loc>https://asadow.github.io/megamation/reference/mm_req_perform_paginate.html</loc>
+    <loc>https://asadow.github.io/megamation/reference/mm_req_perform.html</loc>
   </url>
   <url>
-    <loc>https://asadow.github.io/megamation/reference/mm_req_workorder.html</loc>
+    <loc>https://asadow.github.io/megamation/reference/mm_req_perform_paginate_custom.html</loc>
   </url>
   <url>
-    <loc>https://asadow.github.io/megamation/reference/mm_resp_data.html</loc>
+    <loc>https://asadow.github.io/megamation/reference/mm_request.html</loc>
   </url>
   <url>
     <loc>https://asadow.github.io/megamation/reference/mm_set_creds.html</loc>
+  </url>
+  <url>
+    <loc>https://asadow.github.io/megamation/reference/parsed_to_tbl.html</loc>
+  </url>
+  <url>
+    <loc>https://asadow.github.io/megamation/reference/resp_body_parse.html</loc>
   </url>
 </urlset>
