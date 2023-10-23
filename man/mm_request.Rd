@@ -7,6 +7,7 @@
 mm_request(
   endpoint,
   ...,
+  allfields = TRUE,
   .get = "data",
   .url = get_env_url(),
   .key = get_env_key()
@@ -14,9 +15,9 @@ mm_request(
 }
 \arguments{
 \item{endpoint}{The API endpoint. For example,
-\code{"timecard"} for employee transactions, and
-`"workorder"`` for work orders. All endpoints are listed at
-"https://apidocs.megamation.com/".}
+\code{"timecard"} for employee transactions, and \code{"workorder"}
+for work orders. All endpoints are listed at
+https://apidocs.megamation.com/.}
 
 \item{...}{<\link{dynamic-dots}> Name-value pairs to filter the request.
 The name should be the lower-case name of a
@@ -33,6 +34,9 @@ escaping.
 
 To filter a single variable by multiple values, repeat name-value pairs with
 the same name but different values. e.g. \verb{trade = "DM", trade = "PCO"}.}
+
+\item{allfields}{If \code{TRUE}, return all fields set to be available for
+the endpoint.}
 
 \item{.get}{A length-1 character vector representing whether the request is
 for the endpoint's \code{"data"}, \code{"criteria"}, \code{"labels"}, or \code{"schema"}.}
@@ -65,7 +69,8 @@ from your \code{.Renviron}.
 After creating a request with \code{mm_request()}, you can
 \itemize{
 \item Paginate the request using \code{\link[=mm_req_paginate]{mm_req_paginate()}}.
-\item Perform the request and fetch the response using \code{\link[=mm_req_perform]{mm_req_perform()}}.
+\item Perform the request and fetch the response using \code{\link[httr2:req_perform]{httr2::req_perform()}} or
+\code{\link[httr2:req_perform_iteratively]{httr2::req_perform_iteratively()}} if the request is paginated.
 }
 
 Alternatively,

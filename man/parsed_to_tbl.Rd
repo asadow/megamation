@@ -2,9 +2,21 @@
 % Please edit documentation in R/parse.R
 \name{parsed_to_tbl}
 \alias{parsed_to_tbl}
+\alias{to_tbl_data}
+\alias{to_tbl_criteria}
+\alias{to_tbl_schema}
+\alias{parsed_keep_df}
 \title{Create tibble from parsed response}
 \usage{
 parsed_to_tbl(parsed, .get = c("data", "criteria", "labels", "schema"))
+
+to_tbl_data(parsed)
+
+to_tbl_criteria(parsed)
+
+to_tbl_schema(parsed)
+
+parsed_keep_df(parsed)
 }
 \arguments{
 \item{parsed}{Parsed response body.}
@@ -15,13 +27,22 @@ for the endpoint's \code{"data"}, \code{"criteria"}, \code{"labels"}, or \code{"
 \value{
 A data frame of class \link{tbl_df} containing either
 \itemize{
-\item Columns of the endpoint's data.
-\item Columns representing the list given by the endpoint's criteria, labels,
-or schema: \code{list_name} and \code{value}.
+\item Columns of the endpoint data.
+\item Columns \code{list_name} and \code{value} representing the list given by the
+endpoint's Criteria, Labels, or Schema. If Schema,
+\code{value} is of type \code{list} because of the lists under names \code{required} and
+\code{properties}.
 }
 }
 \description{
 \code{parsed_to_tbl()} constructs a data frame of class \link{tbl_df}.
-The input should be a list returned from parsing
-the API's response body.
+The input should be the parsed API response body list.
+
+\code{parsed_to_tbl()} uses the following methods:
+\itemize{
+\item \code{to_tbl_data()} converts the Get Data parsed body.
+It uses \code{parsed_keep_df()} to only keep the data frame.
+\item \code{to_tbl_criteria()} converts the Get Criteria or Labels parsed body.
+\item \code{to_tbl_schema()} converts the Get Schema parsed body.
+}
 }

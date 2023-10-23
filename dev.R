@@ -46,7 +46,7 @@ mm_resp_df <- function(resp) {
   resp |>
     httr2::resp_body_raw() |>
     body_parse() |>
-    mm_keep_df()
+    parsed_keep_df()
 }
 
 
@@ -78,7 +78,7 @@ labels <- new_class("labels", parent = mm_resp)
 mm_tibble <- new_generic("mm_tibble", "x")
 
 method(mm_tibble, data) <- function(x) {
-  mm_keep_df(x) |>
+  parsed_keep_df(x) |>
     tibble::as_tibble()
 }
 

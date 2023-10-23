@@ -15,9 +15,9 @@ mm_get(
 }
 \arguments{
 \item{endpoint}{The API endpoint. For example,
-\code{"timecard"} for employee transactions, and
-`"workorder"`` for work orders. All endpoints are listed at
-"https://apidocs.megamation.com/".}
+\code{"timecard"} for employee transactions, and \code{"workorder"}
+for work orders. All endpoints are listed at
+https://apidocs.megamation.com/.}
 
 \item{...}{<\link{dynamic-dots}> Name-value pairs to filter the request.
 The name should be the lower-case name of a

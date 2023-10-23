@@ -38,8 +38,8 @@ mm_req_paginate <- function(req) {
 #' @returns A data frame of class [tbl] representing the bound pages.
 #' @export
 mm_bind_then_tbl <- function(pages) {
-  matrices <- map(pages, \(x) as.matrix(x))
-  m <- reduce(matrices, rbind)
+  matrices <- purrr::map(pages, \(x) as.matrix(x))
+  m <- purrr::reduce(matrices, rbind)
   data <- m |> tibble::as_tibble()
 
   cols <- names(data)
@@ -53,7 +53,7 @@ mm_bind_then_tbl <- function(pages) {
 }
 
 ## Or, if using req_paginate_custom()
-# matrices <- map(pages, \(x) pluck(x, "_embedded", "WorkOrder") |> as.matrix())
+# matrices <- purrr::map(pages, \(x) pluck(x, "_embedded", "WorkOrder") |> as.matrix())
 
 
 # Custom Method -----------------------------------------------------------

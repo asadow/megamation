@@ -13,7 +13,7 @@ mm_req_perform <- function(req) {
   if(!is_paginated(req)) {
     req |> httr2::req_perform()
   } else {
-    req |> httr2::paginate_req_perform()
+    req |> httr2::req_perform_iteratively()
   }
 
 }

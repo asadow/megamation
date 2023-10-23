@@ -2,19 +2,17 @@
 % Please edit documentation in R/checks.R
 \name{check_date}
 \alias{check_date}
-\title{Title Check date-like inputs and convert them}
+\title{Check date-like inputs}
 \usage{
-check_date(x, arg = caller_arg(x), call = caller_env())
+check_date(x, arg = rlang::caller_arg(x), call = rlang::caller_env())
 }
 \arguments{
-\item{arg}{Date, POSIX(c/l)t date/time, or parse-able string in
-YYYY(/-)MM(/-)DD format.
-Intended to be converted to MM-DD-YYYY format.}
+\item{arg}{Date vector.}
 }
 \value{
 single string date/time formatted in ISO8601
 }
 \description{
-Title Check date-like inputs and convert them
+Check date-like inputs
 }
 \keyword{internal}

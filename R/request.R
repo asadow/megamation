@@ -20,15 +20,16 @@
 #' After creating a request with `mm_request()`, you can
 #'
 #' * Paginate the request using [mm_req_paginate()].
-#' * Perform the request and fetch the response using [mm_req_perform()].
+#' * Perform the request and fetch the response using [httr2::req_perform()] or
+#' [httr2::req_perform_iteratively()] if the request is paginated.
 #'
 #' Alternatively,
 #' [mm_get()] can at once define, paginate, and perform a request.
 #'
 #' @param endpoint The API endpoint. For example,
-#' `"timecard"` for employee transactions, and
-#' `"workorder"`` for work orders. All endpoints are listed at
-#' "https://apidocs.megamation.com/".
+#' `"timecard"` for employee transactions, and `"workorder"`
+#' for work orders. All endpoints are listed at
+#' https://apidocs.megamation.com/.
 #' @param ... <[dynamic-dots]> Name-value pairs to filter the request.
 #' The name should be the lower-case name of a
 #' field that is filter-enabled
@@ -43,6 +44,8 @@
 #'
 #' To filter a single variable by multiple values, repeat name-value pairs with
 #' the same name but different values. e.g. `trade = "DM", trade = "PCO"`.
+#' @param allfields If `TRUE`, return all fields set to be available for
+#' the endpoint.
 #' @param .get A length-1 character vector representing whether the request is
 #' for the endpoint's `"data"`, `"criteria"`, `"labels"`, or `"schema"`.
 #' @param .url The API URL.
@@ -51,19 +54,23 @@
 #' @export
 mm_request <- function(endpoint,
                        ...,
+                       allfields = TRUE,
                        .get = "data",
                        .url = get_env_url(),
                        .key = get_env_key()) {
+  check_bool(allfields)
+  check_string(.get)
+  params <- format_params(...)
+  if (allfields) params <- c(params, "ALLFIELDS" = 1)
+
   .get <- rlang::arg_match(.get, c("criteria", "labels", "schema", "data"))
 
-  CSoL <- switch(.get,
-                 criteria = "CRITERIA",
-                 schema = "SCHEMA",
-                 labels = "LABELS"
-  )
-
-  params <- list(...)
-  names(params) <- toupper(names(params))
+  CSoL <- switch(
+    .get,
+    criteria = "CRITERIA",
+    schema = "SCHEMA",
+    labels = "LABELS"
+    )
 
   request <- httr2::request(.url) |>
     httr2::req_url_path_append(endpoint)
@@ -119,17 +126,17 @@ mm_get <- function(endpoint,
   } else{
     list_of_resp <- req |>
       mm_req_paginate() |>
-      httr2::paginate_req_perform()
+      httr2::req_perform_iteratively()
     list_of_resp |>
-      map(
+      purrr::map(
         \(x) x |>
           resp_body_parse() |>
-          mm_keep_df(x)
+          parsed_keep_df()
       ) |>
       mm_bind_then_tbl()
   }
 
-  return(result)
+  return(result |> remove_api_urls())
 
 }
 

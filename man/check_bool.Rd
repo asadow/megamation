@@ -4,7 +4,7 @@
 \alias{check_bool}
 \title{Is boolean (length-1 logical)}
 \usage{
-check_bool(x, arg = caller_arg(x), call = caller_env())
+check_bool(x, arg = rlang::caller_arg(x), call = rlang::caller_env())
 }
 \description{
 Is boolean (length-1 logical)

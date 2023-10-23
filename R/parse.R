@@ -33,16 +33,27 @@ resp_body_parse <- function(resp) {
 
 #' Create tibble from parsed response
 #'
+#' @description
+#'
 #' `parsed_to_tbl()` constructs a data frame of class [tbl_df].
-#' The input should be a list returned from parsing
-#' the API's response body.
+#' The input should be the parsed API response body list.
+#'
+#'  `parsed_to_tbl()` uses the following methods:
+#'
+#' * `to_tbl_data()` converts the Get Data parsed body.
+#' It uses `parsed_keep_df()` to only keep the data frame.
+#' * `to_tbl_criteria()` converts the Get Criteria or Labels parsed body.
+#' * `to_tbl_schema()` converts the Get Schema parsed body.
+#'
 #'
 #' @param parsed Parsed response body.
 #' @inheritParams mm_request
 #' @returns A data frame of class [tbl_df] containing either
-#' * Columns of the endpoint's data.
-#' * Columns representing the list given by the endpoint's criteria, labels,
-#' or schema: `list_name` and `value`.
+#' * Columns of the endpoint data.
+#' * Columns `list_name` and `value` representing the list given by the
+#' endpoint's Criteria, Labels, or Schema. If Schema,
+#' `value` is of type `list` because of the lists under names `required` and
+#' `properties`.
 #'
 #' @export
 parsed_to_tbl <- function(parsed,
@@ -58,12 +69,24 @@ parsed_to_tbl <- function(parsed,
   )
 }
 
-#' Create tibble from parsed response to Get Schema
-#' @inheritParams parsed_to_tbl
-#' @returns A [tbl_df] with columns `list_name` and `value`
-#' representing the Schema response list. `value` is
-#' `value` is of type `list` because of the lists contained in the values
-#' indexed by the `required` and `properties` list names.
+#' @rdname parsed_to_tbl
+#' @export
+to_tbl_data <- function(parsed) {
+  parsed |>
+    parsed_keep_df() |>
+    tibble::as_tibble()
+}
+
+#' @rdname parsed_to_tbl
+#' @export
+to_tbl_criteria <- function(parsed) {
+  tibble::tibble(
+    list_name = names(parsed),
+    value = unlist(parsed)
+  )
+}
+
+#' @rdname parsed_to_tbl
 #' @export
 to_tbl_schema <- function(parsed) {
 
@@ -89,41 +112,9 @@ to_tbl_schema <- function(parsed) {
     )
 }
 
-#' Create tibble from parsed response
-
-#' @inheritParams parsed_to_tbl
-#' @returns A [tbl_df] of the [data.frame] object contained in the
-#' parsed response. Columns are unaltered from the endpoint's data.
+#' @rdname parsed_to_tbl
 #' @export
-to_tbl_data <- function(parsed) {
-  parsed |>
-    mm_keep_df() |>
-    tibble::as_tibble()
-}
-
-#' Create tibble from parsed response to Get Criteria or Get Labels
-#' @inheritParams parsed_to_tbl
-#' @returns A [tbl_df] with columns `list_name` and `value`
-#' representing the Criteria or Labels response list.
-#' @export
-to_tbl_criteria <- function(parsed) {
-  tibble::tibble(
-    list_name = names(parsed),
-    value = unlist(parsed)
-  )
-}
-
-#' Keep only data from parsed response
-#'
-#' `mm_keep_df()` extracts a data frame from a multi-layer list
-#' (parsed body of an API response).
-#'
-#' @inheritParams parsed_to_tbl
-#' @export
-#' @returns The [data.frame] object contained in the
-#' parsed response.
-#' @keywords internal
-mm_keep_df <- function(parsed) {
+parsed_keep_df <- function(parsed) {
   parsed |>
     purrr::list_flatten() |>
     purrr::keep(\(x) is.data.frame(x)) |>

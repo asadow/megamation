@@ -4,7 +4,12 @@
 \alias{check_string}
 \title{Is string (length-1 character)}
 \usage{
-check_string(x, arg = caller_arg(x), call = caller_env(), optional = FALSE)
+check_string(
+  x,
+  arg = rlang::caller_arg(x),
+  call = rlang::caller_env(),
+  optional = FALSE
+)
 }
 \description{
 Is string (length-1 character)
