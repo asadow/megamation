@@ -1,6 +1,6 @@
 Package: megamation
 Title: Functions for downloading Megamation data directly in R
-Version: 0.0.0.9000
+Version: 0.1.0
 Authors@R: 
     person("Adam", "Sadowski", , "asadowsk@uoguelph.ca", role = c("aut", "cre"),
            comment = c(ORCID = "JANE'S-ORCID-ID"))
