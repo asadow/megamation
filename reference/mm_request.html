@@ -56,7 +56,7 @@ mm_get() can at once define, paginate, and perform a request.'><meta property="o
     
     <a class="navbar-brand me-2" href="../index.html">megamation</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -64,14 +64,11 @@ mm_get() can at once define, paginate, and perform a request.'><meta property="o
     </button>
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
-      <ul class="navbar-nav me-auto"><li class="active nav-item">
-  <a class="nav-link" href="../reference/index.html">Reference</a>
+      <ul class="navbar-nav me-auto"><li class="nav-item">
+  <a class="nav-link" href="../articles/megamation.html">Get started</a>
 </li>
-<li class="nav-item dropdown">
-  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
-  <div class="dropdown-menu" aria-labelledby="dropdown-articles">
-    <a class="dropdown-item" href="../articles/first_vignette.html">first_vignette</a>
-  </div>
+<li class="active nav-item">
+  <a class="nav-link" href="../reference/index.html">Reference</a>
 </li>
       </ul><form class="form-inline my-2 my-lg-0" role="search">
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off"></form>
@@ -100,7 +97,7 @@ does the following:</p><ul><li><p>Inserts the base URL using the environment var
 your <code>.Renviron</code>. Your key and base URL can be set using <code><a href="mm_set_creds.html">mm_set_creds()</a></code>.</p></li>
 <li><p>Appends the URL with the endpoint defined by parameter <code>endpoint</code>.</p></li>
 <li><p>Appends the URL with the filtering defined by parameter <code>...</code>
-&lt;dynamic-dots&gt;.</p></li>
+&lt;<code><a href="https://rlang.r-lib.org/reference/dyn-dots.html" class="external-link">dynamic-dots</a></code>&gt;.</p></li>
 <li><p>Sets the user-agent as the GitHub <code>megamation</code> package.</p></li>
 <li><p>Authenticates the request with HTTP basic authentication using
 environment variables <code>MEGAMATION_KEY</code> and <code>MEGAMATION_URL</code>
@@ -110,7 +107,7 @@ from your <code>.Renviron</code>.</p></li>
 <li><p>Automatic caching of responses. See <code><a href="https://httr2.r-lib.org/reference/req_cache.html" class="external-link">httr2::req_cache()</a></code>.</p></li>
 </ul><p>After creating a request with <code>mm_request()</code>, you can</p><ul><li><p>Paginate the request using <code><a href="mm_req_paginate.html">mm_req_paginate()</a></code>.</p></li>
 <li><p>Perform the request and fetch the response using <code><a href="https://httr2.r-lib.org/reference/req_perform.html" class="external-link">httr2::req_perform()</a></code> or
-<code>httr2::req_perform_iteratively()</code> if the request is paginated.</p></li>
+<code><a href="https://httr2.r-lib.org/reference/req_perform_iteratively.html" class="external-link">httr2::req_perform_iteratively()</a></code> if the request is paginated.</p></li>
 </ul><p>Alternatively,
 <code><a href="mm_get.html">mm_get()</a></code> can at once define, paginate, and perform a request.</p>
     </div>
@@ -122,6 +119,7 @@ from your <code>.Renviron</code>.</p></li>
 <span>  <span class="va">...</span>,</span>
 <span>  allfields <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  .get <span class="op">=</span> <span class="st">"data"</span>,</span>
+<span>  .paginate <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  .url <span class="op">=</span> <span class="fu"><a href="get_env_url.html">get_env_url</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  .key <span class="op">=</span> <span class="fu"><a href="get_env_key.html">get_env_key</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -137,7 +135,7 @@ https://apidocs.megamation.com/.</p></dd>
 
 
 <dt>...</dt>
-<dd><p>&lt;dynamic-dots&gt; Name-value pairs to filter the request.
+<dd><p>&lt;<code><a href="https://rlang.r-lib.org/reference/dyn-dots.html" class="external-link">dynamic-dots</a></code>&gt; Name-value pairs to filter the request.
 The name should be the lower-case name of a
 field that is filter-enabled
 (in Megamation's words, a criteria).</p>
@@ -157,6 +155,10 @@ the endpoint.</p></dd>
 <dt>.get</dt>
 <dd><p>A length-1 character vector representing whether the request is
 for the endpoint's <code>"data"</code>, <code>"criteria"</code>, <code>"labels"</code>, or <code>"schema"</code>.</p></dd>
+
+
+<dt>.paginate</dt>
+<dd><p>If <code>TRUE</code>, paginate the request.</p></dd>
 
 
 <dt>.url</dt>
