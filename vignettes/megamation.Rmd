@@ -30,7 +30,7 @@ library(megamation)
 ```
 
 ```{r error = TRUE}
-mm_get(key = "<your-secret>")
+mm_get("status", key = "<your-secret>")
 ```
 
 
