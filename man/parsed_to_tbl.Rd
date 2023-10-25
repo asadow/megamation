@@ -40,8 +40,8 @@ The input should be the parsed API response body list.
 
 \code{parsed_to_tbl()} uses the following methods:
 \itemize{
-\item \code{to_tbl_data()} converts the Get Data parsed body.
-It uses \code{parsed_keep_df()} to only keep the data frame.
+\item \code{to_tbl_data()} converts the Get Data parsed body, but only keeps the data
+frame.
 \item \code{to_tbl_criteria()} converts the Get Criteria or Labels parsed body.
 \item \code{to_tbl_schema()} converts the Get Schema parsed body.
 }

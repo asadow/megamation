@@ -7,8 +7,27 @@
 #' @returns A list of parameter name-value pairs.
 #' @export
 format_params <- function(...) {
-  params <- list(...)
+  params <- rlang::list2(...)
+  if (rlang::is_empty(params)) return(params)
+
   np <- names(params)
+
+  if (any(grepl("key", np))) {
+    keys <- np[grep("key", np)]
+    cli::cli_abort(c(
+      "Prevented filter {.arg keys} from being included in the request URL.",
+      "i" = 'Did you mean `.key = "<your-secret>"`?'
+    ))
+  }
+
+  if (any(startsWith("\\.", np))) {
+    dotted <- np[grep("\\.", np)]
+    cli::cli_abort(c(
+      "Prevented filter {.arg dotted} from being included in the request URL.",
+      "i" = 'Did you mean `{sub("\\.", "", dotted[1])} = "<value>"`?'
+    ))
+  }
+
   if ("date" %in% np) {
     date <- params[["date"]]
     date |> check_date()
@@ -31,7 +50,7 @@ format_params <- function(...) {
   max_length <- purrr::map_dbl(params, length) |> max()
 
   valid_list <- 1:max_length |>
-    purrr::map(\(x) map(params, x)) |>
+    purrr::map(\(x) purrr::map(params, x)) |>
     purrr::flatten() |>
     purrr::compact() |>
     purrr::map(as.character) |>

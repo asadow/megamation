@@ -6,6 +6,8 @@
 [![R-CMD-check](https://github.com/asadow/megamation/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/asadow/megamation/actions/workflows/R-CMD-check.yaml)
 [![Codecov test
 coverage](https://codecov.io/gh/asadow/megamation/branch/master/graph/badge.svg)](https://app.codecov.io/gh/asadow/megamation?branch=master)
+[![Lifecycle:
+experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 <!-- badges: end -->
 
 The goal of `megamation` is to facilitate
@@ -81,7 +83,7 @@ trade <- mm_pull("trade")
 
 ``` r
 library(megamation)
-req <- mm_request("timecard", date = I("<>09-01-2023,09-02-2023"))
+req <- mm_request("timecard", date = Sys.Date())
 ```
 
 You can optionally paginate the request by using `mm_req_paginate()`.
@@ -95,7 +97,7 @@ to the server, without actually sending it.
 
 ``` r
 req |> httr2::req_dry_run()
-#> GET /uog/dl/timecard?DATE=<>09-01-2023,09-02-2023 HTTP/1.1
+#> GET /uog/dl/timecard?DATE=10-25-2023&ALLFIELDS=1 HTTP/1.1
 #> Host: api.megamation.com
 #> User-Agent: megamation (https://github.com/asadow/megamation)
 #> Accept: */*
@@ -110,8 +112,8 @@ request. If not, use `httr2::req_perform()`. The value returned is a
 Megamation API response.
 
 The body of the response will contain raw bytes. It can be parsed using
-`body_parse()`. The parsed response is a list which includes the data. If
-you are only interested in the data, you can skip `body_parse()` and
+`body_parse()`. The parsed response is a list which includes the data.
+If you are only interested in the data, you can skip `body_parse()` and
 simply use `mm_resp_data()`.
 
 ``` r

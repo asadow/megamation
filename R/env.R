@@ -10,8 +10,15 @@ get_env_key <- function() {
   if (is_testing()) {
     return(testing_key())
   } else {
-    stop("No API key found, please supply with `key` argument or with MEGAMATION_KEY env var")
+    cred_error("key")
   }
+}
+
+cred_error <- function(x) {
+  cli::cli_abort(c(
+    "No {.envvar MEGAMATION_{toupper(x)}} found.",
+    "i" = "Did you run {.fun mm_set_creds}?"
+  ))
 }
 
 is_testing <- function() {
@@ -26,20 +33,20 @@ testing_key <- function() {
 #' @export
 #' @keywords internal
 get_env_url <- function() {
-  key <- Sys.getenv("MEGAMATION_URL")
-  if (!identical(key, "")) {
-    return(key)
+  url <- Sys.getenv("MEGAMATION_URL")
+  if (!identical(url, "")) {
+    return(url)
   }
-  stop("No API URL found, please supply with `url` argument or with MEGAMATION_URL env var")
+  cred_error("url")
 }
 
 #' Get `MEGAMATION_USER` env var
 #' @export
 #' @keywords internal
-get_user <- function() {
-  key <- Sys.getenv("MEGAMATION_USER")
-  if (!identical(key, "")) {
-    return(key)
+get_env_user <- function() {
+  user <- Sys.getenv("MEGAMATION_USER")
+  if (!identical(user, "")) {
+    return(user)
   }
-  stop("No API user found, please supply with `user` argument or with MEGAMATION_USER env var")
+  cred_error("user")
 }

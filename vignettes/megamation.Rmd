@@ -1,0 +1,39 @@
+---
+title: "megamation"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{megamation}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+can_decrypt <- httr2:::secret_has_key("HTTR2_KEY")
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  error = TRUE,
+  eval = can_decrypt
+)
+```
+```{r eval = !can_decrypt, echo = FALSE, comment = NA}
+message("No token available. Code chunks will not be evaluated.")
+```
+
+```{r, include = FALSE}
+library(httptest2)
+start_vignette("megamation")
+```
+
+```{r}
+library(megamation)
+```
+
+```{r error = TRUE}
+mm_get(key = "<your-secret>")
+```
+
+
+```{r, include=FALSE}
+end_vignette()
+```

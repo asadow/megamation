@@ -10,7 +10,8 @@ mm_bind_then_tbl(pages)
 \item{pages}{List of data frames representing Megamation API pages.}
 }
 \value{
-A data frame of class \link{tbl} representing the bound pages.
+A data frame of class \code{\link[tibble:tbl_df-class]{tbl_df}}
+representing the bound pages.
 }
 \description{
 \code{mm_bind_then_tbl()} is needed as pages can have same-named columns with

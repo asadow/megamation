@@ -16,9 +16,9 @@
 #'
 #' @param key The API key provided to you by Megamation formatted in quotes.
 #' @param url The API URL provided to you by Megamation
-#' formatted in quotes.
+#'   formatted in quotes.
 #' @param overwrite If TRUE, will overwrite existing Megamation
-#' credentials that you already have in your `.Renviron` file.
+#'   credentials that you already have in your `.Renviron` file.
 #' @examples
 #'
 #' \dontrun{
@@ -44,9 +44,9 @@
 mm_set_creds <- function(key,
                          url,
                          overwrite = FALSE) {
-
-    check_bool(overwrite)
     check_string(key)
+    check_bool(overwrite)
+    url <- check_url(url)
 
     home <- Sys.getenv("HOME")
     renv <- file.path(home, ".Renviron")
@@ -89,8 +89,8 @@ mm_set_creds <- function(key,
     write(urlconcat, renv, sep = "\n", append = TRUE)
 
     Sys.setenv(
-      QUALTRICS_API_KEY = key,
-      QUALTRICS_BASE_URL = url
+      MEGAMATION_KEY = key,
+      MEGAMATION_URL = url
     )
 
     cli::cli_alert_success("Set and loaded Megamation API credentials.")

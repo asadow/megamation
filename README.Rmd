@@ -16,6 +16,7 @@ knitr::opts_chunk$set(
 <!-- badges: start -->
 [![R-CMD-check](https://github.com/asadow/megamation/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/asadow/megamation/actions/workflows/R-CMD-check.yaml)
 [![Codecov test coverage](https://codecov.io/gh/asadow/megamation/branch/master/graph/badge.svg)](https://app.codecov.io/gh/asadow/megamation?branch=master)
+[![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 <!-- badges: end -->
 
 The goal of `megamation` is to facilitate [Megamation](https://megamation.com/) data downloads in R. It wraps the [REST API](https://apidocs.megamation.com/) so that each API endpoint (a URL with parameters) becomes an R function with documented arguments.
@@ -78,7 +79,7 @@ trade <- mm_pull("trade")
 
 ```{r}
 library(megamation)
-req <- mm_request("timecard", date = I("<>09-01-2023,09-02-2023"))
+req <- mm_request("timecard", date = Sys.Date())
 ```
 
 You can optionally paginate the request by using `mm_req_paginate()`.

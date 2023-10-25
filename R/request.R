@@ -8,7 +8,7 @@
 #'  your `.Renviron`. Your key and base URL can be set using [mm_set_creds()].
 #' * Appends the URL with the endpoint defined by parameter `endpoint`.
 #' * Appends the URL with the filtering defined by parameter `...`
-#'   <[dynamic-dots]>.
+#'   <[`dynamic-dots`][rlang::dyn-dots]>.
 #' * Sets the user-agent as the GitHub `megamation` package.
 #' * Authenticates the request with HTTP basic authentication using
 #'   environment variables `MEGAMATION_KEY` and `MEGAMATION_URL`
@@ -30,7 +30,7 @@
 #' `"timecard"` for employee transactions, and `"workorder"`
 #' for work orders. All endpoints are listed at
 #' https://apidocs.megamation.com/.
-#' @param ... <[dynamic-dots]> Name-value pairs to filter the request.
+#' @param ... <[`dynamic-dots`][rlang::dyn-dots]> Name-value pairs to filter the request.
 #' The name should be the lower-case name of a
 #' field that is filter-enabled
 #' (in Megamation's words, a criteria).
@@ -48,6 +48,7 @@
 #' the endpoint.
 #' @param .get A length-1 character vector representing whether the request is
 #' for the endpoint's `"data"`, `"criteria"`, `"labels"`, or `"schema"`.
+#' @param .paginate If `TRUE`, paginate the request.
 #' @param .url The API URL.
 #' @param .key The API key.
 #' @returns An object of class `httr2_request`.
@@ -56,14 +57,26 @@ mm_request <- function(endpoint,
                        ...,
                        allfields = TRUE,
                        .get = "data",
+                       .paginate = TRUE,
                        .url = get_env_url(),
                        .key = get_env_key()) {
+  if(.key != get_env_key()) {
+    cli::cli_warn(c(
+      "The {.arg .key} you provided is not your
+      MEGAMATION_KEY environment variable.",
+      "i" = "It is highly recommended that you run {.fun mm_set_creds},
+      and {.emph do not} supply {.arg .key}.",
+      "i" = 'A typo like `kee = <your-secret>`
+      will end up in the request URL as a filter.'
+    ))
+  }
   check_bool(allfields)
   check_string(.get)
-  params <- format_params(...)
-  if (allfields) params <- c(params, "ALLFIELDS" = 1)
-
   .get <- rlang::arg_match(.get, c("criteria", "labels", "schema", "data"))
+
+  params <- format_params(...)
+  allfields <- .paginate <- .get == "data"
+  if (allfields) params <- c(params, "ALLFIELDS" = 1)
 
   CSoL <- switch(
     .get,
@@ -72,71 +85,28 @@ mm_request <- function(endpoint,
     labels = "LABELS"
     )
 
-  request <- httr2::request(.url) |>
+  req <- httr2::request(.url) |>
     httr2::req_url_path_append(endpoint)
 
   if(!is.null(CSoL)) {
-    request <- request |>
+    req <- req |>
       httr2::req_url_path_append(glue::glue("@{CSoL}"))
     }
 
-  agent <- "megamation (https://github.com/asadow/megamation)"
-
-  request |>
+  req <- req |>
     httr2::req_url_query(!!!params) |>
-    httr2::req_user_agent(agent) |>
+    httr2::req_user_agent(
+      "megamation (https://github.com/asadow/megamation)"
+    ) |>
     httr2::req_auth_basic("APIDL", .key) |>
     httr2::req_error(body = mm_error_body) |>
     httr2::req_cache(tempdir(), debug = TRUE)
-}
 
-#' Perform a GET request to Megamation's API
-#'
-#' @description
-#' `mm_get()` accomplishes the full process of a GET request:
-#'
-#' * Creates an API request and defines its behaviour.
-#' * Performs the request and fetches the response.
-#' * Converts the body of the response to a data frame.
-#'
-#' Where applicable, pagination is automatically applied to the request
-#' by [mm_req_paginate()] and returned pages are automatically combined.
-#'
-#' @inheritParams mm_request
-#' @returns A data frame of class [tbl] containing the requested information.
-#' @export
-mm_get <- function(endpoint,
-                   ...,
-                   .get = "data",
-                   .url = get_env_url(),
-                   .key = get_env_key(),
-                   .full_resp = C(FALSE, TRUE)) {
-  .get <- rlang::arg_match(.get, c("data", "criteria", "labels", "schema"))
-
-  req <- mm_request(endpoint, ..., .get = .get, .url = .url, .key = .key)
-
-  paginatable <- .get == "data"
-
-  result <- if(!paginatable) {
-    resp <- req |>
-      httr2::req_perform()
-    resp |>
-      resp_body_parse() |>
-      parsed_to_tbl(.get)
-  } else{
-    list_of_resp <- req |>
-      mm_req_paginate() |>
-      httr2::req_perform_iteratively()
-    list_of_resp |>
-      purrr::map(
-        \(x) x |>
-          resp_body_parse() |>
-          parsed_keep_df()
-      ) |>
-      mm_bind_then_tbl()
+  if(!.paginate) {
+    return(req)
   }
 
-  return(result |> remove_api_urls())
-
+  mm_req_paginate(req)
 }
+
 

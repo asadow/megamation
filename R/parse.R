@@ -40,8 +40,8 @@ resp_body_parse <- function(resp) {
 #'
 #'  `parsed_to_tbl()` uses the following methods:
 #'
-#' * `to_tbl_data()` converts the Get Data parsed body.
-#' It uses `parsed_keep_df()` to only keep the data frame.
+#' * `to_tbl_data()` converts the Get Data parsed body, but only keeps the
+#' embedded data frame.
 #' * `to_tbl_criteria()` converts the Get Criteria or Labels parsed body.
 #' * `to_tbl_schema()` converts the Get Schema parsed body.
 #'
@@ -89,6 +89,8 @@ to_tbl_criteria <- function(parsed) {
 #' @rdname parsed_to_tbl
 #' @export
 to_tbl_schema <- function(parsed) {
+
+  list_name <- type <- NULL
 
   properties <- parsed$properties
 

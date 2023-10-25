@@ -7,18 +7,17 @@
 #' @returns An object of class `httr2_request`.
 #' @export
 mm_req_paginate <- function(req) {
+  check_request(req)
+
   req |>
     httr2::req_paginate_next_url(
       parse_resp = function(resp) {
-        parsed <- resp |>
-          httr2::resp_body_raw() |>
-          body_parse()
+        parsed <- resp |> resp_body_parse()
 
-        parsed$next_url <- if (parsed$next_page == "") {
-          NULL
-          }
-        else (parsed$next_page)
-        list(data = list(resp), next_url = parsed$next_url)
+        url <- parsed$next_page
+        url <- if (is.null(url) || url == "") NULL else (url)
+
+        list(data = list(resp), next_url = url)
       },
       n_pages = function(parsed) {
         sub(".*_", "", parsed$page_count) |> as.numeric()
@@ -35,7 +34,8 @@ mm_req_paginate <- function(req) {
 #' as a matrix before binding and unnesting their combination.
 #'
 #' @param pages List of data frames representing Megamation API pages.
-#' @returns A data frame of class [tbl] representing the bound pages.
+#' @returns A data frame of class [`tbl_df`][tibble::tbl_df-class]
+#' representing the bound pages.
 #' @export
 mm_bind_then_tbl <- function(pages) {
   matrices <- purrr::map(pages, \(x) as.matrix(x))
@@ -62,6 +62,8 @@ mm_bind_then_tbl <- function(pages) {
 #' @inheritParams mm_req_paginate
 #' @returns An object of class `httr2_request`.
 mm_req_paginate_custom <- function(req) {
+  check_request(req)
+
   req |>
     httr2::req_paginate(
       next_request = function(req, parsed) {
@@ -71,7 +73,8 @@ mm_req_paginate_custom <- function(req) {
     )
 }
 
-# Importing rlang's null default operator
+#' null-default operator
+#' @noRd
 `%||%` <- rlang::`%||%`
 
 #' Perform a paginated request
@@ -80,6 +83,8 @@ mm_req_paginate_custom <- function(req) {
 #' @param max_pages Max number of pages to request.
 #' @returns A list of data frames representing the pages of responses.
 mm_req_perform_paginate_custom <- function(req, max_pages = NULL) {
+  check_request(req)
+
   out <- vector("list", max_pages %||% 10)
   i <- 1L
 
@@ -89,7 +94,7 @@ mm_req_perform_paginate_custom <- function(req, max_pages = NULL) {
       break
     }
 
-    req <- req |> httr2::paginate_next_request(parsed = out[[i]])
+    req <- req |> httr2::iterate_next_request(parsed = out[[i]])
 
     if (is.null(req)) {
       break
@@ -113,16 +118,6 @@ mm_req_perform_paginate_custom <- function(req, max_pages = NULL) {
 #' @returns `TRUE` or `FALSE`.
 #' @export
 is_paginated <- function(req) {
-  # class(x) != "httr2_response"
-  # class(x) = "httr2_response"
-
-
-  # if(class(x) == "character")
-  #   x == "data"
-  #
-  # if(class(x) == "httr2_response")
-
-  if(class(req) == "httr2_request")
-    "paginate" %in% names(req$policies)
-
+  check_request(req)
+ "paginate" %in% names(req$policies)
 }

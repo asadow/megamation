@@ -11,13 +11,17 @@ Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3
 Imports: 
     cli,
+    dplyr,
     glue,
-    httr2,
+    httr2 (>= 0.2.3.9000),
     jsonlite,
+    lifecycle,
     lubridate,
     purrr,
     rlang,
-    tibble
+    stringi,
+    tibble,
+    tidyr
 URL: https://github.com/asadow/megamation, https://asadow.github.io/megamation/
 BugReports: https://github.com/asadow/megamation/issues
 Suggests: 
@@ -27,3 +31,5 @@ Suggests:
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
 VignetteBuilder: knitr
+Remotes: 
+    r-lib/httr2

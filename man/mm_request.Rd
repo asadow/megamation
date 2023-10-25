@@ -9,6 +9,7 @@ mm_request(
   ...,
   allfields = TRUE,
   .get = "data",
+  .paginate = TRUE,
   .url = get_env_url(),
   .key = get_env_key()
 )
@@ -19,7 +20,7 @@ mm_request(
 for work orders. All endpoints are listed at
 https://apidocs.megamation.com/.}
 
-\item{...}{<\link{dynamic-dots}> Name-value pairs to filter the request.
+\item{...}{<\code{\link[rlang:dyn-dots]{dynamic-dots}}> Name-value pairs to filter the request.
 The name should be the lower-case name of a
 field that is filter-enabled
 (in Megamation's words, a criteria).
@@ -41,6 +42,8 @@ the endpoint.}
 \item{.get}{A length-1 character vector representing whether the request is
 for the endpoint's \code{"data"}, \code{"criteria"}, \code{"labels"}, or \code{"schema"}.}
 
+\item{.paginate}{If \code{TRUE}, paginate the request.}
+
 \item{.url}{The API URL.}
 
 \item{.key}{The API key.}
@@ -56,7 +59,7 @@ does the following:
 your \code{.Renviron}. Your key and base URL can be set using \code{\link[=mm_set_creds]{mm_set_creds()}}.
 \item Appends the URL with the endpoint defined by parameter \code{endpoint}.
 \item Appends the URL with the filtering defined by parameter \code{...}
-<\link{dynamic-dots}>.
+<\code{\link[rlang:dyn-dots]{dynamic-dots}}>.
 \item Sets the user-agent as the GitHub \code{megamation} package.
 \item Authenticates the request with HTTP basic authentication using
 environment variables \code{MEGAMATION_KEY} and \code{MEGAMATION_URL}
