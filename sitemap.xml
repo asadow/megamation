@@ -19,9 +19,6 @@
     <loc>https://asadow.github.io/megamation/index.html</loc>
   </url>
   <url>
-    <loc>https://asadow.github.io/megamation/reference/body_parse.html</loc>
-  </url>
-  <url>
     <loc>https://asadow.github.io/megamation/reference/check_bool.html</loc>
   </url>
   <url>
@@ -58,6 +55,9 @@
     <loc>https://asadow.github.io/megamation/reference/is_paginated.html</loc>
   </url>
   <url>
+    <loc>https://asadow.github.io/megamation/reference/megamation-package.html</loc>
+  </url>
+  <url>
     <loc>https://asadow.github.io/megamation/reference/mm_bind_then_tbl.html</loc>
   </url>
   <url>
@@ -82,15 +82,18 @@
     <loc>https://asadow.github.io/megamation/reference/mm_request.html</loc>
   </url>
   <url>
+    <loc>https://asadow.github.io/megamation/reference/mm_resp_parse.html</loc>
+  </url>
+  <url>
     <loc>https://asadow.github.io/megamation/reference/mm_set_creds.html</loc>
   </url>
   <url>
-    <loc>https://asadow.github.io/megamation/reference/parsed_to_tbl.html</loc>
+    <loc>https://asadow.github.io/megamation/reference/parsed_extract.html</loc>
   </url>
   <url>
     <loc>https://asadow.github.io/megamation/reference/remove_api_urls.html</loc>
   </url>
   <url>
-    <loc>https://asadow.github.io/megamation/reference/resp_body_parse.html</loc>
+    <loc>https://asadow.github.io/megamation/reference/req_opts.html</loc>
   </url>
 </urlset>

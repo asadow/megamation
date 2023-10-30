@@ -69,14 +69,7 @@ by <code><a href="mm_req_paginate.html">mm_req_paginate()</a></code> and returne
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">mm_get</span><span class="op">(</span></span>
-<span>  <span class="va">endpoint</span>,</span>
-<span>  <span class="va">...</span>,</span>
-<span>  .get <span class="op">=</span> <span class="st">"data"</span>,</span>
-<span>  .paginate <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  .url <span class="op">=</span> <span class="fu"><a href="get_env_url.html">get_env_url</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>  .key <span class="op">=</span> <span class="fu"><a href="get_env_key.html">get_env_key</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">mm_get</span><span class="op">(</span><span class="va">endpoint</span>, <span class="va">...</span>, opts <span class="op">=</span> <span class="fu"><a href="req_opts.html">req_opts</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -92,30 +85,7 @@ https://apidocs.megamation.com/.</p></dd>
 <dd><p>&lt;<code><a href="https://rlang.r-lib.org/reference/dyn-dots.html" class="external-link">dynamic-dots</a></code>&gt; Name-value pairs to filter the request.
 The name should be the lower-case name of a
 field that is filter-enabled
-(in Megamation's words, a criteria).</p>
-<p>The value should be:</p><ul><li><p>A length-1 atomic vector representing the value of said variable.</p></li>
-<li><p>An as-is, modifier-value(s) combination,
-e.g. <code>I("&lt;&gt;2020-01-01,2020-12-31")</code>. <code><a href="https://rdrr.io/r/base/AsIs.html" class="external-link">I()</a></code> is used to prevent automatic
-escaping.</p></li>
-</ul><p>To filter a single variable by multiple values, repeat name-value pairs with
-the same name but different values. e.g. <code>trade = "DM", trade = "PCO"</code>.</p></dd>
-
-
-<dt>.get</dt>
-<dd><p>A length-1 character vector representing whether the request is
-for the endpoint's <code>"data"</code>, <code>"criteria"</code>, <code>"labels"</code>, or <code>"schema"</code>.</p></dd>
-
-
-<dt>.paginate</dt>
-<dd><p>If <code>TRUE</code>, paginate the request.</p></dd>
-
-
-<dt>.url</dt>
-<dd><p>The API URL.</p></dd>
-
-
-<dt>.key</dt>
-<dd><p>The API key.</p></dd>
+(in Megamation's words, a criteria).</p></dd>
 
 </dl></div>
     <div class="section level2">
