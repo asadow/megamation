@@ -43,12 +43,15 @@
 mm_get <- function(endpoint, ..., opts = req_opts()) {
 
   req <- mm_request(endpoint, ..., opts = opts)
+  req <- if (!opts$.paginate) {
+    req
+  } else mm_req_paginate(req)
+
   resp <- mm_req_perform(req)
 
-  tbl_result <- if (!is_paginated(req)) {
+  tbl_result <- if (!opts$.paginate) {
     resp[[1]] |>
-      mm_resp_parse() |>
-      parsed_extract(.get) |>
+      mm_resp_extract() |>
       tibble::as_tibble()
   } else {
     resp |>
@@ -61,10 +64,7 @@ mm_get <- function(endpoint, ..., opts = req_opts()) {
   }
 
   remove_api_urls(tbl_result)
-
 }
-
-
 
 #' Perform a Megamation API request
 #'

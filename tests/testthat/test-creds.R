@@ -19,6 +19,7 @@ test_that("absence of API key or URL raises an error", {
 })
 
 test_that("testing key", {
+  skip_on_cran()
   expect_equal(
     get_env_key(),
     testing_key()
@@ -33,28 +34,30 @@ test_that("mm_set_creds() gives bad url error", {
 })
 
 test_that("mm_set_creds() sets credentials", {
-  defer({
-    mm_set_creds(
-      key = testing_key(),
-      url = 'https://api.megamation.com/uog/dl',
-      overwrite = TRUE
-    )
-  })
   mm_set_creds(
     key = "1",
     url = "https://api.megamation.com/uw/joe/",
     overwrite = TRUE
     )
-  expect_equal(
-    get_env_key(),
-    "1"
-  )
   expect_false(
     endsWith(Sys.getenv("MEGAMATION_URL"), "/")
   )
   expect_equal(
     get_env_url(),
     "https://api.megamation.com/uw/joe"
+  )
+
+  skip_on_cran()
+  withr::defer({
+    mm_set_creds(
+      key = testing_key(),
+      url = 'https://api.megamation.com/uog/dl',
+      overwrite = TRUE
+    )
+  })
+  expect_equal(
+    get_env_key(),
+    "1"
   )
 })
 

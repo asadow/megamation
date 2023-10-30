@@ -32,3 +32,29 @@ containing the requested information.
 Where applicable, pagination is automatically applied to the request
 by \code{\link[=mm_req_paginate]{mm_req_paginate()}} and returned pages are automatically combined.
 }
+\examples{
+\dontshow{if (httr2::secret_has_key("HTTR2_KEY")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+
+# For status endpoint
+
+mm_get("status")
+\dontshow{\}) # examplesIf}
+\dontrun{
+# You can supply vectors to filtering variables
+mm_get("workorder", wo_no = c("00001", "00002"))
+
+# You can supply API modifiers when filtering
+mm_get("workorder", trade = "[]PCO")
+
+# You must supply date types to the date filter
+jan_2023 <- seq.Date(
+  as.Date("2023-01-01"),
+  as.Date("2023-01-31"),
+  by = "day"
+  )
+
+mm_get("employee", date = jan_2023)
+}
+
+
+}

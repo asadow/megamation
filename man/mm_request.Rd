@@ -41,7 +41,7 @@ from your \code{.Renviron}.
 \item Automatic caching of responses. See \code{\link[httr2:req_cache]{httr2::req_cache()}}.
 }
 
-After creating a request with \code{mm_request()}, you can
+If you create a GET request with \code{mm_request()}, you can then
 \itemize{
 \item Paginate the request using \code{\link[=mm_req_paginate]{mm_req_paginate()}}.
 \item Perform the request and fetch the response using \code{\link[httr2:req_perform]{httr2::req_perform()}} or
@@ -49,5 +49,5 @@ After creating a request with \code{mm_request()}, you can
 }
 
 Alternatively,
-\code{\link[=mm_get]{mm_get()}} can at once define, paginate, and perform a request.
+\code{\link[=mm_get]{mm_get()}} can at once define, paginate, and perform a GET request.
 }

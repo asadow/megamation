@@ -1,13 +1,30 @@
-#' Extract and parse body from Megamation API response
+#' Extract data from Megamation API response
 #'
-#' `mm_resp_parse()` extracts the raw bytes from an API response and parses
-#' it, returning an R list object. After converting bytes to characters, encoding is done to resolve
-#' a UTF-8 issue from Megamation's side.
+#' `mm_resp_extract()` parses the raw bytes from an API response,
+#' and extracts data from the parsed object.
 #'
 #' @param resp An API response.
 #' @description The body of the response contains raw bytes.
 #' After converting these bytes to a string, encoding is done to resolve
 #' a UTF-8 issue from Megamation's side.
+#' @returns A list.
+#' @export
+mm_resp_extract <- function(resp) {
+  .from <- sub(".*/@", "", resp$url) |> tolower()
+
+  resp |>
+    mm_resp_parse() |>
+    parsed_extract(.from)
+}
+
+#' Parse body from Megamation API response
+#'
+#' `mm_resp_parse()` parses the raw bytes from an API response,
+#' returning an R list object. After converting bytes to characters,
+#' encoding is done to resolve
+#' a UTF-8 issue from Megamation's side.
+#'
+#' @param resp An API response.
 #' @returns A list.
 #' @export
 mm_resp_parse <- function(resp) {

@@ -13,5 +13,13 @@ mm_error_body(resp)
 A string from indexing the parsed response's \code{detail} list name.
 }
 \description{
-Extract error body from a Megamation API response
+\code{mm_error_body()} simply plucks the \code{detail} list from the response body,
+where Megamation's API includes informative error messages.
+}
+\examples{
+fake_mm_resp <- httr2::response_json(
+  body = list(
+    detail = "This is a fake detail/message from the API's response.")
+    )
+mm_error_body(resp)
 }

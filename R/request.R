@@ -1,6 +1,43 @@
 #' Create a Megamation API request
 #'
 #' @description
+#' `mm_req()` creates a request using [httr2::request()] and
+#' does the following:
+#'
+#' * Inserts the base URL using the environment variable `MEGAMATION_URL` from
+#'  your `.Renviron`. Your key and base URL can be set using [mm_set_creds()].
+#' * Appends the URL with the endpoint defined by parameter `endpoint`.
+#' * Sets the user-agent as the GitHub `megamation` package.
+#' * Authenticates the request with HTTP basic authentication using
+#'   environment variables `MEGAMATION_KEY` and `MEGAMATION_URL`
+#'   from your `.Renviron`.
+#' * Handles HTTP errors so useful information from the response is extracted
+#'   (e.g. "No response body").
+#' * Adds caching of responses if available. See [httr2::req_cache()].
+#'
+#' @param endpoint The API endpoint. For example,
+#' `"timecard"` for employee transactions, and `"workorder"`
+#' for work orders. All endpoints are listed at
+#' https://apidocs.megamation.com/.
+#' @returns An object of class `httr2_request`.
+#' @export
+mm_req <- function(endpoint, opts = req_opts()) {
+  if (!inherits(opts, "megamation_req_opts")) {
+    cli::cli_abort("{.arg opts} must be created by {.fun req_opts}.")
+  }
+
+  req <- req |>
+    httr2::req_user_agent(
+      "megamation (https://github.com/asadow/megamation)"
+    ) |>
+    httr2::req_auth_basic("APIDL", opts$.key) |>
+    httr2::req_error(body = mm_error_body) |>
+    httr2::req_cache(tempdir(), debug = TRUE)
+}
+
+#' Create a Megamation API request
+#'
+#' @description
 #' `mm_request()` creates a request using [httr2::request()] and
 #' does the following:
 #'
@@ -15,16 +52,16 @@
 #'   from your `.Renviron`.
 #' * Handles HTTP errors so useful information from the response is extracted
 #'   (e.g. "No response body").
-#' * Automatic caching of responses. See [httr2::req_cache()].
+#' * Adds caching of responses if available. See [httr2::req_cache()].
 #'
-#' After creating a request with `mm_request()`, you can
+#' If you create a GET request with `mm_request()`, you can then
 #'
 #' * Paginate the request using [mm_req_paginate()].
 #' * Perform the request and fetch the response using [httr2::req_perform()] or
 #' [httr2::req_perform_iteratively()] if the request is paginated.
 #'
 #' Alternatively,
-#' [mm_get()] can at once define, paginate, and perform a request.
+#' [mm_get()] can at once define, paginate, and perform a GET request.
 #'
 #' @param endpoint The API endpoint. For example,
 #' `"timecard"` for employee transactions, and `"workorder"`
@@ -71,12 +108,6 @@ mm_request <- function(endpoint, ..., allfields = TRUE, opts = req_opts()) {
     httr2::req_error(body = mm_error_body) |>
     httr2::req_cache(tempdir(), debug = TRUE)
 
-  cannot_be_paginated <- opts$.get != "data"
-  if (cannot_be_paginated || !opts$.paginate) {
-    return(req)
-  }
-
-  mm_req_paginate(req)
 }
 
 
