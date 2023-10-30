@@ -1,7 +1,17 @@
 #' Extract error body from a Megamation API response
+#'
+#' `mm_error_body()` simply plucks the `detail` list from the response body,
+#' where Megamation's API includes informative error messages.
+#'
 #' @param resp An API response.
 #' @returns A string from indexing the parsed response's `detail` list name.
 #' @export
+#' @examples
+#' fake_mm_resp <- httr2::response_json(
+#'   body = list(
+#'     detail = "This is a fake detail/message from the API's response.")
+#'     )
+#' mm_error_body(resp)
 mm_error_body <- function(resp) {
   if (!httr2::resp_has_body(resp)) {
     return("No response body.")

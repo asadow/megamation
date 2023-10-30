@@ -14,6 +14,31 @@
 #' @inheritParams mm_request
 #' @returns A data frame of class [`tbl_df`][tibble::tbl_df-class]
 #' containing the requested information.
+#' @examplesIf httr2::secret_has_key("HTTR2_KEY")
+#'
+#' # For status endpoint
+#'
+#' mm_get("status")
+#'
+#' @examples
+#' \dontrun{
+#' # You can supply vectors to filtering variables
+#' mm_get("workorder", wo_no = c("00001", "00002"))
+#'
+#' # You can supply API modifiers when filtering
+#' mm_get("workorder", trade = "[]PCO")
+#'
+#' # You must supply date types to the date filter
+#' jan_2023 <- seq.Date(
+#'   as.Date("2023-01-01"),
+#'   as.Date("2023-01-31"),
+#'   by = "day"
+#'   )
+#'
+#' mm_get("employee", date = jan_2023)
+#' }
+#'
+#'
 #' @export
 mm_get <- function(endpoint, ..., opts = req_opts()) {
 
@@ -39,6 +64,8 @@ mm_get <- function(endpoint, ..., opts = req_opts()) {
 
 }
 
+
+
 #' Perform a Megamation API request
 #'
 #' @description
@@ -55,6 +82,7 @@ mm_get <- function(endpoint, ..., opts = req_opts()) {
 #' an S3 list with class `httr2_response`. (For more on this class,
 #' see [httr2::response].) If the request was paginated, these
 #' responses correspond to pages.
+#' @examplesIf httr2::secret_has_key("HTTR2_KEY")
 #' @export
 mm_req_perform <- function(req) {
   check_request(req)
