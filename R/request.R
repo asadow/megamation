@@ -34,58 +34,27 @@
 #' The name should be the lower-case name of a
 #' field that is filter-enabled
 #' (in Megamation's words, a criteria).
-#'
-#' The value should be:
-#'
-#' * A length-1 atomic vector representing the value of said variable.
-#' * An as-is, modifier-value(s) combination,
-#'   e.g. `I("<>2020-01-01,2020-12-31")`. [I()] is used to prevent automatic
-#'   escaping.
-#'
-#' To filter a single variable by multiple values, repeat name-value pairs with
-#' the same name but different values. e.g. `trade = "DM", trade = "PCO"`.
 #' @param allfields If `TRUE`, return all fields set to be available for
 #' the endpoint.
-#' @param .get A length-1 character vector representing whether the request is
-#' for the endpoint's `"data"`, `"criteria"`, `"labels"`, or `"schema"`.
-#' @param .paginate If `TRUE`, paginate the request.
-#' @param .url The API URL.
-#' @param .key The API key.
 #' @returns An object of class `httr2_request`.
 #' @export
-mm_request <- function(endpoint,
-                       ...,
-                       allfields = TRUE,
-                       .get = "data",
-                       .paginate = TRUE,
-                       .url = get_env_url(),
-                       .key = get_env_key()) {
-  if(.key != get_env_key()) {
-    cli::cli_warn(c(
-      "The {.arg .key} you provided is not your
-      MEGAMATION_KEY environment variable.",
-      "i" = "It is highly recommended that you run {.fun mm_set_creds},
-      and {.emph do not} supply {.arg .key}.",
-      "i" = 'A typo like `kee = <your-secret>`
-      will end up in the request URL as a filter.'
-    ))
-  }
+mm_request <- function(endpoint, ..., allfields = TRUE, opts = req_opts()) {
   check_bool(allfields)
-  check_string(.get)
-  .get <- rlang::arg_match(.get, c("criteria", "labels", "schema", "data"))
+  if (!inherits(opts, "megamation_req_opts")) {
+    cli::cli_abort("{.arg opts} must be created by {.fun req_opts}.")
+  }
 
   params <- format_params(...)
-  allfields <- .paginate <- .get == "data"
   if (allfields) params <- c(params, "ALLFIELDS" = 1)
 
   CSoL <- switch(
-    .get,
+    opts$.get,
     criteria = "CRITERIA",
     schema = "SCHEMA",
     labels = "LABELS"
     )
 
-  req <- httr2::request(.url) |>
+  req <- httr2::request(opts$.url) |>
     httr2::req_url_path_append(endpoint)
 
   if(!is.null(CSoL)) {
@@ -98,11 +67,12 @@ mm_request <- function(endpoint,
     httr2::req_user_agent(
       "megamation (https://github.com/asadow/megamation)"
     ) |>
-    httr2::req_auth_basic("APIDL", .key) |>
+    httr2::req_auth_basic("APIDL", opts$.key) |>
     httr2::req_error(body = mm_error_body) |>
     httr2::req_cache(tempdir(), debug = TRUE)
 
-  if(!.paginate) {
+  cannot_be_paginated <- opts$.get != "data"
+  if (cannot_be_paginated || !opts$.paginate) {
     return(req)
   }
 

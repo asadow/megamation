@@ -3,6 +3,7 @@ output: github_document
 ---
 
 ```{r, include = FALSE}
+can_decrypt <- httr2::secret_has_key("HTTR2_KEY")
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
@@ -11,97 +12,124 @@ knitr::opts_chunk$set(
 )
 ```
 
-# megamation <a href="https://asadow.github.io/megamation/"><img src="man/figures/logo.png" align="right" height="139" alt="megamation website" /></a>
+```{r eval = !can_decrypt, echo = FALSE, comment = NA}
+message("No token available. Code chunks will not be evaluated.")
+```
+
+```{r, include = FALSE}
+library(httptest2)
+start_vignette("README")
+```
+
+# megamation <a href="https://asadow.github.io/megamation/"><img src="man/figures/logo.png" alt="megamation website" align="right" height="139"/></a>
 
 <!-- badges: start -->
-[![R-CMD-check](https://github.com/asadow/megamation/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/asadow/megamation/actions/workflows/R-CMD-check.yaml)
-[![Codecov test coverage](https://codecov.io/gh/asadow/megamation/branch/master/graph/badge.svg)](https://app.codecov.io/gh/asadow/megamation?branch=master)
-[![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
+
+[![R-CMD-check](https://github.com/asadow/megamation/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/asadow/megamation/actions/workflows/R-CMD-check.yaml) [![Codecov test coverage](https://codecov.io/gh/asadow/megamation/branch/master/graph/badge.svg)](https://app.codecov.io/gh/asadow/megamation?branch=master) [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
+
 <!-- badges: end -->
 
-The goal of `megamation` is to facilitate [Megamation](https://megamation.com/) data downloads in R. It wraps the [REST API](https://apidocs.megamation.com/) so that each API endpoint (a URL with parameters) becomes an R function with documented arguments.
+## Overview
 
-`megamation` also contains and implements functions to
+megamation provides an R interface to [Megamation DirectLine](https://megamation.com/) via the [API](https://apidocs.megamation.com/). 
 
--   Expose important details from HTTP errors in R errors.
--   Provide a paginate function for large downloads.
--   Caches responses to GET requests that have status code 200 and at least one of the standard caching headers (e.g. Expires, Etag, Last-Modified, Cache-Control)
+<!-- ## Installation -->
 
-## Installation
+<!-- You can install the released version of megamation from [CRAN](https://cran.r-project.org/) with: -->
 
-You can install the development version of `megamation` from [GitHub](https://github.com/) with:
+<!-- ```{r, eval = FALSE} -->
+<!-- install.packages("megamation") -->
+<!-- ``` -->
 
-``` r
-# install.packages("devtools")
-devtools::install_github("asadow/megamation")
-```
+<!-- And the development version from [GitHub](https://github.com/) with: -->
 
-## Authorization
+<!-- ```{r, eval = FALSE} -->
+<!-- # install.packages("pak") -->
+<!-- pak::pak("asadow/megamation") -->
+<!-- ``` -->
 
-Your Megamation representative will provide your key and URL. A helper function is provided to install these credentials (it creates name-value pairs in your `.Renviron` file, a safe place for secrets.) Edit and run the function below:
+<!-- ## Attach megamation -->
 
-``` r
-library(megamation)
-mm_set_creds(
-   key = "<YOUR-MEGAMATION_KEY>",
-   url = "<YOUR-MEGAMATION_URL>"
-   )
-```
+<!-- ```{r} -->
+<!-- library(megamation) -->
+<!-- ``` -->
 
-### Authorization without `mm_set_creds()`
+<!-- ## Authorization -->
 
-To set credentials yourself, you can open your `.Renviron` (`usethis::edit_r_environ()`) and enter each `NAME = "VALUE"` on separate lines like so.
+<!-- `mm_set_creds()` installs your API credentials: -->
 
-``` r
-MEGAMATION_KEY = "R&RwillNeverDie"
-MEGAMATION_URL = "https://api.megamation.com/uog/dl"
-```
+<!-- ``` {r, eval = FALSE} -->
+<!-- mm_set_creds( -->
+<!--    key = "<YOUR-MEGAMATION_KEY>", -->
+<!--    url = "<YOUR-MEGAMATION_URL>" -->
+<!--    ) -->
+<!-- ``` -->
 
-You will then need to restart R to load them. Or you can use 
-`Sys.setenv(NAME = "VALUE")`.
+<!-- ## Get Data -->
 
-``` r
-Sys.setenv(MEGAMATION_KEY = "R&RwillNeverDie")
-Sys.setenv(MEGAMATION_URL = "https://api.megamation.com/uog/dl")
-```
+<!-- `mm_get()` makes a GET request to an endpoint: -->
 
-## A simple request
+<!-- ```{r} -->
+<!-- mm_get("status") -->
+<!-- ``` -->
 
-With your credentials installed, you can request any endpoint using `mm_pull()`. Here we request the `"trade"` endpoint.
+<!-- It provides informative R errors (alongside HTTP errors): -->
 
-```{r eval = FALSE}
-trade <- mm_pull("trade")
-```
+<!-- ```{r, error = TRUE} -->
+<!-- mm_get("statuses") -->
+<!-- ``` -->
 
-## Building a custom request
+<!-- ### Filter Requests -->
 
-`mm_request()` allows you to define a request for any endpoint endpoint: `"timecard"`, `"workorder"`, etc.
+<!-- `mm_get()` allows you to easily filter requests by fields.  -->
 
-```{r}
-library(megamation)
-req <- mm_request("timecard", date = Sys.Date())
-```
+<!-- Let's try to request two work orders by their work order numbers: -->
 
-You can optionally paginate the request by using `mm_req_paginate()`.
+<!-- ```{r, error = TRUE} -->
+<!-- mm_get("workorder", wo_no = c("00001", "00002")) -->
+<!-- ``` -->
 
-```{r}
-# req <- req |> mm_req_paginate()
-```
+<!-- Uh oh! `wo_no` is not available as a filterable field (yet). You can ask your Megamation representative to add it. -->
 
-Here I run `httr2::req_dry_run()` to show exactly what `httr2` will send to the server, without actually sending it.
+<!-- #### Available Filters -->
 
-```{r}
-req |> httr2::req_dry_run()
-```
+<!-- Supply `opts = req_opts(.get = "criteria")` to see which of your fields are currently filter-enabled: -->
 
-### Performing the request
+<!-- ```{r} -->
+<!-- mm_get("workorder", opts = req_opts(.get = "criteria")) -->
+<!-- ``` -->
 
-If you added pagination,  use `mm_req_paginate_perform()` to perform the request. If not, use `httr2::req_perform()`. The value returned is a Megamation API response. 
+<!-- #### Modifiers -->
 
-The body of the response will contain raw bytes. It can be parsed using `body_parse()`. The parsed response is a list which includes the data. If you are only interested in the data, you can skip `body_parse()` and simply use `mm_resp_data()`.
+<!-- You can use Megamation's [modifiers](https://apidocs.megamation.com/) on your field values. For example, `[]` means "containing". Supply `<field> = "[]<value>"` to get rows where `<field>` contains `<value>`. For example, the following requests all work orders containing trades `ADMIN` and `IT`: -->
 
-```{r eval = FALSE}
-resp <- req |> httr2::req_perform() 
-df <- resp |> mm_resp_data()
-```
+<!-- ```{r, eval = FALSE} -->
+<!-- admin_and_it <- c("[]ADMIN", "[]IT") -->
+
+<!-- mm_get("workorder", trade = admin_and_it) -->
+<!-- #> # Data Not Shown for Privacy -->
+<!-- ``` -->
+
+<!-- #### Dates -->
+
+<!-- The `date` field argument only accepts values of type `Date`. The following requests all work orders from January, 2023: -->
+
+<!-- ```{r, eval = FALSE} -->
+<!-- jan_2023 <- seq.Date( -->
+<!--   as.Date("2023-01-01"),   -->
+<!--   as.Date("2023-01-31"),  -->
+<!--   by = "day" -->
+<!--   ) -->
+
+<!-- mm_get("workorder", date = jan_2023) -->
+<!-- #> # Data Not Shown for Privacy -->
+<!-- ``` -->
+
+<!-- ## For More -->
+
+<!-- Please see the package website: <https://asadow.github.io/megamation/>. -->
+
+<!-- ```{r} -->
+<!-- end_vignette() -->
+<!-- ``` -->
 

@@ -13,5 +13,5 @@ is_paginated(req)
 \code{TRUE} or \code{FALSE}.
 }
 \description{
-Detect whether a request is paginated
+\code{is_paginated()} checks whether an \code{httr2_request} has a paginate policy.
 }

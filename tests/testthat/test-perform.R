@@ -32,10 +32,10 @@ with_mock_dir("statuses", {
 })
 
 with_mock_dir("status_schema", {
-  test_that("mm_get() returns tibble cols `list_name` and `value`", {
+  test_that("mm_get() returns correct cols", {
     skip_on_cran()
     got <- mm_get("status", .get = "schema", .paginate = TRUE)
     expect_s3_class(got, "tbl_df")
-    expect_named(got, c("list_name", "value"))
+    expect_named(got, c("field", "description", "type"))
   })
 })

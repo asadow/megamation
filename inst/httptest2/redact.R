@@ -6,6 +6,5 @@ headers <- c("Cache-Control", "Server", "X-Powered-By",
 function(response) {
   response |>
     gsub_response("https://api.megamation.com/uog/dl/", "", fixed = TRUE) |>
-    gsub_response("(EMPLOYEE|EMP).*", "") |>
     redact_headers(headers)
 }

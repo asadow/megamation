@@ -4,14 +4,7 @@
 \alias{mm_get}
 \title{Perform a GET request to Megamation's API}
 \usage{
-mm_get(
-  endpoint,
-  ...,
-  .get = "data",
-  .paginate = TRUE,
-  .url = get_env_url(),
-  .key = get_env_key()
-)
+mm_get(endpoint, ..., opts = req_opts())
 }
 \arguments{
 \item{endpoint}{The API endpoint. For example,
@@ -22,27 +15,7 @@ https://apidocs.megamation.com/.}
 \item{...}{<\code{\link[rlang:dyn-dots]{dynamic-dots}}> Name-value pairs to filter the request.
 The name should be the lower-case name of a
 field that is filter-enabled
-(in Megamation's words, a criteria).
-
-The value should be:
-\itemize{
-\item A length-1 atomic vector representing the value of said variable.
-\item An as-is, modifier-value(s) combination,
-e.g. \code{I("<>2020-01-01,2020-12-31")}. \code{\link[=I]{I()}} is used to prevent automatic
-escaping.
-}
-
-To filter a single variable by multiple values, repeat name-value pairs with
-the same name but different values. e.g. \verb{trade = "DM", trade = "PCO"}.}
-
-\item{.get}{A length-1 character vector representing whether the request is
-for the endpoint's \code{"data"}, \code{"criteria"}, \code{"labels"}, or \code{"schema"}.}
-
-\item{.paginate}{If \code{TRUE}, paginate the request.}
-
-\item{.url}{The API URL.}
-
-\item{.key}{The API key.}
+(in Megamation's words, a criteria).}
 }
 \value{
 A data frame of class \code{\link[tibble:tbl_df-class]{tbl_df}}

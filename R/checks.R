@@ -38,12 +38,11 @@ check_creds <- function(){
 check_url <- function(x,
                       arg = rlang::caller_arg(x),
                       call = rlang::caller_env()) {
-
   check_string(x)
 
   base_url <- "https://api.megamation.com/"
 
-  if (!startsWith(x, base_url)){
+  if (!startsWith(x, base_url)) {
     cli::cli_abort(
       "{.arg {arg}} must be of the form {.val {base_url}<institution ID>/dl},
     not {x}."
@@ -60,7 +59,7 @@ check_url <- function(x,
 check_bool <- function(x,
                        arg = rlang::caller_arg(x),
                        call = rlang::caller_env()) {
-  if(!rlang::is_bool(x)){
+  if (!rlang::is_bool(x)) {
     cli::cli_abort(
       "{.arg {arg}} must be
       either {.val {TRUE}} or {.val {FALSE}}, not {x}."
@@ -74,9 +73,7 @@ check_string <- function(x,
                          arg = rlang::caller_arg(x),
                          call = rlang::caller_env(),
                          optional = FALSE) {
-  if(optional && is.null(x)){return()}
-
-  if(!rlang::is_string(x)){
+  if (!rlang::is_string(x)) {
     cli::cli_abort(
       "{.arg {arg}} must be a single string.",
       call = call
@@ -89,12 +86,23 @@ check_string <- function(x,
 check_date <- function(x,
                        arg = rlang::caller_arg(x),
                        call = rlang::caller_env()) {
-
-  if(is.null(x)){return()}
-
-  if(!lubridate::is.Date(x)){
+  if (!lubridate::is.Date(x)) {
     cli::cli_abort(
       "{.arg {arg}} must be a Date, not {.obj_type_friendly {x}}.",
+      call = call
+    )
+  }
+
+  if (length(x) == 0) {
+    cli::cli_abort(
+      "{.arg {arg}} must not have length 0.",
+      call = call
+    )
+  }
+
+  if (any(is.na(x))) {
+    cli::cli_abort(
+      "{.arg {arg}} must not contain {.val NA}.",
       call = call
     )
   }

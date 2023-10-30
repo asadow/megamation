@@ -45,3 +45,14 @@ test_that("mm_request() errors with key = ", {
     "not your MEGAMATION_KEY"
   )
 })
+
+test_that("mm_request() will not accept NA or empty date", {
+  expect_error(
+    mm_request("timecard", date = lubridate::as_date(NA)),
+    "NA"
+  )
+  expect_error(
+    mm_request("timecard", date = as.Date(NULL)),
+    "length 0"
+  )
+})

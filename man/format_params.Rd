@@ -10,18 +10,7 @@ format_params(...)
 \item{...}{<\code{\link[rlang:dyn-dots]{dynamic-dots}}> Name-value pairs to filter the request.
 The name should be the lower-case name of a
 field that is filter-enabled
-(in Megamation's words, a criteria).
-
-The value should be:
-\itemize{
-\item A length-1 atomic vector representing the value of said variable.
-\item An as-is, modifier-value(s) combination,
-e.g. \code{I("<>2020-01-01,2020-12-31")}. \code{\link[=I]{I()}} is used to prevent automatic
-escaping.
-}
-
-To filter a single variable by multiple values, repeat name-value pairs with
-the same name but different values. e.g. \verb{trade = "DM", trade = "PCO"}.}
+(in Megamation's words, a criteria).}
 }
 \value{
 A list of parameter name-value pairs.

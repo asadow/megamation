@@ -14,8 +14,8 @@ A data frame of class \code{\link[tibble:tbl_df-class]{tbl_df}}
 representing the bound pages.
 }
 \description{
-\code{mm_bind_then_tbl()} is needed as pages can have same-named columns with
-different types. This is because some column(s) of a given page
+\code{mm_bind_then_tbl()} is needed as pages can have same-named fields with
+different types. This is because some field(s) of a given page
 may or may not contain vectors  of values in one of its row.
 \code{mm_bind_then_tbl()} takes care of this possibility by treating each page
 as a matrix before binding and unnesting their combination.

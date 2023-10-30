@@ -15,7 +15,7 @@
 #' recovery purposes.
 #'
 #' @param key The API key provided to you by Megamation formatted in quotes.
-#' @param url The API URL provided to you by Megamation
+#' @param url The API base URL provided to you by Megamation
 #'   formatted in quotes.
 #' @param overwrite If TRUE, will overwrite existing Megamation
 #'   credentials that you already have in your `.Renviron` file.
@@ -41,9 +41,7 @@
 #' # Reload your environment to use the credentials
 #' }
 #' @export
-mm_set_creds <- function(key,
-                         url,
-                         overwrite = FALSE) {
+mm_set_creds <- function(key, url, overwrite = FALSE) {
     check_string(key)
     check_bool(overwrite)
     url <- check_url(url)

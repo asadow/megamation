@@ -9,7 +9,7 @@ mm_set_creds(key, url, overwrite = FALSE)
 \arguments{
 \item{key}{The API key provided to you by Megamation formatted in quotes.}
 
-\item{url}{The API URL provided to you by Megamation
+\item{url}{The API base URL provided to you by Megamation
 formatted in quotes.}
 
 \item{overwrite}{If TRUE, will overwrite existing Megamation

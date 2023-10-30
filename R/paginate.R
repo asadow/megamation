@@ -12,7 +12,7 @@ mm_req_paginate <- function(req) {
   req |>
     httr2::req_paginate_next_url(
       parse_resp = function(resp) {
-        parsed <- resp |> resp_body_parse()
+        parsed <- resp |> mm_resp_parse()
 
         url <- parsed$next_page
         url <- if (is.null(url) || url == "") NULL else (url)
@@ -27,8 +27,8 @@ mm_req_paginate <- function(req) {
 
 #' Bind multiple Megamation API pages by row before converting to a tibble
 #'
-#' `mm_bind_then_tbl()` is needed as pages can have same-named columns with
-#' different types. This is because some column(s) of a given page
+#' `mm_bind_then_tbl()` is needed as pages can have same-named fields with
+#' different types. This is because some field(s) of a given page
 #' may or may not contain vectors  of values in one of its row.
 #' `mm_bind_then_tbl()` takes care of this possibility by treating each page
 #' as a matrix before binding and unnesting their combination.
@@ -89,7 +89,7 @@ mm_req_perform_paginate_custom <- function(req, max_pages = NULL) {
   i <- 1L
 
   repeat({
-    out[[i]] <- httr2::req_perform(req) |> body_parse()
+    out[[i]] <- httr2::req_perform(req) |> mm_resp_parse()
     if (!is.null(max_pages) && i == max_pages) {
       break
     }
@@ -114,6 +114,9 @@ mm_req_perform_paginate_custom <- function(req, max_pages = NULL) {
 }
 
 #' Detect whether a request is paginated
+#'
+#' `is_paginated()` checks whether an `httr2_request` has a paginate policy.
+#'
 #' @param req An API request.
 #' @returns `TRUE` or `FALSE`.
 #' @export

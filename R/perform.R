@@ -15,34 +15,22 @@
 #' @returns A data frame of class [`tbl_df`][tibble::tbl_df-class]
 #' containing the requested information.
 #' @export
-mm_get <- function(endpoint,
-                   ...,
-                   .get = "data",
-                   .paginate = TRUE,
-                   .url = get_env_url(),
-                   .key = get_env_key()) {
-  .get <- rlang::arg_match(.get, c("data", "criteria", "labels", "schema"))
+mm_get <- function(endpoint, ..., opts = req_opts()) {
 
-  req <- mm_request(
-    endpoint,
-    ...,
-    .get = .get,
-    .paginate = .paginate,
-    .url = .url,
-    .key = .key
-  )
+  req <- mm_request(endpoint, ..., opts = opts)
   resp <- mm_req_perform(req)
 
   tbl_result <- if (!is_paginated(req)) {
     resp[[1]] |>
-      resp_body_parse() |>
-      parsed_to_tbl(.get)
+      mm_resp_parse() |>
+      parsed_extract(.get) |>
+      tibble::as_tibble()
   } else {
     resp |>
       purrr::map(
         \(x) x |>
-          resp_body_parse() |>
-          parsed_keep_df()
+          mm_resp_parse() |>
+          extract_data()
       ) |>
       mm_bind_then_tbl()
   }
