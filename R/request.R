@@ -19,18 +19,19 @@
 #' `"timecard"` for employee transactions, and `"workorder"`
 #' for work orders. All endpoints are listed at
 #' https://apidocs.megamation.com/.
+#' @param .url API base URL for request.
+#' @param .key API key for request.
 #' @returns An object of class `httr2_request`.
 #' @export
-mm_req <- function(endpoint, opts = req_opts()) {
-  if (!inherits(opts, "megamation_req_opts")) {
-    cli::cli_abort("{.arg opts} must be created by {.fun req_opts}.")
-  }
-
-  req <- req |>
+mm_req <- function(endpoint,
+                   .url = get_env_url(),
+                   .key = get_env_key()) {
+  httr2::request(.url) |>
+    httr2::req_url_path_append(endpoint) |>
     httr2::req_user_agent(
       "megamation (https://github.com/asadow/megamation)"
     ) |>
-    httr2::req_auth_basic("APIDL", opts$.key) |>
+    httr2::req_auth_basic("APIDL", .key) |>
     httr2::req_error(body = mm_error_body) |>
     httr2::req_cache(tempdir(), debug = TRUE)
 }
@@ -107,7 +108,13 @@ mm_request <- function(endpoint, ..., allfields = TRUE, opts = req_opts()) {
     httr2::req_auth_basic("APIDL", opts$.key) |>
     httr2::req_error(body = mm_error_body) |>
     httr2::req_cache(tempdir(), debug = TRUE)
-
 }
 
+mm_req_params <- function(req, ..., allfields = TRUE) {
+  check_bool(allfields)
+  params <- format_params(...)
+  if (allfields) params <- c(params, "ALLFIELDS" = 1)
+
+  req <- req |> httr2::req_url_query(!!!params)
+}
 

@@ -1,6 +1,7 @@
-status_df_for <- function(.get) {
-  resp <- mm_request("status", opts = req_opts(.get = "criteria")) |>
+status_get <- function(.from) {
+  .from <- "schema"
+
+  resp <- mm_req("status") |>
+    mm_req_append(.from) |>
     httr2::req_perform()
-  parsed <- resp |> mm_resp_parse()
-  df <- extract_criteria(parsed)
 }

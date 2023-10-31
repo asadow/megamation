@@ -1,6 +1,5 @@
 #' Specify request options
 #'
-#' @param .get A length-1 character vector representing whether the request is
 #' for the endpoint's `"data"`, `"criteria"`, `"labels"`, or `"schema"`.
 #' @param .url API base URL for request.
 #' @param .key API key for request.

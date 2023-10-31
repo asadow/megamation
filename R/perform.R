@@ -1,5 +1,39 @@
+mm_req_append <- function(req, x) {
+  req |>
+    httr2::req_url_path_append(glue::glue("@{toupper(x)}"))
+}
 
-#' Perform a GET request to Megamation's API
+#' Get column names and filters
+#'
+#' @description
+#' `mm_get_names()` performs and combines two separate GET requests
+#' on an endpoint: one
+#' for Schema and one for Criteria. Schema returns the names and (database)
+#' types of all available columns. Criteria returns the names of columns for
+#' which filtering is enabled.
+#'
+#' @inheritParams mm_get
+#' @returns A data frame of class [`tbl_df`][tibble::tbl_df-class]
+#' containing the requested information.
+#' @examplesIf httr2::secret_has_key("HTTR2_KEY")
+#' mm_get_names("status")
+#' @export
+mm_get_names <- function(endpoint) {
+  url_ending <- c("schema", "criteria")
+
+  req <- url_ending |>
+    purrr::map(\(x) mm_req(endpoint) |> mm_req_append(x))
+  resp <- purrr::map(req, httr2::req_perform)
+  data <- purrr::map(resp, mm_resp_extract)
+  names(data) <- url_ending
+
+  data$criteria |>
+    dplyr::mutate(filter = TRUE) |>
+    dplyr::right_join(data$schema, by = "name") |>
+    tibble::as_tibble()
+}
+
+#' Get data
 #'
 #' @description
 #' `mm_get()` accomplishes the full process of a GET request:
@@ -40,9 +74,11 @@
 #'
 #'
 #' @export
-mm_get <- function(endpoint, ..., opts = req_opts()) {
+mm_get <- function(endpoint, ...) {
 
-  req <- mm_request(endpoint, ..., opts = opts)
+  req <- mm_req(endpoint) |>
+    mm_req_params(...)
+
   req <- if (!opts$.paginate) {
     req
   } else mm_req_paginate(req)
