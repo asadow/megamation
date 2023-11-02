@@ -89,8 +89,7 @@
 </h2>
 <p><code><a href="../reference/mm_set_creds.html">mm_set_creds()</a></code> installs your API credentials in your
 <code>.Renviron</code>, a safe place for secrets.</p>
-<p><code><a href="../reference/mm_get.html">mm_get()</a></code> gets the data and automatically uses these
-credentials.</p>
+<p><code><a href="../reference/mm_get.html">mm_get()</a></code> gets data by using these credentials.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/mm_get.html">mm_get</a></span><span class="op">(</span><span class="st">"status"</span><span class="op">)</span></span></code></pre></div>
 </div>
@@ -127,10 +126,12 @@ dates:</p>
 <h2 id="mm_get-internals">
 <code>mm_get()</code> Internals<a class="anchor" aria-label="anchor" href="#mm_get-internals"></a>
 </h2>
-<p><code><a href="../reference/mm_get.html">mm_get()</a></code> uses four main functions:</p>
+<p><code><a href="../reference/mm_get.html">mm_get()</a></code> uses five main functions:</p>
 <ul>
 <li>
-<code><a href="../reference/mm_request.html">mm_request()</a></code> to create a request.</li>
+<code><a href="../reference/mm_req.html">mm_req()</a></code> to create a request.</li>
+<li>
+<code><a href="../reference/mm_req_params.html">mm_req_params()</a></code> to filter by parameters.</li>
 <li>
 <code><a href="../reference/mm_req_perform.html">mm_req_perform()</a></code> to perform a request and return the
 response.</li>
@@ -143,10 +144,16 @@ response.</li>
 <div class="section level3">
 <h3 id="define-the-request">Define the Request<a class="anchor" aria-label="anchor" href="#define-the-request"></a>
 </h3>
-<p><code><a href="../reference/mm_request.html">mm_request()</a></code> prints the request without performing
-it:</p>
+<p><code><a href="../reference/mm_req.html">mm_req()</a></code> prints the request without performing it:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">req</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/mm_request.html">mm_request</a></span><span class="op">(</span><span class="st">"workorder"</span>, date <span class="op">=</span> <span class="va">jan_2023</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">req</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/mm_req.html">mm_req</a></span><span class="op">(</span><span class="st">"workorder"</span><span class="op">)</span></span>
+<span><span class="va">req</span></span></code></pre></div>
+</div>
+<div class="section level3">
+<h3 id="parameterize-the-request">Parameterize the Request<a class="anchor" aria-label="anchor" href="#parameterize-the-request"></a>
+</h3>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">req</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/mm_req.html">mm_req</a></span><span class="op">(</span><span class="st">"workorder"</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="../reference/mm_req_params.html">mm_req_params</a></span><span class="op">(</span>date <span class="op">=</span> <span class="va">jan_2023</span><span class="op">)</span></span>
 <span><span class="va">req</span></span></code></pre></div>
 </div>
 <div class="section level3">
@@ -154,9 +161,8 @@ it:</p>
 </h3>
 <p><code><a href="../reference/mm_req_perform.html">mm_req_perform()</a></code> performs a request and returns a list
 of API responses.</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">resp</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/mm_request.html">mm_request</a></span><span class="op">(</span><span class="st">"status"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="../reference/mm_req_perform.html">mm_req_perform</a></span><span class="op">(</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">resp</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/mm_req.html">mm_req</a></span><span class="op">(</span><span class="st">"status"</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="../reference/mm_req_perform.html">mm_req_perform</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="va">resp</span></span></code></pre></div>
 </div>
 <div class="section level3">
@@ -164,9 +170,8 @@ of API responses.</p>
 </h3>
 <p><code><a href="../reference/mm_resp_parse.html">mm_resp_parse()</a></code> parses the body of a response, which
 contains raw bytes, and returns a list.</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">parsed</span> <span class="op">&lt;-</span> <span class="va">resp</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="../reference/mm_resp_parse.html">mm_resp_parse</a></span><span class="op">(</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">parsed</span> <span class="op">&lt;-</span> <span class="va">resp</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span> <span class="op">|&gt;</span> <span class="fu"><a href="../reference/mm_resp_parse.html">mm_resp_parse</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="va">parsed</span></span></code></pre></div>
 </div>
 <div class="section level3">
@@ -174,9 +179,8 @@ contains raw bytes, and returns a list.</p>
 </h3>
 <p><code><a href="../reference/parsed_extract.html">parsed_extract()</a></code> extracts the data of interest from a
 parsed body.</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">.data</span> <span class="op">&lt;-</span> <span class="va">parsed</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="../reference/parsed_extract.html">parsed_extract</a></span><span class="op">(</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">.data</span> <span class="op">&lt;-</span> <span class="va">parsed</span> <span class="op">|&gt;</span> <span class="fu"><a href="../reference/parsed_extract.html">parsed_extract</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="va">.data</span></span></code></pre></div>
 </div>
 </div>

@@ -28,6 +28,9 @@
     <loc>https://asadow.github.io/megamation/reference/check_date.html</loc>
   </url>
   <url>
+    <loc>https://asadow.github.io/megamation/reference/check_params.html</loc>
+  </url>
+  <url>
     <loc>https://asadow.github.io/megamation/reference/check_request.html</loc>
   </url>
   <url>
@@ -35,6 +38,12 @@
   </url>
   <url>
     <loc>https://asadow.github.io/megamation/reference/check_url.html</loc>
+  </url>
+  <url>
+    <loc>https://asadow.github.io/megamation/reference/date_as_between_string.html</loc>
+  </url>
+  <url>
+    <loc>https://asadow.github.io/megamation/reference/format_date.html</loc>
   </url>
   <url>
     <loc>https://asadow.github.io/megamation/reference/format_params.html</loc>
@@ -67,10 +76,22 @@
     <loc>https://asadow.github.io/megamation/reference/mm_get.html</loc>
   </url>
   <url>
+    <loc>https://asadow.github.io/megamation/reference/mm_get_names.html</loc>
+  </url>
+  <url>
+    <loc>https://asadow.github.io/megamation/reference/mm_req.html</loc>
+  </url>
+  <url>
+    <loc>https://asadow.github.io/megamation/reference/mm_req_append.html</loc>
+  </url>
+  <url>
     <loc>https://asadow.github.io/megamation/reference/mm_req_paginate.html</loc>
   </url>
   <url>
     <loc>https://asadow.github.io/megamation/reference/mm_req_paginate_custom.html</loc>
+  </url>
+  <url>
+    <loc>https://asadow.github.io/megamation/reference/mm_req_params.html</loc>
   </url>
   <url>
     <loc>https://asadow.github.io/megamation/reference/mm_req_perform.html</loc>
@@ -79,7 +100,7 @@
     <loc>https://asadow.github.io/megamation/reference/mm_req_perform_paginate_custom.html</loc>
   </url>
   <url>
-    <loc>https://asadow.github.io/megamation/reference/mm_request.html</loc>
+    <loc>https://asadow.github.io/megamation/reference/mm_resp_extract.html</loc>
   </url>
   <url>
     <loc>https://asadow.github.io/megamation/reference/mm_resp_parse.html</loc>
