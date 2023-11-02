@@ -43,13 +43,14 @@ mm_resp_parse <- function(resp) {
 #' response body.
 #'
 #' @param parsed Parsed response body.
-#' @inheritParams mm_request
+#' @param .get Whether the GET request is for the endpoint's `"data"`,
+#' `"criteria"`, `"labels"`, or `"schema"`.
 #' @returns A data frame containing the endpoint data.
 #'
 #' @export
-parsed_extract <- function(parsed,
-                          .get = c("data", "criteria", "labels", "schema")) {
-  .get <- rlang::arg_match(.get)
+parsed_extract <- function(parsed, .get = "data") {
+  check_string(.get)
+  .get <- rlang::arg_match(.get, c("criteria", "labels", "schema", "data"))
 
   switch(
     .get,
@@ -72,6 +73,8 @@ extract_data <- function(parsed) {
 #' @rdname parsed_extract
 #' @export
 extract_criteria <- function(parsed) {
+  description <- field <- NULL
+
   not_cols <- c("Table", "Criteria", "Usage")
 
   data.frame(
@@ -84,8 +87,9 @@ extract_criteria <- function(parsed) {
 #' @rdname parsed_extract
 #' @export
 extract_schema <- function(parsed) {
-  p <- parsed$properties
+  type <- description <- field <- NULL
 
+  p <- parsed$properties
   tibble::tibble(
     field = names(p) |> tolower(),
     description = purrr::map_chr(p, "description"),

@@ -1,9 +1,16 @@
+#' Append a GET request
+#' @inheritParams mm_req_paginate
+#' @param x `"criteria"`, `"labels"`, or `"schema"`.
+#' @export
 mm_req_append <- function(req, x) {
+  check_string(x)
+  .get <- rlang::arg_match(x, c("criteria", "labels", "schema"))
+
   req |>
     httr2::req_url_path_append(glue::glue("@{toupper(x)}"))
 }
 
-#' Get column names and filters
+#' Get column names and which are currently filters
 #'
 #' @description
 #' `mm_get_names()` performs and combines two separate GET requests
@@ -27,9 +34,12 @@ mm_get_names <- function(endpoint) {
   data <- purrr::map(resp, mm_resp_extract)
   names(data) <- url_ending
 
+  data$schema$filter_enabled <- FALSE
+  data$criteria$filter_enabled <- TRUE
+
   data$criteria |>
-    dplyr::mutate(filter = TRUE) |>
-    dplyr::right_join(data$schema, by = "name") |>
+    dplyr::select(- description) |>
+    dplyr::right_join(data$schema, by = "field") |>
     tibble::as_tibble()
 }
 
@@ -45,7 +55,8 @@ mm_get_names <- function(endpoint) {
 #' Where applicable, pagination is automatically applied to the request
 #' by [mm_req_paginate()] and returned pages are automatically combined.
 #'
-#' @inheritParams mm_request
+#' @inheritParams mm_req
+#' @param .paginate If `TRUE`, paginate the request.
 #' @returns A data frame of class [`tbl_df`][tibble::tbl_df-class]
 #' containing the requested information.
 #' @examplesIf httr2::secret_has_key("HTTR2_KEY")
@@ -74,18 +85,18 @@ mm_get_names <- function(endpoint) {
 #'
 #'
 #' @export
-mm_get <- function(endpoint, ...) {
+mm_get <- function(endpoint, ..., .paginate = TRUE) {
+  check_bool(.paginate)
 
-  req <- mm_req(endpoint) |>
-    mm_req_params(...)
+  req <- mm_req(endpoint) |> mm_req_params(...)
 
-  req <- if (!opts$.paginate) {
+  req <- if (!.paginate) {
     req
   } else mm_req_paginate(req)
 
   resp <- mm_req_perform(req)
 
-  tbl_result <- if (!opts$.paginate) {
+  tbl_result <- if (!.paginate) {
     resp[[1]] |>
       mm_resp_extract() |>
       tibble::as_tibble()
@@ -106,7 +117,7 @@ mm_get <- function(endpoint, ...) {
 #'
 #' @description
 #'
-#' After creating a request with [mm_request()],
+#' After creating a request with [mm_req()],
 #' call `mm_req_perform()` to perform it and fetch
 #' the results back to R.
 #'

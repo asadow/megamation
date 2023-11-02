@@ -14,6 +14,8 @@ get_env_key <- function() {
   }
 }
 
+#' @export
+#' @keywords internal
 cred_error <- function(x) {
   cli::cli_abort(c(
     "No {.envvar MEGAMATION_{toupper(x)}} found.",
@@ -21,10 +23,8 @@ cred_error <- function(x) {
   ))
 }
 
-is_testing <- function() {
-  identical(Sys.getenv("TESTTHAT"), "true")
-}
-
+#' @export
+#' @keywords internal
 testing_key <- function() {
   httr2::secret_decrypt("4E5GlxeUybPJnCQQnwyDGsPIncZI526gyfk", "HTTR2_KEY")
 }

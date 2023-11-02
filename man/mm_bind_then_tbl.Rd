@@ -20,3 +20,12 @@ may or may not contain vectors  of values in one of its row.
 \code{mm_bind_then_tbl()} takes care of this possibility by treating each page
 as a matrix before binding and unnesting their combination.
 }
+\examples{
+mtcars_list_cols <- mtcars |>
+  mutate(
+    mpg = as.list(mpg),
+    cyl = list(cyl)
+    )
+dfs <- list(mtcars, mtcars_list_cols)
+mm_bind_then_tbl(dfs)
+}

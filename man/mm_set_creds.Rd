@@ -18,7 +18,7 @@ credentials that you already have in your \code{.Renviron} file.}
 \description{
 This function adds your Megamation API key and base URL to your
 \link{.Renviron} file so it can be called securely without being stored in
-your code. After you have installed these two credentials, \code{\link[=mm_request]{mm_request()}} and
+your code. After you have installed these two credentials, \code{\link[=mm_req]{mm_req()}} and
 \code{\link[=mm_get]{mm_get()}} will call them automatically. They can be
 called manually at any time with \code{Sys.getenv("MEGAMATION_KEY")} or
 \code{Sys.getenv("MEGAMATION_URL")}.

@@ -11,7 +11,7 @@
 #'   body = list(
 #'     detail = "This is a fake detail/message from the API's response.")
 #'     )
-#' mm_error_body(resp)
+#' mm_error_body(fake_mm_resp)
 mm_error_body <- function(resp) {
   if (!httr2::resp_has_body(resp)) {
     return("No response body.")

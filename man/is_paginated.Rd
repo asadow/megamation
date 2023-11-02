@@ -15,3 +15,7 @@ is_paginated(req)
 \description{
 \code{is_paginated()} checks whether an \code{httr2_request} has a paginate policy.
 }
+\examples{
+mm_req("workorder") |> is_paginated()
+mm_req("workorder") |> mm_req_paginate() |> is_paginated()
+}

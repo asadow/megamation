@@ -2,9 +2,9 @@
 % Please edit documentation in R/perform.R
 \name{mm_get}
 \alias{mm_get}
-\title{Perform a GET request to Megamation's API}
+\title{Get data}
 \usage{
-mm_get(endpoint, ..., opts = req_opts())
+mm_get(endpoint, ..., .paginate = TRUE)
 }
 \arguments{
 \item{endpoint}{The API endpoint. For example,
@@ -12,10 +12,7 @@ mm_get(endpoint, ..., opts = req_opts())
 for work orders. All endpoints are listed at
 https://apidocs.megamation.com/.}
 
-\item{...}{<\code{\link[rlang:dyn-dots]{dynamic-dots}}> Name-value pairs to filter the request.
-The name should be the lower-case name of a
-field that is filter-enabled
-(in Megamation's words, a criteria).}
+\item{.paginate}{If \code{TRUE}, paginate the request.}
 }
 \value{
 A data frame of class \code{\link[tibble:tbl_df-class]{tbl_df}}

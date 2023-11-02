@@ -1,14 +1,12 @@
 #' Specify request options
 #'
-#' for the endpoint's `"data"`, `"criteria"`, `"labels"`, or `"schema"`.
 #' @param .url API base URL for request.
 #' @param .key API key for request.
-#' @param .paginate If `TRUE`, paginate the request.
 #' @export
-req_opts <- function(.get = "data",
-                     .url = get_env_url(),
-                     .key = get_env_key(),
-                     .paginate = TRUE) {
+#' @examples
+#' req_opts(.url = "base-url")
+req_opts <- function(.url = get_env_url(),
+                     .key = get_env_key()) {
   if(.key != get_env_key()) {
     cli::cli_warn(c(
       "The {.arg .key} you provided is not your
@@ -19,15 +17,11 @@ req_opts <- function(.get = "data",
       will end up in the request URL as a filter.'
     ))
   }
-  check_string(.get)
-  .get <- rlang::arg_match(.get, c("criteria", "labels", "schema", "data"))
 
   structure(
     list(
-      .get = .get,
       .url = .url,
-      .key = .key,
-      .paginate = .paginate
+      .key = .key
     ),
     class = "megamation_req_opts"
   )

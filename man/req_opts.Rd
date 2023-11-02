@@ -4,23 +4,16 @@
 \alias{req_opts}
 \title{Specify request options}
 \usage{
-req_opts(
-  .get = "data",
-  .url = get_env_url(),
-  .key = get_env_key(),
-  .paginate = TRUE
-)
+req_opts(.url = get_env_url(), .key = get_env_key())
 }
 \arguments{
-\item{.get}{A length-1 character vector representing whether the request is
-for the endpoint's \code{"data"}, \code{"criteria"}, \code{"labels"}, or \code{"schema"}.}
-
 \item{.url}{API base URL for request.}
 
 \item{.key}{API key for request.}
-
-\item{.paginate}{If \code{TRUE}, paginate the request.}
 }
 \description{
 Specify request options
+}
+\examples{
+req_opts(.url = "base-url")
 }

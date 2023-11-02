@@ -33,103 +33,103 @@ start_vignette("README")
 
 megamation provides an R interface to [Megamation DirectLine](https://megamation.com/) via the [API](https://apidocs.megamation.com/). 
 
-<!-- ## Installation -->
+## Installation
 
-<!-- You can install the released version of megamation from [CRAN](https://cran.r-project.org/) with: -->
+You can install the released version of megamation from [CRAN](https://cran.r-project.org/) with:
 
-<!-- ```{r, eval = FALSE} -->
-<!-- install.packages("megamation") -->
-<!-- ``` -->
+```{r, eval = FALSE}
+install.packages("megamation")
+```
 
-<!-- And the development version from [GitHub](https://github.com/) with: -->
+And the development version from [GitHub](https://github.com/) with:
 
-<!-- ```{r, eval = FALSE} -->
-<!-- # install.packages("pak") -->
-<!-- pak::pak("asadow/megamation") -->
-<!-- ``` -->
+```{r, eval = FALSE}
+# install.packages("pak")
+pak::pak("asadow/megamation")
+```
 
-<!-- ## Attach megamation -->
+## Attach megamation
 
-<!-- ```{r} -->
-<!-- library(megamation) -->
-<!-- ``` -->
+```{r}
+library(megamation)
+```
 
-<!-- ## Authorization -->
+## Authorization
 
-<!-- `mm_set_creds()` installs your API credentials: -->
+`mm_set_creds()` installs your API credentials:
 
-<!-- ``` {r, eval = FALSE} -->
-<!-- mm_set_creds( -->
-<!--    key = "<YOUR-MEGAMATION_KEY>", -->
-<!--    url = "<YOUR-MEGAMATION_URL>" -->
-<!--    ) -->
-<!-- ``` -->
+``` {r, eval = FALSE}
+mm_set_creds(
+   key = "<YOUR-MEGAMATION_KEY>",
+   url = "<YOUR-MEGAMATION_URL>"
+   )
+```
 
-<!-- ## Get Data -->
+## Get Data
 
-<!-- `mm_get()` makes a GET request to an endpoint: -->
+`mm_get()` makes a GET request to an endpoint:
 
-<!-- ```{r} -->
-<!-- mm_get("status") -->
-<!-- ``` -->
+```{r}
+mm_get("status")
+```
 
-<!-- It provides informative R errors (alongside HTTP errors): -->
+It provides informative R errors (alongside HTTP errors):
 
-<!-- ```{r, error = TRUE} -->
-<!-- mm_get("statuses") -->
-<!-- ``` -->
+```{r, error = TRUE}
+mm_get("statuses")
+```
 
-<!-- ### Filter Requests -->
+### Filter Requests
 
-<!-- `mm_get()` allows you to easily filter requests by fields.  -->
+`mm_get()` allows you to easily filter requests by fields.
 
-<!-- Let's try to request two work orders by their work order numbers: -->
+Let's try to request two work orders by their work order numbers:
 
-<!-- ```{r, error = TRUE} -->
-<!-- mm_get("workorder", wo_no = c("00001", "00002")) -->
-<!-- ``` -->
+```{r, error = TRUE}
+mm_get("workorder", wo_no = c("00001", "00002"))
+```
 
-<!-- Uh oh! `wo_no` is not available as a filterable field (yet). You can ask your Megamation representative to add it. -->
+Uh oh! `wo_no` is not available as a filterable field (yet). You can ask your Megamation representative to add it.
 
-<!-- #### Available Filters -->
+#### Available Filters
 
-<!-- Supply `opts = req_opts(.get = "criteria")` to see which of your fields are currently filter-enabled: -->
+`mm_get_names()` allows you to see which of your fields you can currently filter by:
 
-<!-- ```{r} -->
-<!-- mm_get("workorder", opts = req_opts(.get = "criteria")) -->
-<!-- ``` -->
+```{r}
+mm_get_names("workorder")
+```
 
-<!-- #### Modifiers -->
+#### Modifiers
 
-<!-- You can use Megamation's [modifiers](https://apidocs.megamation.com/) on your field values. For example, `[]` means "containing". Supply `<field> = "[]<value>"` to get rows where `<field>` contains `<value>`. For example, the following requests all work orders containing trades `ADMIN` and `IT`: -->
+You can use Megamation's [modifiers](https://apidocs.megamation.com/) on your field values. For example, `[]` means "containing". Supply `<field> = "[]<value>"` to get rows where `<field>` contains `<value>`. For example, the following requests all work orders containing trades `ADMIN` and `IT`:
 
-<!-- ```{r, eval = FALSE} -->
-<!-- admin_and_it <- c("[]ADMIN", "[]IT") -->
+```{r, eval = FALSE}
+admin_and_it <- c("[]ADMIN", "[]IT")
 
-<!-- mm_get("workorder", trade = admin_and_it) -->
-<!-- #> # Data Not Shown for Privacy -->
-<!-- ``` -->
+mm_get("workorder", trade = admin_and_it)
+#> # Data Not Shown for Privacy
+```
 
-<!-- #### Dates -->
+#### Dates
 
-<!-- The `date` field argument only accepts values of type `Date`. The following requests all work orders from January, 2023: -->
+The `date` field argument only accepts values of type `Date`. The following requests all work orders from January, 2023:
 
-<!-- ```{r, eval = FALSE} -->
-<!-- jan_2023 <- seq.Date( -->
-<!--   as.Date("2023-01-01"),   -->
-<!--   as.Date("2023-01-31"),  -->
-<!--   by = "day" -->
-<!--   ) -->
+```{r, eval = FALSE}
+jan_2023 <- seq.Date(
+  as.Date("2023-01-01"),
+  as.Date("2023-01-31"),
+  by = "day"
+  )
 
-<!-- mm_get("workorder", date = jan_2023) -->
-<!-- #> # Data Not Shown for Privacy -->
-<!-- ``` -->
+mm_get("workorder", date = jan_2023)
+#> # Data Not Shown for Privacy
+```
 
-<!-- ## For More -->
+## For More
 
-<!-- Please see the package website: <https://asadow.github.io/megamation/>. -->
+Please see the package website: <https://asadow.github.io/megamation/>.
 
-<!-- ```{r} -->
-<!-- end_vignette() -->
-<!-- ``` -->
+```{r}
+end_vignette()
+```
 

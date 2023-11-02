@@ -20,4 +20,20 @@ test_that("format_params() formats dates not in sequence", {
 
 test_that("format_params() does not return accidental key", {
   expect_error(format_params(key = "secret"), "Prevented")
+  expect_error(format_params(.keys = "my-secret"), "Prevented")
 })
+
+test_that("format_params() returns filter type errors", {
+  expect_error(format_params(date = 1), "`date` must be a Date")
+})
+
+test_that("format_params() will not accept NA or empty date", {
+  expect_error(format_params(date = lubridate::as_date(NA)), "NA")
+  expect_error(format_params(date = as.Date(NULL)), "length 0")
+})
+
+test_that("mm_req_params() adds ALLFIELDS=1", {
+  req <- mm_req("status") |> mm_req_params()
+  expect_true(grepl("ALLFIELDS=1", req$url))
+})
+

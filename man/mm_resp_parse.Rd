@@ -2,7 +2,7 @@
 % Please edit documentation in R/parse.R
 \name{mm_resp_parse}
 \alias{mm_resp_parse}
-\title{Extract and parse body from Megamation API response}
+\title{Parse body from Megamation API response}
 \usage{
 mm_resp_parse(resp)
 }
@@ -13,12 +13,8 @@ mm_resp_parse(resp)
 A list.
 }
 \description{
-The body of the response contains raw bytes.
-After converting these bytes to a string, encoding is done to resolve
-a UTF-8 issue from Megamation's side.
-}
-\details{
-\code{mm_resp_parse()} extracts the raw bytes from an API response and parses
-it, returning an R list object. After converting bytes to characters, encoding is done to resolve
+\code{mm_resp_parse()} parses the raw bytes from an API response,
+returning an R list object. After converting bytes to characters,
+encoding is done to resolve
 a UTF-8 issue from Megamation's side.
 }

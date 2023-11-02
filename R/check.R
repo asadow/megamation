@@ -1,4 +1,37 @@
+#' Are httr2 parameters well-specified
+#' @description
+#' `format_params()` formats supplied name-value pairs toward
+#' creating a valid Megamation URL.
+#' @param params A list of parameter name-value pairs.
+#' @returns A list of parameter name-value pairs.
+#' @export
+#' @keywords internal
+check_params <- function(params, call = rlang::caller_env()) {
+  np <- names(params)
+  if (any(grepl("key", np))) {
+    keys <- np[grep("key", np)]
+    cli::cli_abort(c(
+      "Prevented filter {.arg keys} from being included in the request URL.",
+      "i" = "It is highly recommended that you run {.fun mm_set_creds},
+    and {.emph do not} supply {.arg .key}.",
+      "i" = 'A typo like `kee = <your-secret>`
+    will end up in the request URL as a filter.'
+    ))
+  }
+
+  if (any(startsWith("\\.", np))) {
+    dotted <- np[grep("\\.", np)]
+    cli::cli_abort(c(
+      "Prevented filter {.arg dotted} from being included in the request URL.",
+      "i" = 'Did you mean `{sub("\\.", "", dotted[1])} = "<value>"`?'
+    ))
+  }
+
+  return(params)
+}
+
 #' Is httr2_request
+#' @export
 #' @keywords internal
 check_request <- function(x,
                           arg = rlang::caller_arg(x),
@@ -13,6 +46,7 @@ check_request <- function(x,
 }
 
 #' Are credentials present
+#' @export
 #' @keywords internal
 check_creds <- function(){
   creds <- c(
@@ -34,6 +68,7 @@ check_creds <- function(){
 }
 
 #' Checking and re-formatting URL
+#' @export
 #' @keywords internal
 check_url <- function(x,
                       arg = rlang::caller_arg(x),
@@ -55,6 +90,7 @@ check_url <- function(x,
 }
 
 #' Is boolean (length-1 logical)
+#' @export
 #' @keywords internal
 check_bool <- function(x,
                        arg = rlang::caller_arg(x),
@@ -68,6 +104,7 @@ check_bool <- function(x,
 }
 
 #' Is string (length-1 character)
+#' @export
 #' @keywords internal
 check_string <- function(x,
                          arg = rlang::caller_arg(x),
@@ -82,6 +119,7 @@ check_string <- function(x,
 }
 
 #' Is Date
+#' @export
 #' @keywords internal
 check_date <- function(x,
                        arg = rlang::caller_arg(x),

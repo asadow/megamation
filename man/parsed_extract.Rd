@@ -7,7 +7,7 @@
 \alias{extract_schema}
 \title{Create tibble from parsed response}
 \usage{
-parsed_extract(parsed, .get = c("data", "criteria", "labels", "schema"))
+parsed_extract(parsed, .get = "data")
 
 extract_data(parsed)
 
@@ -17,6 +17,9 @@ extract_schema(parsed)
 }
 \arguments{
 \item{parsed}{Parsed response body.}
+
+\item{.get}{Whether the GET request is for the endpoint's \code{"data"},
+\code{"criteria"}, \code{"labels"}, or \code{"schema"}.}
 }
 \value{
 A data frame containing the endpoint data.

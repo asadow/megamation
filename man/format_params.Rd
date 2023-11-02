@@ -19,3 +19,10 @@ A list of parameter name-value pairs.
 \code{format_params()} formats supplied name-value pairs toward
 creating a valid Megamation URL.
 }
+\examples{
+from <- as.Date("2023-09-20")
+to <- as.Date("2023-10-20")
+date <- seq(from, to, by = "day")
+trade <- c("[]PCO", "[]DM")
+format_params(date = date, trade = trade)
+}
