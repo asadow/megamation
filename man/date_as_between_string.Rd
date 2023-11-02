@@ -23,7 +23,6 @@ including \code{DATE=X&DATE=Y&DATE=Z} to \verb{DATE = <>X,Z} where X<Y<Z.
 \examples{
 from <- as.Date("2023-09-20")
 to <- as.Date("2023-10-20")
-date <- seq(from, to, by = "day")
-date_as_between_string(date)
+date_as_between_string(from, to)
 }
 \keyword{internal}

@@ -35,3 +35,9 @@ from your \code{.Renviron}.
 \item Adds caching of responses if available. See \code{\link[httr2:req_cache]{httr2::req_cache()}}.
 }
 }
+\examples{
+\dontshow{if (httr2::secret_has_key("HTTR2_KEY")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+mm_req("timecard")
+mm_req("trade")
+\dontshow{\}) # examplesIf}
+}

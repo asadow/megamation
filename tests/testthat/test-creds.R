@@ -34,6 +34,13 @@ test_that("mm_set_creds() gives bad url error", {
 })
 
 test_that("mm_set_creds() sets credentials", {
+  withr::defer({
+    mm_set_creds(
+      key = testing_key(),
+      url = 'https://api.megamation.com/uog/dl',
+      overwrite = TRUE
+    )
+  })
   mm_set_creds(
     key = "1",
     url = "https://api.megamation.com/uw/joe/",
@@ -46,15 +53,6 @@ test_that("mm_set_creds() sets credentials", {
     get_env_url(),
     "https://api.megamation.com/uw/joe"
   )
-
-  skip_on_cran()
-  withr::defer({
-    mm_set_creds(
-      key = testing_key(),
-      url = 'https://api.megamation.com/uog/dl',
-      overwrite = TRUE
-    )
-  })
   expect_equal(
     get_env_key(),
     "1"

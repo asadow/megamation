@@ -4,11 +4,11 @@
 \name{megamation-package}
 \alias{megamation}
 \alias{megamation-package}
-\title{megamation: Functions for downloading Megamation data directly in R}
+\title{megamation: Access `DirectLine` Data Using the `Megamation API`}
 \description{
 \if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
 
-What the package does (one paragraph).
+Tools for accessing and handling `DirectLine` data using the `Megamation API` \url{https://apidocs.megamation.com/}. The API allows users to interact with data programmatically, instead of via the `DirectLine` software. This package is community-maintained and is not officially supported by Megamation \url{https://megamation.com/about-megamation/}.
 }
 \seealso{
 Useful links:
@@ -20,7 +20,12 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: Adam Sadowski \email{asadowsk@uoguelph.ca} (\href{https://orcid.org/JANE'S-ORCID-ID}{ORCID})
+\strong{Maintainer}: Adam Sadowski \email{asebsadowski@gmail.com} (\href{https://orcid.org/0000-0002-8023-9227}{ORCID})
+
+Other contributors:
+\itemize{
+  \item University of Guelph [copyright holder, funder]
+}
 
 }
 \keyword{internal}

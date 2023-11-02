@@ -21,11 +21,14 @@ may or may not contain vectors  of values in one of its row.
 as a matrix before binding and unnesting their combination.
 }
 \examples{
+# Let each mpg value be equal to a list of itself.
+# Let each cyl value be equal to the entire vector mtcars$cyl.
 mtcars_list_cols <- mtcars |>
-  mutate(
+  dplyr::mutate(
     mpg = as.list(mpg),
     cyl = list(cyl)
     )
 dfs <- list(mtcars, mtcars_list_cols)
+# Then mm_bind_then_tbl() will unnest mpg but will not unnest cyl.
 mm_bind_then_tbl(dfs)
 }

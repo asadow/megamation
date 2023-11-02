@@ -1,13 +1,7 @@
 #' Are httr2 parameters well-specified
-#' @description
-#' `format_params()` formats supplied name-value pairs toward
-#' creating a valid Megamation URL.
-#' @param params A list of parameter name-value pairs.
-#' @returns A list of parameter name-value pairs.
-#' @export
 #' @keywords internal
-check_params <- function(params, call = rlang::caller_env()) {
-  np <- names(params)
+check_params <- function(x, call = rlang::caller_env()) {
+  np <- names(x)
   if (any(grepl("key", np))) {
     keys <- np[grep("key", np)]
     cli::cli_abort(c(
@@ -27,11 +21,10 @@ check_params <- function(params, call = rlang::caller_env()) {
     ))
   }
 
-  return(params)
+  return(x)
 }
 
 #' Is httr2_request
-#' @export
 #' @keywords internal
 check_request <- function(x,
                           arg = rlang::caller_arg(x),
@@ -43,18 +36,34 @@ check_request <- function(x,
       call = call
     )
   }
+  return()
+}
+#' Warn when .key is not same as MEGAMATION_KEY
+#' @keywords internal
+check_key <- function(.key) {
+  if(.key != get_env_key()) {
+    cli::cli_warn(c(
+      "The {.arg .key} you provided is not your
+        MEGAMATION_KEY environment variable.",
+      "i" = "It is highly recommended that you run {.fun mm_set_creds}, or
+      `Sys.setenv('MEGAMATION_KEY' = '<your-key>')`,
+        and {.emph do not} supply {.arg .key}.",
+      "i" = 'A typo like `kee = <your-secret>`
+        will end up in the request URL as a filter.'
+    ))
+  }
+  return()
 }
 
 #' Are credentials present
-#' @export
 #' @keywords internal
-check_creds <- function(){
+check_creds <- function() {
   creds <- c(
     key = Sys.getenv("MEGAMATION_KEY"),
     url = Sys.getenv("MEGAMATION_URL")
   )
 
-  if(any(creds == "")){
+  if(any(creds == "")) {
     cli::cli_abort(c(
       "Megamation API key and/or URL need registering:",
       i = "Use {.fun mm_set_creds}"
@@ -64,11 +73,9 @@ check_creds <- function(){
   check_url(Sys.getenv("MEGAMATION_URL"))
 
   return()
-
 }
 
 #' Checking and re-formatting URL
-#' @export
 #' @keywords internal
 check_url <- function(x,
                       arg = rlang::caller_arg(x),
@@ -90,7 +97,6 @@ check_url <- function(x,
 }
 
 #' Is boolean (length-1 logical)
-#' @export
 #' @keywords internal
 check_bool <- function(x,
                        arg = rlang::caller_arg(x),
@@ -101,10 +107,10 @@ check_bool <- function(x,
       either {.val {TRUE}} or {.val {FALSE}}, not {x}."
     )
   }
+  return()
 }
 
 #' Is string (length-1 character)
-#' @export
 #' @keywords internal
 check_string <- function(x,
                          arg = rlang::caller_arg(x),
@@ -116,10 +122,10 @@ check_string <- function(x,
       call = call
     )
   }
+  return()
 }
 
 #' Is Date
-#' @export
 #' @keywords internal
 check_date <- function(x,
                        arg = rlang::caller_arg(x),
@@ -144,4 +150,5 @@ check_date <- function(x,
       call = call
     )
   }
+  return()
 }

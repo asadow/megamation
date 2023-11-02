@@ -24,6 +24,7 @@ Where the request is paginated, pagination is automatically performed
 by \code{\link[httr2:req_perform_iteratively]{httr2::req_perform_iteratively()}}.
 }
 \examples{
-\dontshow{if (httr2::secret_has_key("HTTR2_KEY")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
-\dontshow{\}) # examplesIf}
+\dontrun{
+mm_req("status") |> mm_req_perform()
+}
 }

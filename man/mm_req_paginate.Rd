@@ -17,5 +17,7 @@ An object of class \code{httr2_request}.
 by the parsed response.
 }
 \examples{
+\dontshow{if (httr2::secret_has_key("HTTR2_KEY")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 mm_req("workorder") |> mm_req_paginate()
+\dontshow{\}) # examplesIf}
 }

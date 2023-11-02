@@ -12,6 +12,11 @@ mm_get(endpoint, ..., .paginate = TRUE)
 for work orders. All endpoints are listed at
 https://apidocs.megamation.com/.}
 
+\item{...}{<\code{\link[rlang:dyn-dots]{dynamic-dots}}> Name-value pairs to filter the request.
+The name should be the lower-case name of a
+field that is filter-enabled
+(in Megamation's words, a criteria).}
+
 \item{.paginate}{If \code{TRUE}, paginate the request.}
 }
 \value{
@@ -30,12 +35,6 @@ Where applicable, pagination is automatically applied to the request
 by \code{\link[=mm_req_paginate]{mm_req_paginate()}} and returned pages are automatically combined.
 }
 \examples{
-\dontshow{if (httr2::secret_has_key("HTTR2_KEY")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
-
-# For status endpoint
-
-mm_get("status")
-\dontshow{\}) # examplesIf}
 \dontrun{
 # You can supply vectors to filtering variables
 mm_get("workorder", wo_no = c("00001", "00002"))
@@ -52,6 +51,4 @@ jan_2023 <- seq.Date(
 
 mm_get("employee", date = jan_2023)
 }
-
-
 }

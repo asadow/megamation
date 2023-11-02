@@ -8,12 +8,12 @@
 #' @param .max A maximum Date.
 #' @returns A single string formatted as "<>MM-DD-YYYY,MM-DD-YYYY" where the
 #' "<>" modifiers means "in-between".
+#' @export
 #' @keywords internal
 #' @examples
 #' from <- as.Date("2023-09-20")
 #' to <- as.Date("2023-10-20")
-#' date <- seq(from, to, by = "day")
-#' date_as_between_string(date)
+#' date_as_between_string(from, to)
 date_as_between_string <- function(.min, .max) {
   .min <- .min |> format("%m-%d-%Y")
   .max <- .max |> format("%m-%d-%Y")
@@ -27,6 +27,7 @@ date_as_between_string <- function(.min, .max) {
 #' MM-DD-YYYY).
 #' @param date A vector of type Date.
 #' @returns A vector of strings.
+#' @export
 #' @keywords internal
 #' @examples
 #' # Single date
@@ -57,6 +58,7 @@ format_date <- function(date) {
 #' @inheritParams mm_req_params
 #' @returns A list of parameter name-value pairs.
 #' @export
+#' @keywords internal
 #' @examples
 #' from <- as.Date("2023-09-20")
 #' to <- as.Date("2023-10-20")
@@ -87,36 +89,4 @@ format_params <- function(...) {
     purrr::map(I)
 
   valid_list[order(names(valid_list))]
-}
-
-#' Modify request URL with filtering components
-#'
-#' `mm_req_params()` adds filters to the request. By default, it adds the query
-#' for all (currently available) fields.
-#'
-#'
-#' @inheritParams mm_req_paginate
-#' @param ... <[`dynamic-dots`][rlang::dyn-dots]> Name-value pairs to filter the request.
-#' The name should be the lower-case name of a
-#' field that is filter-enabled
-#' (in Megamation's words, a criteria).
-#' @param allfields If `TRUE`, return all fields currently available for
-#' the endpoint.
-#' @export
-#' @examples
-#' # No parameters
-#' mm_req("status") |> mm_req_params()
-#'
-#' # Multiple parameters
-#' from <- as.Date("2023-09-20")
-#' to <- as.Date("2023-10-20")
-#' date <- seq(from, to, by = "day")
-#' trade <- c("[]PCO", "[]DM"))
-#' mm_req("status") |> mm_req_params(date = date, trade = trade)
-mm_req_params <- function(req, ..., allfields = TRUE) {
-  check_bool(allfields)
-  params <- format_params(...)
-  if (allfields) params <- c(params, "ALLFIELDS" = 1)
-
-  req <- req |> httr2::req_url_query(!!!params)
 }

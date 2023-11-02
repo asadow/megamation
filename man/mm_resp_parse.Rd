@@ -18,3 +18,16 @@ returning an R list object. After converting bytes to characters,
 encoding is done to resolve
 a UTF-8 issue from Megamation's side.
 }
+\examples{
+\dontrun{
+# Real example
+# Parses response body to return a list
+resp <- mm_req("status") |> httr2::req_perform()
+resp |> mm_resp_parse()
+}
+
+# Fake example
+# Parses empty response body to return an empty list
+resp <- httr2::response_json()
+resp |> mm_resp_parse()
+}

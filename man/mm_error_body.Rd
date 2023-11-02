@@ -10,7 +10,8 @@ mm_error_body(resp)
 \item{resp}{An API response.}
 }
 \value{
-A string from indexing the parsed response's \code{detail} list name.
+A string from the \code{detail} index of a named
+list (the parsed response).
 }
 \description{
 \code{mm_error_body()} simply plucks the \code{detail} list from the response body,

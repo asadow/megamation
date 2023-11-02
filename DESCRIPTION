@@ -1,10 +1,20 @@
 Package: megamation
-Title: Functions for downloading Megamation data directly in R
+Title: Access `DirectLine` Data Using the `Megamation API`
 Version: 0.1.0
-Authors@R: 
-    person("Adam", "Sadowski", , "asadowsk@uoguelph.ca", role = c("aut", "cre"),
-           comment = c(ORCID = "JANE'S-ORCID-ID"))
-Description: What the package does (one paragraph).
+Authors@R: c( 
+    person(
+      "Adam", "Sadowski",
+      email = "asebsadowski@gmail.com", 
+      role = c("aut", "cre"),
+      comment = c(ORCID = "0000-0002-8023-9227")
+      ),
+    person("University of Guelph", role = c("cph", "fnd"))
+    )
+Description: Tools for accessing and handling `DirectLine` data using the 
+    `Megamation API` <https://apidocs.megamation.com/>. The API allows users to 
+    interact with data programmatically, instead of via the `DirectLine` 
+    software. This package is community-maintained and is not officially 
+    supported by Megamation <https://megamation.com/about-megamation/>.
 License: GPL (>= 3)
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)

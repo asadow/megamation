@@ -26,3 +26,4 @@ date <- seq(from, to, by = "day")
 trade <- c("[]PCO", "[]DM")
 format_params(date = date, trade = trade)
 }
+\keyword{internal}

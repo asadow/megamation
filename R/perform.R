@@ -1,15 +1,3 @@
-#' Append a GET request
-#' @inheritParams mm_req_paginate
-#' @param x `"criteria"`, `"labels"`, or `"schema"`.
-#' @export
-mm_req_append <- function(req, x) {
-  check_string(x)
-  .get <- rlang::arg_match(x, c("criteria", "labels", "schema"))
-
-  req |>
-    httr2::req_url_path_append(glue::glue("@{toupper(x)}"))
-}
-
 #' Get column names and which are currently filters
 #'
 #' @description
@@ -22,10 +10,13 @@ mm_req_append <- function(req, x) {
 #' @inheritParams mm_get
 #' @returns A data frame of class [`tbl_df`][tibble::tbl_df-class]
 #' containing the requested information.
-#' @examplesIf httr2::secret_has_key("HTTR2_KEY")
-#' mm_get_names("status")
 #' @export
+#' @examples
+#' \dontrun{
+#' mm_get_names("status")
+#' }
 mm_get_names <- function(endpoint) {
+  description <- NULL
   url_ending <- c("schema", "criteria")
 
   req <- url_ending |>
@@ -56,15 +47,11 @@ mm_get_names <- function(endpoint) {
 #' by [mm_req_paginate()] and returned pages are automatically combined.
 #'
 #' @inheritParams mm_req
+#' @inheritParams mm_req_params
 #' @param .paginate If `TRUE`, paginate the request.
 #' @returns A data frame of class [`tbl_df`][tibble::tbl_df-class]
 #' containing the requested information.
-#' @examplesIf httr2::secret_has_key("HTTR2_KEY")
-#'
-#' # For status endpoint
-#'
-#' mm_get("status")
-#'
+#' @export
 #' @examples
 #' \dontrun{
 #' # You can supply vectors to filtering variables
@@ -82,9 +69,6 @@ mm_get_names <- function(endpoint) {
 #'
 #' mm_get("employee", date = jan_2023)
 #' }
-#'
-#'
-#' @export
 mm_get <- function(endpoint, ..., .paginate = TRUE) {
   check_bool(.paginate)
 
@@ -129,8 +113,11 @@ mm_get <- function(endpoint, ..., .paginate = TRUE) {
 #' an S3 list with class `httr2_response`. (For more on this class,
 #' see [httr2::response].) If the request was paginated, these
 #' responses correspond to pages.
-#' @examplesIf httr2::secret_has_key("HTTR2_KEY")
 #' @export
+#' @examples
+#' \dontrun{
+#' mm_req("status") |> mm_req_perform()
+#' }
 mm_req_perform <- function(req) {
   check_request(req)
 
@@ -143,3 +130,4 @@ mm_req_perform <- function(req) {
       httr2::req_perform_iteratively()
   }
 }
+

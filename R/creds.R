@@ -19,28 +19,16 @@
 #'   formatted in quotes.
 #' @param overwrite If TRUE, will overwrite existing Megamation
 #'   credentials that you already have in your `.Renviron` file.
+#' @returns Writes `MEGAMATION_KEY` and `MEGAMATION_URL` environment variables
+#' to your `.Renviron` file.
+#' @export
 #' @examples
-#'
 #' \dontrun{
 #' mm_set_creds(
 #'   key = "<YOUR-MEGAMATION_KEY>",
 #'   url = "<YOUR-MEGAMATION_URL>"
 #' )
-#' # Reload your environment so you can use the credentials
-#' # without restarting R
-#' readRenviron("~/.Renviron")
-#' # You can check it with:
-#' Sys.getenv("MEGAMATION_KEY")
-#'
-#' # If you need to overwrite existing credentials:
-#' mm_set_creds(
-#'   key = "<YOUR-MEGAMATION_KEY>",
-#'   url = "<YOUR-MEGAMATION_URL>",
-#'   overwrite = TRUE
-#' )
-#' # Reload your environment to use the credentials
 #' }
-#' @export
 mm_set_creds <- function(key, url, overwrite = FALSE) {
     check_string(key)
     check_bool(overwrite)

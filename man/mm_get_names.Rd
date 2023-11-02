@@ -24,7 +24,7 @@ types of all available columns. Criteria returns the names of columns for
 which filtering is enabled.
 }
 \examples{
-\dontshow{if (httr2::secret_has_key("HTTR2_KEY")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontrun{
 mm_get_names("status")
-\dontshow{\}) # examplesIf}
+}
 }

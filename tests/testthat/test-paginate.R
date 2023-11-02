@@ -6,15 +6,7 @@ test_that("mm_req_paginate() returns paginated httr2_request", {
   expect_named(req$policies, "paginate")
 })
 
-test_that("mm_req_paginate_custom() returns paginated httr2_request", {
-  req <- httr2::request("some_url") |> mm_req_paginate_custom()
-
-  expect_s3_class(req, "httr2_request")
-  expect_named(req$policies, "paginate")
-})
-
 test_that("mm_bind_then_tbl() binds and unnests cols with values length 1", {
-
   mtcars_list_cols <- mtcars |>
     dplyr::mutate(
       mpg = as.list(mpg),

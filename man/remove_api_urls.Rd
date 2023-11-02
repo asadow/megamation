@@ -9,6 +9,14 @@ remove_api_urls(.data)
 \arguments{
 \item{.data}{Data within parsed response body.}
 }
+\value{
+A data frame containing the endpoint data without a \verb{_links} column.
+}
 \description{
 Remove API \verb{_links} column in data
 }
+\examples{
+mtcars[, "_links"] <- "some-api-url.com"
+mtcars |> remove_api_urls() |> names()
+}
+\keyword{internal}

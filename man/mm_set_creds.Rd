@@ -15,6 +15,10 @@ formatted in quotes.}
 \item{overwrite}{If TRUE, will overwrite existing Megamation
 credentials that you already have in your \code{.Renviron} file.}
 }
+\value{
+Writes \code{MEGAMATION_KEY} and \code{MEGAMATION_URL} environment variables
+to your \code{.Renviron} file.
+}
 \description{
 This function adds your Megamation API key and base URL to your
 \link{.Renviron} file so it can be called securely without being stored in
@@ -30,24 +34,10 @@ existing file, while making a backup of your original file for disaster
 recovery purposes.
 }
 \examples{
-
 \dontrun{
 mm_set_creds(
   key = "<YOUR-MEGAMATION_KEY>",
   url = "<YOUR-MEGAMATION_URL>"
 )
-# Reload your environment so you can use the credentials
-# without restarting R
-readRenviron("~/.Renviron")
-# You can check it with:
-Sys.getenv("MEGAMATION_KEY")
-
-# If you need to overwrite existing credentials:
-mm_set_creds(
-  key = "<YOUR-MEGAMATION_KEY>",
-  url = "<YOUR-MEGAMATION_URL>",
-  overwrite = TRUE
-)
-# Reload your environment to use the credentials
 }
 }

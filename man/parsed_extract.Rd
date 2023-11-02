@@ -28,3 +28,17 @@ A data frame containing the endpoint data.
 \code{parsed_extract()} extracts a data frame from the parsed
 response body.
 }
+\examples{
+\dontrun{
+# Real example
+# Returns data of interest from parsed list
+resp <- mm_req("status") |> httr2::req_perform()
+resp |> mm_resp_parse() |> parsed_extract()
+}
+
+# Fake example
+# Returns NULL from empty list
+resp <- httr2::response_json()
+resp |> mm_resp_parse() |> parsed_extract()
+}
+\keyword{internal}

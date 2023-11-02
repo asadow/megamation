@@ -7,11 +7,28 @@
 #' @description The body of the response contains raw bytes.
 #' After converting these bytes to a string, encoding is done to resolve
 #' a UTF-8 issue from Megamation's side.
-#' @returns A list.
+#' @returns A data frame containing the endpoint data.
 #' @export
+#' @examples
+#' \dontrun{
+#' # Real example
+#' # Returns data of interest from a response
+#' resp <- mm_req("status") |> httr2::req_perform()
+#' resp |> mm_resp_extract()
+#' }
+#'
+#' # Fake example
+#' # Returns NULL from an empty response body
+#' resp <- httr2::response_json()
+#' resp |> mm_resp_extract()
 mm_resp_extract <- function(resp) {
   .from <- sub(".*/@", "", resp$url) |> tolower()
-
+  .from <- switch(.from,
+    "data",
+    labels = "labels",
+    criteria = "criteria",
+    schema = "schema"
+  )
   resp |>
     mm_resp_parse() |>
     parsed_extract(.from)
@@ -27,6 +44,18 @@ mm_resp_extract <- function(resp) {
 #' @param resp An API response.
 #' @returns A list.
 #' @export
+#' @examples
+#' \dontrun{
+#' # Real example
+#' # Parses response body to return a list
+#' resp <- mm_req("status") |> httr2::req_perform()
+#' resp |> mm_resp_parse()
+#' }
+#'
+#' # Fake example
+#' # Parses empty response body to return an empty list
+#' resp <- httr2::response_json()
+#' resp |> mm_resp_parse()
 mm_resp_parse <- function(resp) {
   resp |>
     httr2::resp_body_raw() |>
@@ -46,14 +75,24 @@ mm_resp_parse <- function(resp) {
 #' @param .get Whether the GET request is for the endpoint's `"data"`,
 #' `"criteria"`, `"labels"`, or `"schema"`.
 #' @returns A data frame containing the endpoint data.
-#'
 #' @export
+#' @examples
+#' \dontrun{
+#' # Real example
+#' # Returns data of interest from parsed list
+#' resp <- mm_req("status") |> httr2::req_perform()
+#' resp |> mm_resp_parse() |> parsed_extract()
+#' }
+#'
+#' # Fake example
+#' # Returns NULL from empty list
+#' resp <- httr2::response_json()
+#' resp |> mm_resp_parse() |> parsed_extract()
 parsed_extract <- function(parsed, .get = "data") {
   check_string(.get)
   .get <- rlang::arg_match(.get, c("criteria", "labels", "schema", "data"))
 
-  switch(
-    .get,
+  switch(.get,
     data = extract_data(parsed),
     labels = ,
     criteria = extract_criteria(parsed),
@@ -63,6 +102,7 @@ parsed_extract <- function(parsed, .get = "data") {
 
 #' @rdname parsed_extract
 #' @export
+#' @keywords internal
 extract_data <- function(parsed) {
   parsed |>
     purrr::list_flatten() |>
@@ -72,6 +112,7 @@ extract_data <- function(parsed) {
 
 #' @rdname parsed_extract
 #' @export
+#' @keywords internal
 extract_criteria <- function(parsed) {
   description <- field <- NULL
 
@@ -86,6 +127,7 @@ extract_criteria <- function(parsed) {
 
 #' @rdname parsed_extract
 #' @export
+#' @keywords internal
 extract_schema <- function(parsed) {
   type <- description <- field <- NULL
 

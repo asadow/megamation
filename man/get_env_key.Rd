@@ -6,6 +6,10 @@
 \usage{
 get_env_key()
 }
+\value{
+The string value of the MEGAMATION_KEY environment variable
+or an error if none exists.
+}
 \description{
 Get \code{MEGAMATION_KEY} env var
 }

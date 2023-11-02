@@ -6,6 +6,10 @@
 \usage{
 get_env_url()
 }
+\value{
+The string value of the MEGAMATION_URL environment variable
+or an error if none exists.
+}
 \description{
 Get \code{MEGAMATION_URL} env var
 }

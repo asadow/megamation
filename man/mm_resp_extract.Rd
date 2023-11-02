@@ -10,7 +10,7 @@ mm_resp_extract(resp)
 \item{resp}{An API response.}
 }
 \value{
-A list.
+A data frame containing the endpoint data.
 }
 \description{
 The body of the response contains raw bytes.
@@ -20,4 +20,17 @@ a UTF-8 issue from Megamation's side.
 \details{
 \code{mm_resp_extract()} parses the raw bytes from an API response,
 and extracts data from the parsed object.
+}
+\examples{
+\dontrun{
+# Real example
+# Returns data of interest from a response
+resp <- mm_req("status") |> httr2::req_perform()
+resp |> mm_resp_extract()
+}
+
+# Fake example
+# Returns NULL from an empty response body
+resp <- httr2::response_json()
+resp |> mm_resp_extract()
 }

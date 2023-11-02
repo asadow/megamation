@@ -6,6 +6,10 @@
 \usage{
 get_env_user()
 }
+\value{
+The string value of the MEGAMATION_USER environment variable
+or an error if none exists.
+}
 \description{
 Get \code{MEGAMATION_USER} env var
 }
