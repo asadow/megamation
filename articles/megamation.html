@@ -94,9 +94,9 @@
 <p><code><a href="../reference/mm_get.html">mm_get()</a></code> gets data by using these credentials.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/mm_get.html">mm_get</a></span><span class="op">(</span><span class="st">"status"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; <span style="color: #BBBB00; font-weight: bold;">Error</span><span style="font-weight: bold;"> in `cred_error()`:</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BBBB00;">!</span> No `MEGAMATION_KEY` found.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Did you run `mm_set_creds()`?</span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #BBBB00; font-weight: bold;">Error</span><span style="font-weight: bold;"> in `check_creds()`:</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BBBB00;">!</span> Megamation API key and/or URL need registering:</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Use `mm_set_creds()`</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="supply-filters">Supply Filters<a class="anchor" aria-label="anchor" href="#supply-filters"></a>
@@ -120,10 +120,10 @@ for privacy of data.)</p>
 dates:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">jan_2023</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.Date.html" class="external-link">seq.Date</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="st">"2023-01-01"</span><span class="op">)</span>,  </span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="st">"2023-01-31"</span><span class="op">)</span>, </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="st">"2023-01-01"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="st">"2023-01-31"</span><span class="op">)</span>,</span>
 <span>  by <span class="op">=</span> <span class="st">"day"</span></span>
-<span>  <span class="op">)</span></span></code></pre></div>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/mm_get.html">mm_get</a></span><span class="op">(</span><span class="st">"workorder"</span>, date <span class="op">=</span> <span class="va">jan_2023</span><span class="op">)</span></span></code></pre></div>
 </div>
@@ -153,9 +153,9 @@ response.</li>
 it:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">req</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/mm_request.html">mm_request</a></span><span class="op">(</span><span class="st">"workorder"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; <span style="color: #BBBB00; font-weight: bold;">Error</span><span style="font-weight: bold;"> in `cred_error()`:</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BBBB00;">!</span> No `MEGAMATION_KEY` found.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Did you run `mm_set_creds()`?</span></span>
+<span><span class="co">#&gt; <span style="color: #BBBB00; font-weight: bold;">Error</span><span style="font-weight: bold;"> in `check_creds()`:</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BBBB00;">!</span> Megamation API key and/or URL need registering:</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Use `mm_set_creds()`</span></span>
 <span><span class="va">req</span></span>
 <span><span class="co">#&gt; Error in eval(expr, envir, enclos): object 'req' not found</span></span></code></pre></div>
 </div>
@@ -164,9 +164,9 @@ it:</p>
 </h3>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">req</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/mm_request.html">mm_request</a></span><span class="op">(</span><span class="st">"workorder"</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="../reference/mm_req_params.html">mm_req_params</a></span><span class="op">(</span>date <span class="op">=</span> <span class="va">jan_2023</span><span class="op">)</span></span>
-<span><span class="co">#&gt; <span style="color: #BBBB00; font-weight: bold;">Error</span><span style="font-weight: bold;"> in `cred_error()`:</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BBBB00;">!</span> No `MEGAMATION_KEY` found.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Did you run `mm_set_creds()`?</span></span>
+<span><span class="co">#&gt; <span style="color: #BBBB00; font-weight: bold;">Error</span><span style="font-weight: bold;"> in `check_creds()`:</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BBBB00;">!</span> Megamation API key and/or URL need registering:</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Use `mm_set_creds()`</span></span>
 <span><span class="va">req</span></span>
 <span><span class="co">#&gt; Error in eval(expr, envir, enclos): object 'req' not found</span></span></code></pre></div>
 </div>
@@ -177,9 +177,9 @@ it:</p>
 of API responses.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">resp</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/mm_request.html">mm_request</a></span><span class="op">(</span><span class="st">"status"</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="../reference/mm_req_perform.html">mm_req_perform</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt; <span style="color: #BBBB00; font-weight: bold;">Error</span><span style="font-weight: bold;"> in `cred_error()`:</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BBBB00;">!</span> No `MEGAMATION_KEY` found.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Did you run `mm_set_creds()`?</span></span>
+<span><span class="co">#&gt; <span style="color: #BBBB00; font-weight: bold;">Error</span><span style="font-weight: bold;"> in `check_creds()`:</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BBBB00;">!</span> Megamation API key and/or URL need registering:</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Use `mm_set_creds()`</span></span>
 <span><span class="va">resp</span></span>
 <span><span class="co">#&gt; Error in eval(expr, envir, enclos): object 'resp' not found</span></span></code></pre></div>
 </div>

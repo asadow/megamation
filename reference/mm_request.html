@@ -90,7 +90,7 @@ from your <code>.Renviron</code>.</p></li>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">mm_request</span><span class="op">(</span><span class="va">endpoint</span>, .url <span class="op">=</span> <span class="fu"><a href="get_env_url.html">get_env_url</a></span><span class="op">(</span><span class="op">)</span>, .key <span class="op">=</span> <span class="fu"><a href="get_env_key.html">get_env_key</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">mm_request</span><span class="op">(</span><span class="va">endpoint</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -100,14 +100,6 @@ from your <code>.Renviron</code>.</p></li>
 <code>"timecard"</code> for employee transactions, and <code>"workorder"</code>
 for work orders. All endpoints are listed at
 https://apidocs.megamation.com/.</p></dd>
-
-
-<dt>.url</dt>
-<dd><p>API base URL for request.</p></dd>
-
-
-<dt>.key</dt>
-<dd><p>API key for request.</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -120,11 +112,11 @@ https://apidocs.megamation.com/.</p></dd>
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">mm_request</span><span class="op">(</span><span class="st">"timecard"</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in cred_error("key"):</span> No `MEGAMATION_KEY` found.</span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Did you run `mm_set_creds()`?</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in check_creds():</span> Megamation API key and/or URL need registering:</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Use `mm_set_creds()`</span>
 <span class="r-in"><span><span class="fu">mm_request</span><span class="op">(</span><span class="st">"trade"</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in cred_error("key"):</span> No `MEGAMATION_KEY` found.</span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Did you run `mm_set_creds()`?</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in check_creds():</span> Megamation API key and/or URL need registering:</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Use `mm_set_creds()`</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

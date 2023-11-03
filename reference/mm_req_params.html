@@ -89,8 +89,8 @@ the endpoint.</p></dd>
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># No parameters</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="mm_request.html">mm_request</a></span><span class="op">(</span><span class="st">"status"</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu">mm_req_params</span><span class="op">(</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in cred_error("key"):</span> No `MEGAMATION_KEY` found.</span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Did you run `mm_set_creds()`?</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in check_creds():</span> Megamation API key and/or URL need registering:</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Use `mm_set_creds()`</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Multiple parameters</span></span></span>
 <span class="r-in"><span><span class="va">from</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="st">"2023-09-20"</span><span class="op">)</span></span></span>
@@ -98,8 +98,8 @@ the endpoint.</p></dd>
 <span class="r-in"><span><span class="va">date</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="va">from</span>, <span class="va">to</span>, by <span class="op">=</span> <span class="st">"day"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">trade</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"[]PCO"</span>, <span class="st">"[]DM"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="mm_request.html">mm_request</a></span><span class="op">(</span><span class="st">"status"</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu">mm_req_params</span><span class="op">(</span>date <span class="op">=</span> <span class="va">date</span>, trade <span class="op">=</span> <span class="va">trade</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in cred_error("key"):</span> No `MEGAMATION_KEY` found.</span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Did you run `mm_set_creds()`?</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in check_creds():</span> Megamation API key and/or URL need registering:</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Use `mm_set_creds()`</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
