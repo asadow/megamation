@@ -20,7 +20,8 @@ where Megamation's API includes informative error messages.
 \examples{
 fake_mm_resp <- httr2::response_json(
   body = list(
-    detail = "This is a fake detail/message from the API's response.")
-    )
+    detail = "This is a fake detail/message from the API's response."
+  )
+)
 mm_error_body(fake_mm_resp)
 }

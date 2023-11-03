@@ -16,12 +16,10 @@ mm_req_append <- function(req, x) {
 #' `mm_req_params()` adds filters to the request. By default, it adds the query
 #' for all (currently available) fields.
 #'
-#'
 #' @inheritParams mm_next_req
-#' @param ... <[`dynamic-dots`][rlang::dyn-dots]> Name-value pairs to filter the request.
-#' The name should be the lower-case name of a
-#' field that is filter-enabled
-#' (in Megamation's words, a criteria).
+#' @param ... <[`dynamic-dots`][rlang::dyn-dots]> Name-value pairs to filter the
+#' request. The name should be the lower-case name of a field that is
+#' filter-enabled (in Megamation's words, a criteria).
 #' @param allfields If `TRUE`, return all fields currently available for
 #' the endpoint.
 #' @returns An object of class `httr2_request` with a pagination policy.

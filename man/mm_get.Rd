@@ -12,10 +12,9 @@ mm_get(endpoint, ..., .paginate = TRUE)
 for work orders. All endpoints are listed at
 https://apidocs.megamation.com/.}
 
-\item{...}{<\code{\link[rlang:dyn-dots]{dynamic-dots}}> Name-value pairs to filter the request.
-The name should be the lower-case name of a
-field that is filter-enabled
-(in Megamation's words, a criteria).}
+\item{...}{<\code{\link[rlang:dyn-dots]{dynamic-dots}}> Name-value pairs to filter the
+request. The name should be the lower-case name of a field that is
+filter-enabled (in Megamation's words, a criteria).}
 
 \item{.paginate}{If \code{TRUE}, paginate the request.}
 }
@@ -47,7 +46,7 @@ jan_2023 <- seq.Date(
   as.Date("2023-01-01"),
   as.Date("2023-01-31"),
   by = "day"
-  )
+)
 
 mm_get("employee", date = jan_2023)
 }

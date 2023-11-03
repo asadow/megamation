@@ -2,9 +2,11 @@ structure(list(
   method = "GET", url = "status/@SCHEMA", status_code = 200L,
   headers = structure(list(
     `Cache-Control` = "REDACTED", `Content-Type` = "application/hal+json",
-    Server = "REDACTED", `X-Powered-By` = "REDACTED", `Access-Control-Allow-Origin` = "REDACTED",
+    Server = "REDACTED", `X-Powered-By` = "REDACTED",
+    `Access-Control-Allow-Origin` = "REDACTED",
     `WWW-Authenticate` = "REDACTED", `X-Powered-By` = "REDACTED",
-    `X-Robots-Tag` = "REDACTED", Date = "REDACTED", `Content-Length` = "REDACTED",
+    `X-Robots-Tag` = "REDACTED", Date = "REDACTED",
+    `Content-Length` = "REDACTED",
     `Set-Cookie` = "REDACTED", `Strict-Transport-Security` = "REDACTED"
   ), class = "httr2_headers"),
   body = as.raw(c(

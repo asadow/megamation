@@ -45,9 +45,8 @@ mm_get_names <- function(endpoint) {
 #'
 #' Where applicable, pagination is automatically applied to the request
 #' and returned pages are automatically combined.
-#'
-#' @inheritParams mm_request
 #' @inheritParams mm_req_params
+#' @inheritParams mm_request
 #' @param .paginate If `TRUE`, paginate the request.
 #' @returns A data frame of class [`tbl_df`][tibble::tbl_df-class]
 #' containing the requested information.

@@ -5,7 +5,8 @@ structure(list(
     `Content-Type` = "application/problem+json", Server = "REDACTED",
     `X-Powered-By` = "REDACTED", `Access-Control-Allow-Origin` = "REDACTED",
     `WWW-Authenticate` = "REDACTED", `X-Powered-By` = "REDACTED",
-    `X-Robots-Tag` = "REDACTED", Date = "REDACTED", `Content-Length` = "REDACTED",
+    `X-Robots-Tag` = "REDACTED", Date = "REDACTED",
+    `Content-Length` = "REDACTED",
     `Set-Cookie` = "REDACTED", `Strict-Transport-Security` = "REDACTED"
   ), class = "httr2_headers"),
   body = as.raw(c(
