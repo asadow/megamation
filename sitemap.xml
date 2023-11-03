@@ -34,9 +34,6 @@
     <loc>https://asadow.github.io/megamation/reference/index.html</loc>
   </url>
   <url>
-    <loc>https://asadow.github.io/megamation/reference/is_paginated.html</loc>
-  </url>
-  <url>
     <loc>https://asadow.github.io/megamation/reference/megamation-package.html</loc>
   </url>
   <url>
@@ -49,13 +46,13 @@
     <loc>https://asadow.github.io/megamation/reference/mm_get_names.html</loc>
   </url>
   <url>
+    <loc>https://asadow.github.io/megamation/reference/mm_next_req.html</loc>
+  </url>
+  <url>
     <loc>https://asadow.github.io/megamation/reference/mm_pagebind.html</loc>
   </url>
   <url>
     <loc>https://asadow.github.io/megamation/reference/mm_req_append.html</loc>
-  </url>
-  <url>
-    <loc>https://asadow.github.io/megamation/reference/mm_req_paginate.html</loc>
   </url>
   <url>
     <loc>https://asadow.github.io/megamation/reference/mm_req_params.html</loc>
