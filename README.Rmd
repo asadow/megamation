@@ -132,4 +132,3 @@ Please see the package website: <https://asadow.github.io/megamation/>.
 ```{r}
 end_vignette()
 ```
-
