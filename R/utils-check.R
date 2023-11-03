@@ -1,12 +1,3 @@
-#' Detect whether a request is paginated
-#' `is_paginated()` checks whether an `httr2_request` has a paginate policy.
-#' @returns `TRUE` or `FALSE`.
-#' @param req httr2 request.
-is_paginated <- function(req) {
-  check_request(req)
-  "paginate" %in% names(req$policies)
-}
-
 # Are httr2 parameters well-specified
 check_params <- function(x, call = rlang::caller_env()) {
   np <- names(x)

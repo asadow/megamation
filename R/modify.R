@@ -1,5 +1,5 @@
 #' Append a GET request
-#' @inheritParams mm_req_paginate
+#' @inheritParams mm_next_req
 #' @param x `"criteria"`, `"labels"`, or `"schema"`.
 #' @returns An object of class `httr2_request`.
 #' @export
@@ -20,7 +20,7 @@ mm_req_append <- function(req, x) {
 #' for all (currently available) fields.
 #'
 #'
-#' @inheritParams mm_req_paginate
+#' @inheritParams mm_next_req
 #' @param ... <[`dynamic-dots`][rlang::dyn-dots]> Name-value pairs to filter the request.
 #' The name should be the lower-case name of a
 #' field that is filter-enabled

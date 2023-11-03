@@ -32,7 +32,7 @@ containing the requested information.
 }
 
 Where applicable, pagination is automatically applied to the request
-by \code{\link[=mm_req_paginate]{mm_req_paginate()}} and returned pages are automatically combined.
+and returned pages are automatically combined.
 }
 \examples{
 \dontrun{

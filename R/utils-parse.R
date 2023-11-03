@@ -3,16 +3,6 @@ mm_n_pages <- function(parsed) {
   sub(".*_", "", parsed$page_count) |> as.numeric()
 }
 
-# Get data and URL from parsed Megamation API response
-mm_data_and_url <- function(resp) {
-  parsed <- resp |> mm_resp_parse()
-
-  url <- parsed$next_page
-  url <- if (is.null(url) || url == "") NULL else (url)
-
-  list(data = list(resp), next_url = url)
-}
-
 #' Parse body from Megamation API response
 #'
 #' `mm_resp_parse()` parses the raw bytes from an API response,

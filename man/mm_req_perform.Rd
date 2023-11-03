@@ -19,9 +19,6 @@ responses correspond to pages.
 After creating a request with \code{\link[=mm_request]{mm_request()}},
 call \code{mm_req_perform()} to perform it and fetch
 the results back to R.
-
-Where the request is paginated, pagination is automatically performed
-by \code{\link[httr2:req_perform_iteratively]{httr2::req_perform_iteratively()}}.
 }
 \examples{
 \dontrun{

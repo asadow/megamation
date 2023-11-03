@@ -44,7 +44,7 @@ mm_get_names <- function(endpoint) {
 #' * Converts the body of the response to a data frame.
 #'
 #' Where applicable, pagination is automatically applied to the request
-#' by [mm_req_paginate()] and returned pages are automatically combined.
+#' and returned pages are automatically combined.
 #'
 #' @inheritParams mm_request
 #' @inheritParams mm_req_params
@@ -72,13 +72,9 @@ mm_get_names <- function(endpoint) {
 mm_get <- function(endpoint, ..., .paginate = TRUE) {
   check_bool(.paginate)
 
-  req <- mm_request(endpoint) |> mm_req_params(...)
-
-  req <- if (!.paginate) {
-    req
-  } else mm_req_paginate(req)
-
-  resp <- mm_req_perform(req)
+  resp <- mm_request(endpoint) |>
+    mm_req_params(...) |>
+    mm_req_perform()
 
   tbl_result <- if (!.paginate) {
     resp[[1]] |>
