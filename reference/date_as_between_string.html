@@ -28,6 +28,9 @@ including DATE=X&amp;amp;DATE=Y&amp;amp;DATE=Z to DATE = &amp;lt;&amp;gt;X,Z whe
 <li class="active nav-item">
   <a class="nav-link" href="../reference/index.html">Reference</a>
 </li>
+<li class="nav-item">
+  <a class="nav-link" href="../news/index.html">Changelog</a>
+</li>
       </ul><form class="form-inline my-2 my-lg-0" role="search">
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off"></form>
 
@@ -45,7 +48,7 @@ including DATE=X&amp;amp;DATE=Y&amp;amp;DATE=Z to DATE = &amp;lt;&amp;gt;X,Z whe
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Format sequence of dates</h1>
-      <small class="dont-index">Source: <a href="https://github.com/asadow/megamation/blob/HEAD/R/params.R" class="external-link"><code>R/params.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/asadow/megamation/blob/HEAD/R/utils-params.R" class="external-link"><code>R/utils-params.R</code></a></small>
       <div class="d-none name"><code>date_as_between_string.Rd</code></div>
     </div>
 
@@ -78,21 +81,12 @@ including <code>DATE=X&amp;DATE=Y&amp;DATE=Z</code> to <code>DATE = &lt;&gt;X,Z<
 "&lt;&gt;" modifiers means "in-between".</p>
     </div>
 
-    <div class="section level2">
-    <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">from</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="st">"2023-09-20"</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">to</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="st">"2023-10-20"</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">date</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="va">from</span>, <span class="va">to</span>, by <span class="op">=</span> <span class="st">"day"</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu">date_as_between_string</span><span class="op">(</span><span class="va">date</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in date_as_between_string(date):</span> could not find function "date_as_between_string"</span>
-</code></pre></div>
-    </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside></div>
 
 
     <footer><div class="pkgdown-footer-left">
-  <p></p><p>Developed by Adam Sadowski.</p>
+  <p></p><p>Developed by Adam Sadowski, University of Guelph.</p>
 </div>
 
 <div class="pkgdown-footer-right">

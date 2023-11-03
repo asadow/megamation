@@ -38,6 +38,9 @@ by mm_req_paginate() and returned pages are automatically combined."><meta prope
 <li class="active nav-item">
   <a class="nav-link" href="../reference/index.html">Reference</a>
 </li>
+<li class="nav-item">
+  <a class="nav-link" href="../news/index.html">Changelog</a>
+</li>
       </ul><form class="form-inline my-2 my-lg-0" role="search">
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off"></form>
 
@@ -55,7 +58,7 @@ by mm_req_paginate() and returned pages are automatically combined."><meta prope
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Get data</h1>
-      <small class="dont-index">Source: <a href="https://github.com/asadow/megamation/blob/HEAD/R/perform.R" class="external-link"><code>R/perform.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/asadow/megamation/blob/HEAD/R/get.R" class="external-link"><code>R/get.R</code></a></small>
       <div class="d-none name"><code>mm_get.Rd</code></div>
     </div>
 
@@ -81,6 +84,13 @@ for work orders. All endpoints are listed at
 https://apidocs.megamation.com/.</p></dd>
 
 
+<dt>...</dt>
+<dd><p>&lt;<code><a href="https://rlang.r-lib.org/reference/dyn-dots.html" class="external-link">dynamic-dots</a></code>&gt; Name-value pairs to filter the request.
+The name should be the lower-case name of a
+field that is filter-enabled
+(in Megamation's words, a criteria).</p></dd>
+
+
 <dt>.paginate</dt>
 <dd><p>If <code>TRUE</code>, paginate the request.</p></dd>
 
@@ -97,13 +107,7 @@ https://apidocs.megamation.com/.</p></dd>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span> <span class="co"># httr2::secret_has_key("HTTR2_KEY")</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># For status endpoint</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="fu">mm_get</span><span class="op">(</span><span class="st">"status"</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="op">}</span></span></span>
-<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
 <span class="r-in"><span><span class="co"># You can supply vectors to filtering variables</span></span></span>
 <span class="r-in"><span><span class="fu">mm_get</span><span class="op">(</span><span class="st">"workorder"</span>, wo_no <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"00001"</span>, <span class="st">"00002"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
@@ -119,8 +123,6 @@ https://apidocs.megamation.com/.</p></dd>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">mm_get</span><span class="op">(</span><span class="st">"employee"</span>, date <span class="op">=</span> <span class="va">jan_2023</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
@@ -128,7 +130,7 @@ https://apidocs.megamation.com/.</p></dd>
 
 
     <footer><div class="pkgdown-footer-left">
-  <p></p><p>Developed by Adam Sadowski.</p>
+  <p></p><p>Developed by Adam Sadowski, University of Guelph.</p>
 </div>
 
 <div class="pkgdown-footer-right">

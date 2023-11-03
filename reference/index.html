@@ -24,6 +24,9 @@
 <li class="active nav-item">
   <a class="nav-link" href="../reference/index.html">Reference</a>
 </li>
+<li class="nav-item">
+  <a class="nav-link" href="../news/index.html">Changelog</a>
+</li>
       </ul><form class="form-inline my-2 my-lg-0" role="search">
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off"></form>
 
@@ -56,19 +59,15 @@
 
       <dl><dt>
           
-          <code><a href="format_params.html">format_params()</a></code> 
+          <code><a href="date_as_between_string.html">date_as_between_string()</a></code> 
         </dt>
-        <dd>Format a list of parameters</dd>
+        <dd>Format sequence of dates</dd>
       </dl><dl><dt>
           
           <code><a href="is_paginated.html">is_paginated()</a></code> 
         </dt>
-        <dd>Detect whether a request is paginated</dd>
-      </dl><dl><dt>
-          
-          <code><a href="mm_bind_then_tbl.html">mm_bind_then_tbl()</a></code> 
-        </dt>
-        <dd>Bind multiple Megamation API pages by row before converting to a tibble</dd>
+        <dd>Detect whether a request is paginated
+<code><a href="../reference/is_paginated.html">is_paginated()</a></code> checks whether an <code>httr2_request</code> has a paginate policy.</dd>
       </dl><dl><dt>
           
           <code><a href="mm_error_body.html">mm_error_body()</a></code> 
@@ -86,9 +85,9 @@
         <dd>Get column names and which are currently filters</dd>
       </dl><dl><dt>
           
-          <code><a href="mm_req.html">mm_req()</a></code> 
+          <code><a href="mm_pagebind.html">mm_pagebind()</a></code> 
         </dt>
-        <dd>Create a Megamation API request</dd>
+        <dd>Bind multiple Megamation API pages by row before converting to a tibble</dd>
       </dl><dl><dt>
           
           <code><a href="mm_req_append.html">mm_req_append()</a></code> 
@@ -97,11 +96,6 @@
       </dl><dl><dt>
           
           <code><a href="mm_req_paginate.html">mm_req_paginate()</a></code> 
-        </dt>
-        <dd>Add pagination to a Megamation API request</dd>
-      </dl><dl><dt>
-          
-          <code><a href="mm_req_paginate_custom.html">mm_req_paginate_custom()</a></code> 
         </dt>
         <dd>Add pagination to a Megamation API request</dd>
       </dl><dl><dt>
@@ -116,9 +110,9 @@
         <dd>Perform a Megamation API request</dd>
       </dl><dl><dt>
           
-          <code><a href="mm_req_perform_paginate_custom.html">mm_req_perform_paginate_custom()</a></code> 
+          <code><a href="mm_request.html">mm_request()</a></code> 
         </dt>
-        <dd>Perform a paginated request</dd>
+        <dd>Create a Megamation API request</dd>
       </dl><dl><dt>
           
           <code><a href="mm_resp_extract.html">mm_resp_extract()</a></code> 
@@ -126,35 +120,20 @@
         <dd>Extract data from Megamation API response</dd>
       </dl><dl><dt>
           
-          <code><a href="mm_resp_parse.html">mm_resp_parse()</a></code> 
-        </dt>
-        <dd>Parse body from Megamation API response</dd>
-      </dl><dl><dt>
-          
           <code><a href="mm_set_creds.html">mm_set_creds()</a></code> 
         </dt>
         <dd>Install Megamation credentials in your <code>.Renviron</code> file for repeated use</dd>
       </dl><dl><dt>
           
-          <code><a href="parsed_extract.html">parsed_extract()</a></code> <code><a href="parsed_extract.html">extract_data()</a></code> <code><a href="parsed_extract.html">extract_criteria()</a></code> <code><a href="parsed_extract.html">extract_schema()</a></code> 
-        </dt>
-        <dd>Create tibble from parsed response</dd>
-      </dl><dl><dt>
-          
           <code><a href="remove_api_urls.html">remove_api_urls()</a></code> 
         </dt>
         <dd>Remove API <code>_links</code> column in data</dd>
-      </dl><dl><dt>
-          
-          <code><a href="req_opts.html">req_opts()</a></code> 
-        </dt>
-        <dd>Specify request options</dd>
       </dl></div>
   </main></div>
 
 
     <footer><div class="pkgdown-footer-left">
-  <p></p><p>Developed by Adam Sadowski.</p>
+  <p></p><p>Developed by Adam Sadowski, University of Guelph.</p>
 </div>
 
 <div class="pkgdown-footer-right">

@@ -48,6 +48,9 @@
 <li class="nav-item">
   <a class="nav-link" href="../reference/index.html">Reference</a>
 </li>
+<li class="nav-item">
+  <a class="nav-link" href="../news/index.html">Changelog</a>
+</li>
       </ul>
 <form class="form-inline my-2 my-lg-0" role="search">
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off">
@@ -81,8 +84,7 @@
 
     
     
-<pre><code>No token available. Code chunks will not be evaluated.</code></pre>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/asadow/megamation" class="external-link">megamation</a></span><span class="op">)</span></span></code></pre></div>
 <div class="section level2">
 <h2 id="authorize">Authorize<a class="anchor" aria-label="anchor" href="#authorize"></a>
@@ -90,8 +92,11 @@
 <p><code><a href="../reference/mm_set_creds.html">mm_set_creds()</a></code> installs your API credentials in your
 <code>.Renviron</code>, a safe place for secrets.</p>
 <p><code><a href="../reference/mm_get.html">mm_get()</a></code> gets data by using these credentials.</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/mm_get.html">mm_get</a></span><span class="op">(</span><span class="st">"status"</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/mm_get.html">mm_get</a></span><span class="op">(</span><span class="st">"status"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; <span style="color: #BBBB00; font-weight: bold;">Error</span><span style="font-weight: bold;"> in `cred_error()`:</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BBBB00;">!</span> No `MEGAMATION_KEY` found.</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Did you run `mm_set_creds()`?</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="supply-filters">Supply Filters<a class="anchor" aria-label="anchor" href="#supply-filters"></a>
@@ -99,7 +104,7 @@
 <p><code><a href="../reference/mm_get.html">mm_get()</a></code> takes name-value pairs to filter and speed up
 your request. It always returns a tibble. (Here, we show only the R code
 for privacy of data.)</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/mm_get.html">mm_get</a></span><span class="op">(</span><span class="st">"workorder"</span>, building_id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"001"</span>, <span class="st">"002"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p>The values can be prefixed by Megamation’s <a href="https://apidocs.megamation.com/" class="external-link">modifiers</a>:</p>
 <ul>
@@ -109,17 +114,17 @@ for privacy of data.)</p>
 <li><p><code>&lt;&lt;</code> for less than</p></li>
 <li><p><code>&lt;&gt;</code> for between.</p></li>
 </ul>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/mm_get.html">mm_get</a></span><span class="op">(</span><span class="st">"workorder"</span>, trade <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"[]PCO"</span>, <span class="st">"[]DM"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p>Instead of using <code>&lt;&gt;</code> for dates, use a sequence of
 dates:</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">jan_2023</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.Date.html" class="external-link">seq.Date</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="st">"2023-01-01"</span><span class="op">)</span>,  </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="st">"2023-01-31"</span><span class="op">)</span>, </span>
 <span>  by <span class="op">=</span> <span class="st">"day"</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/mm_get.html">mm_get</a></span><span class="op">(</span><span class="st">"workorder"</span>, date <span class="op">=</span> <span class="va">jan_2023</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
@@ -129,59 +134,76 @@ dates:</p>
 <p><code><a href="../reference/mm_get.html">mm_get()</a></code> uses five main functions:</p>
 <ul>
 <li>
-<code><a href="../reference/mm_req.html">mm_req()</a></code> to create a request.</li>
+<code><a href="../reference/mm_request.html">mm_request()</a></code> to create a request.</li>
 <li>
 <code><a href="../reference/mm_req_params.html">mm_req_params()</a></code> to filter by parameters.</li>
 <li>
 <code><a href="../reference/mm_req_perform.html">mm_req_perform()</a></code> to perform a request and return the
 response.</li>
 <li>
-<code><a href="../reference/mm_resp_parse.html">mm_resp_parse()</a></code> to parse the response.</li>
+<code>mm_resp_parse()</code> to parse the response.</li>
 <li>
-<code><a href="../reference/parsed_extract.html">parsed_extract()</a></code> to extract data from the parsed
+<code>parsed_extract()</code> to extract data from the parsed
 response.</li>
 </ul>
 <div class="section level3">
 <h3 id="define-the-request">Define the Request<a class="anchor" aria-label="anchor" href="#define-the-request"></a>
 </h3>
-<p><code><a href="../reference/mm_req.html">mm_req()</a></code> prints the request without performing it:</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">req</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/mm_req.html">mm_req</a></span><span class="op">(</span><span class="st">"workorder"</span><span class="op">)</span></span>
-<span><span class="va">req</span></span></code></pre></div>
+<p><code><a href="../reference/mm_request.html">mm_request()</a></code> prints the request without performing
+it:</p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">req</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/mm_request.html">mm_request</a></span><span class="op">(</span><span class="st">"workorder"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; <span style="color: #BBBB00; font-weight: bold;">Error</span><span style="font-weight: bold;"> in `cred_error()`:</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BBBB00;">!</span> No `MEGAMATION_KEY` found.</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Did you run `mm_set_creds()`?</span></span>
+<span><span class="va">req</span></span>
+<span><span class="co">#&gt; Error in eval(expr, envir, enclos): object 'req' not found</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="parameterize-the-request">Parameterize the Request<a class="anchor" aria-label="anchor" href="#parameterize-the-request"></a>
 </h3>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">req</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/mm_req.html">mm_req</a></span><span class="op">(</span><span class="st">"workorder"</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="../reference/mm_req_params.html">mm_req_params</a></span><span class="op">(</span>date <span class="op">=</span> <span class="va">jan_2023</span><span class="op">)</span></span>
-<span><span class="va">req</span></span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">req</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/mm_request.html">mm_request</a></span><span class="op">(</span><span class="st">"workorder"</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="../reference/mm_req_params.html">mm_req_params</a></span><span class="op">(</span>date <span class="op">=</span> <span class="va">jan_2023</span><span class="op">)</span></span>
+<span><span class="co">#&gt; <span style="color: #BBBB00; font-weight: bold;">Error</span><span style="font-weight: bold;"> in `cred_error()`:</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BBBB00;">!</span> No `MEGAMATION_KEY` found.</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Did you run `mm_set_creds()`?</span></span>
+<span><span class="va">req</span></span>
+<span><span class="co">#&gt; Error in eval(expr, envir, enclos): object 'req' not found</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="perform-the-request">Perform the Request<a class="anchor" aria-label="anchor" href="#perform-the-request"></a>
 </h3>
 <p><code><a href="../reference/mm_req_perform.html">mm_req_perform()</a></code> performs a request and returns a list
 of API responses.</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">resp</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/mm_req.html">mm_req</a></span><span class="op">(</span><span class="st">"status"</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="../reference/mm_req_perform.html">mm_req_perform</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="va">resp</span></span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">resp</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/mm_request.html">mm_request</a></span><span class="op">(</span><span class="st">"status"</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="../reference/mm_req_perform.html">mm_req_perform</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; <span style="color: #BBBB00; font-weight: bold;">Error</span><span style="font-weight: bold;"> in `cred_error()`:</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BBBB00;">!</span> No `MEGAMATION_KEY` found.</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Did you run `mm_set_creds()`?</span></span>
+<span><span class="va">resp</span></span>
+<span><span class="co">#&gt; Error in eval(expr, envir, enclos): object 'resp' not found</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="parse-the-response">Parse the Response<a class="anchor" aria-label="anchor" href="#parse-the-response"></a>
 </h3>
-<p><code><a href="../reference/mm_resp_parse.html">mm_resp_parse()</a></code> parses the body of a response, which
+<p><code>mm_resp_parse()</code> parses the body of a response, which
 contains raw bytes, and returns a list.</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">parsed</span> <span class="op">&lt;-</span> <span class="va">resp</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span> <span class="op">|&gt;</span> <span class="fu"><a href="../reference/mm_resp_parse.html">mm_resp_parse</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="va">parsed</span></span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">parsed</span> <span class="op">&lt;-</span> <span class="va">resp</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span> <span class="op">|&gt;</span> <span class="fu">mm_resp_parse</span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Error in mm_resp_parse(resp[[1]]): could not find function "mm_resp_parse"</span></span>
+<span><span class="va">parsed</span></span>
+<span><span class="co">#&gt; Error in eval(expr, envir, enclos): object 'parsed' not found</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="extract-data-from-the-parsed-response">Extract Data From the Parsed Response<a class="anchor" aria-label="anchor" href="#extract-data-from-the-parsed-response"></a>
 </h3>
-<p><code><a href="../reference/parsed_extract.html">parsed_extract()</a></code> extracts the data of interest from a
+<p><code>parsed_extract()</code> extracts the data of interest from a
 parsed body.</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">.data</span> <span class="op">&lt;-</span> <span class="va">parsed</span> <span class="op">|&gt;</span> <span class="fu"><a href="../reference/parsed_extract.html">parsed_extract</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="va">.data</span></span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">.data</span> <span class="op">&lt;-</span> <span class="va">parsed</span> <span class="op">|&gt;</span> <span class="fu">parsed_extract</span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Error in parsed_extract(parsed): could not find function "parsed_extract"</span></span>
+<span><span class="va">.data</span></span>
+<span><span class="co">#&gt; Error in eval(expr, envir, enclos): object '.data' not found</span></span></code></pre></div>
 </div>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
@@ -192,7 +214,7 @@ parsed body.</p>
 
     <footer><div class="pkgdown-footer-left">
   <p></p>
-<p>Developed by Adam Sadowski.</p>
+<p>Developed by Adam Sadowski, University of Guelph.</p>
 </div>
 
 <div class="pkgdown-footer-right">
