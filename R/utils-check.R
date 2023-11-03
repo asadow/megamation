@@ -37,22 +37,6 @@ check_request <- function(x,
   return()
 }
 
-# Warn when .key is not same as MEGAMATION_KEY
-check_key <- function(.key) {
-  if(.key != get_env_key()) {
-    cli::cli_warn(c(
-      "The {.arg .key} you provided is not your
-        MEGAMATION_KEY environment variable.",
-      "i" = "It is highly recommended that you run {.fun mm_set_creds}, or
-      `Sys.setenv('MEGAMATION_KEY' = '<your-key>')`,
-        and {.emph do not} supply {.arg .key}.",
-      "i" = 'A typo like `kee = <your-secret>`
-        will end up in the request URL as a filter.'
-    ))
-  }
-  return()
-}
-
 # Are credentials present
 check_creds <- function() {
   creds <- c(

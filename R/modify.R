@@ -43,6 +43,5 @@ mm_req_params <- function(req, ..., allfields = TRUE) {
   check_bool(allfields)
   params <- format_params(...)
   if (allfields) params <- c(params, "ALLFIELDS" = 1)
-
-  req <- req |> httr2::req_url_query(!!!params)
+  httr2::req_url_query(req, !!!params)
 }

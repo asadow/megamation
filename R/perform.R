@@ -18,9 +18,5 @@
 #' }
 mm_req_perform <- function(req) {
   check_request(req)
-
-  req |>
-    httr2::req_perform_iterative(
-      next_req = function(resp, req) mm_next_req(resp, req)
-    )
+  httr2::req_perform_iterative(req, next_req = mm_next_req)
 }

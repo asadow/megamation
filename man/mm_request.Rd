@@ -4,17 +4,13 @@
 \alias{mm_request}
 \title{Create a Megamation API request}
 \usage{
-mm_request(endpoint, .url = get_env_url(), .key = get_env_key())
+mm_request(endpoint)
 }
 \arguments{
 \item{endpoint}{The API endpoint. For example,
 \code{"timecard"} for employee transactions, and \code{"workorder"}
 for work orders. All endpoints are listed at
 https://apidocs.megamation.com/.}
-
-\item{.url}{API base URL for request.}
-
-\item{.key}{API key for request.}
 }
 \value{
 An object of class \code{httr2_request}.

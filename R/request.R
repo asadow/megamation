@@ -19,23 +19,20 @@
 #' `"timecard"` for employee transactions, and `"workorder"`
 #' for work orders. All endpoints are listed at
 #' https://apidocs.megamation.com/.
-#' @param .url API base URL for request.
-#' @param .key API key for request.
 #' @returns An object of class `httr2_request`.
 #' @export
 #' @examplesIf httr2::secret_has_key("HTTR2_KEY_MEGAMATION")
 #' mm_request("timecard")
 #' mm_request("trade")
-mm_request <- function(endpoint, .url = get_env_url(), .key = get_env_key()) {
+mm_request <- function(endpoint) {
+  check_creds()
   check_string(endpoint)
-  check_key(.key)
-
-  httr2::request(.url) |>
+  agent <- "megamation (https://github.com/asadow/megamation)"
+  user <- "APIDL"
+  httr2::request(get_env_url()) |>
     httr2::req_url_path_append(endpoint) |>
-    httr2::req_user_agent(
-      "megamation (https://github.com/asadow/megamation)"
-    ) |>
-    httr2::req_auth_basic("APIDL", .key) |>
+    httr2::req_user_agent(agent) |>
+    httr2::req_auth_basic(user, get_env_key()) |>
     httr2::req_error(body = mm_error_body) |>
     httr2::req_cache(tempdir(), debug = TRUE)
 }
