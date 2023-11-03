@@ -3,7 +3,7 @@
 #' @description
 #' This function adds your Megamation API key and base URL to your
 #' [.Renviron] file so it can be called securely without being stored in
-#' your code. After you have installed these two credentials, [mm_req()] and
+#' your code. After you have installed these two credentials, [mm_request()] and
 #' [mm_get()] will call them automatically. They can be
 #' called manually at any time with `Sys.getenv("MEGAMATION_KEY")` or
 #' `Sys.getenv("MEGAMATION_URL")`.

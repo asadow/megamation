@@ -1,5 +1,13 @@
-#' Are httr2 parameters well-specified
-#' @keywords internal
+#' Detect whether a request is paginated
+#' `is_paginated()` checks whether an `httr2_request` has a paginate policy.
+#' @returns `TRUE` or `FALSE`.
+#' @param req httr2 request.
+is_paginated <- function(req) {
+  check_request(req)
+  "paginate" %in% names(req$policies)
+}
+
+# Are httr2 parameters well-specified
 check_params <- function(x, call = rlang::caller_env()) {
   np <- names(x)
   if (any(grepl("key", np))) {
@@ -13,19 +21,18 @@ check_params <- function(x, call = rlang::caller_env()) {
     ))
   }
 
-  if (any(startsWith("\\.", np))) {
+  if (any(startsWith(np, "."))) {
     dotted <- np[grep("\\.", np)]
     cli::cli_abort(c(
       "Prevented filter {.arg dotted} from being included in the request URL.",
-      "i" = 'Did you mean `{sub("\\.", "", dotted[1])} = "<value>"`?'
+      "i" = 'Did you mean `{sub("\\\\.", "", dotted[1])} = "<value>"`?'
     ))
   }
 
   return(x)
 }
 
-#' Is httr2_request
-#' @keywords internal
+# Is httr2_request
 check_request <- function(x,
                           arg = rlang::caller_arg(x),
                           call = rlang::caller_env()) {
@@ -38,8 +45,8 @@ check_request <- function(x,
   }
   return()
 }
-#' Warn when .key is not same as MEGAMATION_KEY
-#' @keywords internal
+
+# Warn when .key is not same as MEGAMATION_KEY
 check_key <- function(.key) {
   if(.key != get_env_key()) {
     cli::cli_warn(c(
@@ -55,8 +62,7 @@ check_key <- function(.key) {
   return()
 }
 
-#' Are credentials present
-#' @keywords internal
+# Are credentials present
 check_creds <- function() {
   creds <- c(
     key = Sys.getenv("MEGAMATION_KEY"),
@@ -75,8 +81,7 @@ check_creds <- function() {
   return()
 }
 
-#' Checking and re-formatting URL
-#' @keywords internal
+# Checking and re-formatting URL
 check_url <- function(x,
                       arg = rlang::caller_arg(x),
                       call = rlang::caller_env()) {
@@ -96,8 +101,6 @@ check_url <- function(x,
   return(x)
 }
 
-#' Is boolean (length-1 logical)
-#' @keywords internal
 check_bool <- function(x,
                        arg = rlang::caller_arg(x),
                        call = rlang::caller_env()) {
@@ -110,8 +113,6 @@ check_bool <- function(x,
   return()
 }
 
-#' Is string (length-1 character)
-#' @keywords internal
 check_string <- function(x,
                          arg = rlang::caller_arg(x),
                          call = rlang::caller_env(),
@@ -125,8 +126,6 @@ check_string <- function(x,
   return()
 }
 
-#' Is Date
-#' @keywords internal
 check_date <- function(x,
                        arg = rlang::caller_arg(x),
                        call = rlang::caller_env()) {

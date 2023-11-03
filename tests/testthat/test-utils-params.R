@@ -32,8 +32,3 @@ test_that("format_params() will not accept NA or empty date", {
   expect_error(format_params(date = as.Date(NULL)), "length 0")
 })
 
-test_that("mm_req_params() adds ALLFIELDS=1", {
-  req <- mm_req("status") |> mm_req_params()
-  expect_true(grepl("ALLFIELDS=1", req$url))
-})
-

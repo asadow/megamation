@@ -10,6 +10,7 @@ testing_key()
 A string of a decrypted key.
 }
 \description{
-testing_key() uses the HTTR2_KEY environment var to decrypt a secret.
+testing_key() uses the HTTR2_KEY_MEGAMATION environment
+variable to decrypt a secret.
 }
 \keyword{internal}

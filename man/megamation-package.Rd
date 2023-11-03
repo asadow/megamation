@@ -4,11 +4,11 @@
 \name{megamation-package}
 \alias{megamation}
 \alias{megamation-package}
-\title{megamation: Access `DirectLine` Data Using the `Megamation API`}
+\title{megamation: Access 'DirectLine' Data Using the 'Megamation API'}
 \description{
 \if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
 
-Tools for accessing and handling `DirectLine` data using the `Megamation API` \url{https://apidocs.megamation.com/}. The API allows users to interact with data programmatically, instead of via the `DirectLine` software. This package is community-maintained and is not officially supported by Megamation \url{https://megamation.com/about-megamation/}.
+Tools for accessing and handling 'DirectLine' data using the 'Megamation API' \url{https://apidocs.megamation.com/}. The API allows users to interact with data programmatically, instead of via the 'DirectLine' software. This package is community-maintained and is not officially supported by Megamation \url{https://megamation.com/about-megamation/}.
 }
 \seealso{
 Useful links:

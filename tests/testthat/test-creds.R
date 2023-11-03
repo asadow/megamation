@@ -1,8 +1,6 @@
 test_that("absence of API key or URL raises an error", {
   withr::local_envvar(
-    c("MEGAMATION_KEY" = "",
-      "MEGAMATION_URL" = "",
-      "MEGAMATION_USER" = "")
+    c("MEGAMATION_KEY" = "", "MEGAMATION_URL" = "")
     )
   expect_error(
     check_creds(),
@@ -10,10 +8,6 @@ test_that("absence of API key or URL raises an error", {
   )
   expect_error(
     get_env_url(),
-    "No `MEGAMATION.* found"
-  )
-  expect_error(
-    get_env_user(),
     "No `MEGAMATION.* found"
   )
 })
@@ -62,8 +56,7 @@ test_that("mm_set_creds() sets credentials", {
 test_that("presence of bad creds raises an error", {
   withr::local_envvar(
     c("MEGAMATION_KEY" = "2",
-      "MEGAMATION_URL" = "https://api.megamation.com/uw/bob/",
-      "MEGAMATION_USER" = "Bob")
+      "MEGAMATION_URL" = "https://api.megamation.com/uw/bob/")
     )
   expect_error(
     mm_set_creds(
@@ -72,12 +65,5 @@ test_that("presence of bad creds raises an error", {
     ),
     "Megamation credentials already exist"
   )
-
-  # Other tests
-  expect_equal(
-    get_env_user(),
-    "Bob"
-  )
-  expect_null(check_creds())
 })
 

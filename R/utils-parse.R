@@ -1,37 +1,16 @@
-#' Extract data from Megamation API response
-#'
-#' `mm_resp_extract()` parses the raw bytes from an API response,
-#' and extracts data from the parsed object.
-#'
-#' @param resp An API response.
-#' @description The body of the response contains raw bytes.
-#' After converting these bytes to a string, encoding is done to resolve
-#' a UTF-8 issue from Megamation's side.
-#' @returns A data frame containing the endpoint data.
-#' @export
-#' @examples
-#' \dontrun{
-#' # Real example
-#' # Returns data of interest from a response
-#' resp <- mm_req("status") |> httr2::req_perform()
-#' resp |> mm_resp_extract()
-#' }
-#'
-#' # Fake example
-#' # Returns NULL from an empty response body
-#' resp <- httr2::response_json()
-#' resp |> mm_resp_extract()
-mm_resp_extract <- function(resp) {
-  .from <- sub(".*/@", "", resp$url) |> tolower()
-  .from <- switch(.from,
-    "data",
-    labels = "labels",
-    criteria = "criteria",
-    schema = "schema"
-  )
-  resp |>
-    mm_resp_parse() |>
-    parsed_extract(.from)
+# Get the number of total pages from Megamation API response
+mm_n_pages <- function(parsed) {
+  sub(".*_", "", parsed$page_count) |> as.numeric()
+}
+
+# Get data and URL from parsed Megamation API response
+mm_data_and_url <- function(resp) {
+  parsed <- resp |> mm_resp_parse()
+
+  url <- parsed$next_page
+  url <- if (is.null(url) || url == "") NULL else (url)
+
+  list(data = list(resp), next_url = url)
 }
 
 #' Parse body from Megamation API response
@@ -43,12 +22,12 @@ mm_resp_extract <- function(resp) {
 #'
 #' @param resp An API response.
 #' @returns A list.
-#' @export
+#' @noRd
 #' @examples
 #' \dontrun{
 #' # Real example
 #' # Parses response body to return a list
-#' resp <- mm_req("status") |> httr2::req_perform()
+#' resp <- mm_request("status") |> httr2::req_perform()
 #' resp |> mm_resp_parse()
 #' }
 #'
@@ -75,12 +54,12 @@ mm_resp_parse <- function(resp) {
 #' @param .get Whether the GET request is for the endpoint's `"data"`,
 #' `"criteria"`, `"labels"`, or `"schema"`.
 #' @returns A data frame containing the endpoint data.
-#' @export
+#' @noRd
 #' @examples
 #' \dontrun{
 #' # Real example
 #' # Returns data of interest from parsed list
-#' resp <- mm_req("status") |> httr2::req_perform()
+#' resp <- mm_request("status") |> httr2::req_perform()
 #' resp |> mm_resp_parse() |> parsed_extract()
 #' }
 #'
@@ -93,16 +72,15 @@ parsed_extract <- function(parsed, .get = "data") {
   .get <- rlang::arg_match(.get, c("criteria", "labels", "schema", "data"))
 
   switch(.get,
-    data = extract_data(parsed),
-    labels = ,
-    criteria = extract_criteria(parsed),
-    schema = extract_schema(parsed)
+         data = extract_data(parsed),
+         labels = ,
+         criteria = extract_criteria(parsed),
+         schema = extract_schema(parsed)
   )
 }
 
 #' @rdname parsed_extract
-#' @export
-#' @keywords internal
+#' @noRd
 extract_data <- function(parsed) {
   parsed |>
     purrr::list_flatten() |>
@@ -111,8 +89,7 @@ extract_data <- function(parsed) {
 }
 
 #' @rdname parsed_extract
-#' @export
-#' @keywords internal
+#' @noRd
 extract_criteria <- function(parsed) {
   description <- field <- NULL
 
@@ -126,8 +103,7 @@ extract_criteria <- function(parsed) {
 }
 
 #' @rdname parsed_extract
-#' @export
-#' @keywords internal
+#' @noRd
 extract_schema <- function(parsed) {
   type <- description <- field <- NULL
 
@@ -140,4 +116,3 @@ extract_schema <- function(parsed) {
     tidyr::unnest(type) |>
     as.data.frame()
 }
-

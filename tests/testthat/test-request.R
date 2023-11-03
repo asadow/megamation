@@ -1,5 +1,6 @@
-test_that("mm_req() returns class httr2_request", {
-  req <- mm_req("status")
+test_that("mm_request() returns class httr2_request", {
+  skip_on_cran()
+  req <- mm_request("status")
   expect_s3_class(req, "httr2_request")
   expected_names <- c("url", "method", "headers", "body",
                  "fields", "options", "policies")

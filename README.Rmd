@@ -2,8 +2,8 @@
 output: github_document
 ---
 
-```{r, include = FALSE}
-can_decrypt <- httr2::secret_has_key("HTTR2_KEY")
+```{r setup, include = FALSE}
+can_decrypt <- httr2::secret_has_key("HTTR2_KEY_MEGAMATION")
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",

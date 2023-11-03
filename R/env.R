@@ -16,26 +16,18 @@ get_env_key <- function() {
   }
 }
 
-#' Error on absent MEGAMATION env vars
-#' @returns An error or `NULL`.
-#' @export
-#' @keywords internal
-cred_error <- function(x) {
-  cli::cli_abort(c(
-    "No {.envvar MEGAMATION_{toupper(x)}} found.",
-    "i" = "Did you run {.fun mm_set_creds}?"
-  ))
-  return()
-}
-
 #' Get personal key
 #'
-#' testing_key() uses the HTTR2_KEY environment var to decrypt a secret.
+#' testing_key() uses the HTTR2_KEY_MEGAMATION environment
+#' variable to decrypt a secret.
 #' @returns A string of a decrypted key.
 #' @export
 #' @keywords internal
 testing_key <- function() {
-  httr2::secret_decrypt("4E5GlxeUybPJnCQQnwyDGsPIncZI526gyfk", "HTTR2_KEY")
+  httr2::secret_decrypt(
+    "4E5GlxeUybPJnCQQnwyDGsPIncZI526gyfk",
+    "HTTR2_KEY_MEGAMATION"
+    )
 }
 
 #' Get `MEGAMATION_URL` env var
@@ -49,17 +41,4 @@ get_env_url <- function() {
     return(url)
   }
   cred_error("url")
-}
-
-#' Get `MEGAMATION_USER` env var
-#' @returns The string value of the MEGAMATION_USER environment variable
-#' or an error if none exists.
-#' @export
-#' @keywords internal
-get_env_user <- function() {
-  user <- Sys.getenv("MEGAMATION_USER")
-  if (!identical(user, "")) {
-    return(user)
-  }
-  cred_error("user")
 }
