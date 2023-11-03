@@ -14,7 +14,7 @@ test_that("format_params() formats dates not in sequence", {
   expected <- list(
     DATE = structure("09-20-2023", class = "AsIs"),
     DATE = structure("09-23-2023", class = "AsIs")
-    )
+  )
   expect_equal(format_params(date = date), expected)
 })
 
@@ -31,4 +31,3 @@ test_that("format_params() will not accept NA or empty date", {
   expect_error(format_params(date = lubridate::as_date(NA)), "NA")
   expect_error(format_params(date = as.Date(NULL)), "length 0")
 })
-

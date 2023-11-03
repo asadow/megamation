@@ -11,7 +11,7 @@
 #' mm_request("workorder") |>
 #'   httr2::req_perform_iterative(
 #'     next_req = function(resp, req) mm_next_req(resp, req)
-#'     )
+#'   )
 #' }
 mm_next_req <- function(resp, req) {
   parsed <- resp |> mm_resp_parse()
@@ -19,7 +19,7 @@ mm_next_req <- function(resp, req) {
   if (is.null(url) || url == "") {
     return(NULL)
   }
-  signal_total_pages(mm_n_pages(parsed))
+  httr2::signal_total_pages(mm_n_pages(parsed))
   req$url <- url
   return(req)
 }

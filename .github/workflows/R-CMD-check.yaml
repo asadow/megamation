@@ -25,7 +25,6 @@ jobs:
           - {os: ubuntu-latest,   r: 'oldrel-1'}
 
     env:
-      HTTR2_KEY_MEGAMATION: ${{ secrets.HTTR2_KEY_MEGAMATION }}
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       R_KEEP_PKG_SOURCE: yes
 

@@ -14,11 +14,11 @@
 #' page_1 <- mtcars |>
 #'   dplyr::mutate(
 #'     mpg = as.list(mpg),
-#'     )
+#'   )
 #' page_2 <- page_1 |>
 #'   dplyr::mutate(
 #'     cyl = list(cyl)
-#'     )
+#'   )
 #' pages <- list(page_1, page_2)
 #' # mpg unnests but not cyl
 #' mm_pagebind(pages)

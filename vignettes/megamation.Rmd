@@ -68,10 +68,10 @@ Instead of using `<>` for dates, use a sequence of dates:
 
 ```{r}
 jan_2023 <- seq.Date(
-  as.Date("2023-01-01"),  
-  as.Date("2023-01-31"), 
+  as.Date("2023-01-01"),
+  as.Date("2023-01-31"),
   by = "day"
-  )
+)
 ```
 
 ```{r, eval = FALSE}

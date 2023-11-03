@@ -30,54 +30,53 @@
 #' )
 #' }
 mm_set_creds <- function(key, url, overwrite = FALSE) {
-    check_string(key)
-    check_bool(overwrite)
-    url <- check_url(url)
+  check_string(key)
+  check_bool(overwrite)
+  url <- check_url(url)
 
-    home <- Sys.getenv("HOME")
-    renv <- file.path(home, ".Renviron")
+  home <- Sys.getenv("HOME")
+  renv <- file.path(home, ".Renviron")
 
-    # If needed, backup original .Renviron before doing anything
-    if (file.exists(renv)) {
-      file.copy(renv, file.path(home, ".Renviron_backup"))
-    }
+  # If needed, backup original .Renviron before doing anything
+  if (file.exists(renv)) {
+    file.copy(renv, file.path(home, ".Renviron_backup"))
+  }
 
-    if (!file.exists(renv)) {
-      file.create(renv)
-    } else {
-      if (isTRUE(overwrite)) {
-        cli::cli_alert_info(
-          "If needed, your original {.file {'.Renviron'}}
+  if (!file.exists(renv)) {
+    file.create(renv)
+  } else {
+    if (isTRUE(overwrite)) {
+      cli::cli_alert_info(
+        "If needed, your original {.file {'.Renviron'}}
           is backed up and stored in
           {.file {home}}."
-          )
-        oldenv <- readLines(renv)
-        newenv <- oldenv[-grep("MEGAMATION_KEY|MEGAMATION_URL", oldenv)]
-        writeLines(newenv, renv)
-      }
-      else {
-        tv <- readLines(renv)
-        if (any(grepl("MEGAMATION_KEY|MEGAMATION_URL", tv))) {
-          cli::cli_abort(c(
-              "Megamation credentials already exist.",
-              "i" = "You can set {.arg overwrite = TRUE}
+      )
+      oldenv <- readLines(renv)
+      newenv <- oldenv[-grep("MEGAMATION_KEY|MEGAMATION_URL", oldenv)]
+      writeLines(newenv, renv)
+    } else {
+      tv <- readLines(renv)
+      if (any(grepl("MEGAMATION_KEY|MEGAMATION_URL", tv))) {
+        cli::cli_abort(c(
+          "Megamation credentials already exist.",
+          "i" = "You can set {.arg overwrite = TRUE}
               to overwrite them."
-            ))
-        }
+        ))
       }
     }
-
-    keyconcat <- glue::glue("MEGAMATION_KEY = '{key}'")
-    urlconcat <- glue::glue("MEGAMATION_URL = '{url}'")
-
-    # Append credentials to .Renviron file
-    write(keyconcat, renv, sep = "\n", append = TRUE)
-    write(urlconcat, renv, sep = "\n", append = TRUE)
-
-    Sys.setenv(
-      MEGAMATION_KEY = key,
-      MEGAMATION_URL = url
-    )
-
-    cli::cli_alert_success("Set and loaded Megamation API credentials.")
   }
+
+  keyconcat <- glue::glue("MEGAMATION_KEY = '{key}'")
+  urlconcat <- glue::glue("MEGAMATION_URL = '{url}'")
+
+  # Append credentials to .Renviron file
+  write(keyconcat, renv, sep = "\n", append = TRUE)
+  write(urlconcat, renv, sep = "\n", append = TRUE)
+
+  Sys.setenv(
+    MEGAMATION_KEY = key,
+    MEGAMATION_URL = url
+  )
+
+  cli::cli_alert_success("Set and loaded Megamation API credentials.")
+}

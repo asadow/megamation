@@ -33,4 +33,3 @@ mm_resp_extract <- function(resp) {
     mm_resp_parse() |>
     parsed_extract(.from)
 }
-

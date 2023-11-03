@@ -10,8 +10,9 @@
 #' @examples
 #' fake_mm_resp <- httr2::response_json(
 #'   body = list(
-#'     detail = "This is a fake detail/message from the API's response.")
-#'     )
+#'     detail = "This is a fake detail/message from the API's response."
+#'   )
+#' )
 #' mm_error_body(fake_mm_resp)
 mm_error_body <- function(resp) {
   if (!httr2::resp_has_body(resp)) {

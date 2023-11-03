@@ -14,7 +14,9 @@
 #' format_params(date = date, trade = trade)
 format_params <- function(...) {
   params <- rlang::list2(...)
-  if (rlang::is_empty(params)) return(params)
+  if (rlang::is_empty(params)) {
+    return(params)
+  }
   params <- check_params(params)
 
   if ("date" %in% names(params)) {

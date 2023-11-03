@@ -1,7 +1,7 @@
 test_that("absence of API key or URL raises an error", {
   withr::local_envvar(
     c("MEGAMATION_KEY" = "", "MEGAMATION_URL" = "")
-    )
+  )
   expect_error(
     check_creds(),
     "Megamation API key and/or URL need registering:"
@@ -31,7 +31,7 @@ test_that("mm_set_creds() sets credentials", {
   withr::defer({
     mm_set_creds(
       key = testing_key(),
-      url = 'https://api.megamation.com/uog/dl',
+      url = "https://api.megamation.com/uog/dl",
       overwrite = TRUE
     )
   })
@@ -39,7 +39,7 @@ test_that("mm_set_creds() sets credentials", {
     key = "1",
     url = "https://api.megamation.com/uw/joe/",
     overwrite = TRUE
-    )
+  )
   expect_false(
     endsWith(Sys.getenv("MEGAMATION_URL"), "/")
   )
@@ -55,9 +55,11 @@ test_that("mm_set_creds() sets credentials", {
 
 test_that("presence of bad creds raises an error", {
   withr::local_envvar(
-    c("MEGAMATION_KEY" = "2",
-      "MEGAMATION_URL" = "https://api.megamation.com/uw/bob/")
+    c(
+      "MEGAMATION_KEY" = "2",
+      "MEGAMATION_URL" = "https://api.megamation.com/uw/bob/"
     )
+  )
   expect_error(
     mm_set_creds(
       key = "1",
@@ -66,4 +68,3 @@ test_that("presence of bad creds raises an error", {
     "Megamation credentials already exist"
   )
 })
-

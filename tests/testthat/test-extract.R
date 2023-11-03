@@ -1,4 +1,3 @@
-
 with_mock_dir("mm_resp_extract-schema", {
   skip_on_cran()
   test_that("mm_resp_extract() for schema returns embedded data", {

@@ -50,22 +50,26 @@ mm_resp_parse <- function(resp) {
 #' # Real example
 #' # Returns data of interest from parsed list
 #' resp <- mm_request("status") |> httr2::req_perform()
-#' resp |> mm_resp_parse() |> parsed_extract()
+#' resp |>
+#'   mm_resp_parse() |>
+#'   parsed_extract()
 #' }
 #'
 #' # Fake example
 #' # Returns NULL from empty list
 #' resp <- httr2::response_json()
-#' resp |> mm_resp_parse() |> parsed_extract()
+#' resp |>
+#'   mm_resp_parse() |>
+#'   parsed_extract()
 parsed_extract <- function(parsed, .get = "data") {
   check_string(.get)
   .get <- rlang::arg_match(.get, c("criteria", "labels", "schema", "data"))
 
   switch(.get,
-         data = extract_data(parsed),
-         labels = ,
-         criteria = extract_criteria(parsed),
-         schema = extract_schema(parsed)
+    data = extract_data(parsed),
+    labels = ,
+    criteria = extract_criteria(parsed),
+    schema = extract_schema(parsed)
   )
 }
 

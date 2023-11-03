@@ -7,8 +7,8 @@ check_params <- function(x, call = rlang::caller_env()) {
       "Prevented filter {.arg keys} from being included in the request URL.",
       "i" = "It is highly recommended that you run {.fun mm_set_creds},
     and {.emph do not} supply {.arg .key}.",
-      "i" = 'A typo like `kee = <your-secret>`
-    will end up in the request URL as a filter.'
+      "i" = "A typo like `kee = <your-secret>`
+    will end up in the request URL as a filter."
     ))
   }
 
@@ -44,7 +44,7 @@ check_creds <- function() {
     url = Sys.getenv("MEGAMATION_URL")
   )
 
-  if(any(creds == "")) {
+  if (any(creds == "")) {
     cli::cli_abort(c(
       "Megamation API key and/or URL need registering:",
       i = "Use {.fun mm_set_creds}"

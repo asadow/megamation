@@ -29,7 +29,7 @@ mm_get_names <- function(endpoint) {
   data$criteria$filter_enabled <- TRUE
 
   data$criteria |>
-    dplyr::select(- description) |>
+    dplyr::select(-description) |>
     dplyr::right_join(data$schema, by = "field") |>
     tibble::as_tibble()
 }
@@ -65,7 +65,7 @@ mm_get_names <- function(endpoint) {
 #'   as.Date("2023-01-01"),
 #'   as.Date("2023-01-31"),
 #'   by = "day"
-#'   )
+#' )
 #'
 #' mm_get("employee", date = jan_2023)
 #' }

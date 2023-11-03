@@ -8,10 +8,7 @@
 #'
 mm_req_append <- function(req, x) {
   check_string(x)
-  .get <- rlang::arg_match(x, c("criteria", "labels", "schema"))
-
-  req |>
-    httr2::req_url_path_append(glue::glue("@{toupper(x)}"))
+  httr2::req_url_path_append(req, glue::glue("@{toupper(x)}"))
 }
 
 #' Modify request URL with filtering components

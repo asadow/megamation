@@ -27,7 +27,7 @@ testing_key <- function() {
   httr2::secret_decrypt(
     "4E5GlxeUybPJnCQQnwyDGsPIncZI526gyfk",
     "HTTR2_KEY_MEGAMATION"
-    )
+  )
 }
 
 #' Get `MEGAMATION_URL` env var
