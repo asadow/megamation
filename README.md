@@ -8,6 +8,7 @@
 coverage](https://codecov.io/gh/asadow/megamation/branch/master/graph/badge.svg)](https://app.codecov.io/gh/asadow/megamation?branch=master)
 [![Lifecycle:
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
+[![R-CMD-check](https://github.com/asadow/megamation/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/asadow/megamation/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 ## Overview
@@ -74,9 +75,8 @@ It provides informative R errors (alongside HTTP errors):
 ``` r
 mm_get("statuses")
 #> Error in `req_perform()`:
-#> ! Failed to parse error body with method defined in `req_error()`.
-#> Caused by error in `env_has()`:
-#> ! `env` must be an environment, not `NULL`.
+#> ! HTTP 404 Not Found.
+#> • This is not a valid web API endpoint.
 ```
 
 ### Filter Requests
@@ -88,9 +88,8 @@ Let’s try to request two work orders by their work order numbers:
 ``` r
 mm_get("workorder", wo_no = c("00001", "00002"))
 #> Error in `req_perform()`:
-#> ! Failed to parse error body with method defined in `req_error()`.
-#> Caused by error in `env_has()`:
-#> ! `env` must be an environment, not `NULL`.
+#> ! HTTP 404 Not Found.
+#> • wo_no is not valid for this web API endpoint.
 ```
 
 Uh oh! `wo_no` is not available as a filterable field (yet). You can ask
