@@ -20,11 +20,11 @@ creating a valid Megamation URL."><meta property="og:image" content="https://asa
     </button>
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
-      <ul class="navbar-nav me-auto"><li class="nav-item">
-  <a class="nav-link" href="../articles/megamation.html">Get started</a>
-</li>
-<li class="active nav-item">
+      <ul class="navbar-nav me-auto"><li class="active nav-item">
   <a class="nav-link" href="../reference/index.html">Reference</a>
+</li>
+<li class="nav-item">
+  <a class="nav-link" href="../news/index.html">Changelog</a>
 </li>
       </ul><form class="form-inline my-2 my-lg-0" role="search">
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off"></form>
@@ -43,7 +43,7 @@ creating a valid Megamation URL."><meta property="og:image" content="https://asa
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Format a list of parameters</h1>
-      <small class="dont-index">Source: <a href="https://github.com/asadow/megamation/blob/HEAD/R/params.R" class="external-link"><code>R/params.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/asadow/megamation/blob/HEAD/R/utils-params.R" class="external-link"><code>R/utils-params.R</code></a></small>
       <div class="d-none name"><code>format_params.Rd</code></div>
     </div>
 
@@ -60,10 +60,11 @@ creating a valid Megamation URL.</p>
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>...</dt>
-<dd><p>&lt;<code><a href="https://rlang.r-lib.org/reference/dyn-dots.html" class="external-link">dynamic-dots</a></code>&gt; Name-value pairs to filter the request.
-The name should be the lower-case name of a
-field that is filter-enabled
-(in Megamation's words, a criteria).</p></dd>
+<dd><p>&lt;<code><a href="https://rlang.r-lib.org/reference/dyn-dots.html" class="external-link">dynamic-dots</a></code>&gt; Name-value pairs to filter the
+request. The name should be the lower-case name of a field that is
+filter-enabled (in Megamation's words, a criteria). These arguments are
+processed with <code><a href="https://rlang.r-lib.org/reference/defusing-advanced.html" class="external-link">rlang::quos()</a></code> and support unquote via <code>!!</code> and
+unquote-splice via <code>!!!</code>.</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -79,7 +80,7 @@ field that is filter-enabled
 <span class="r-in"><span><span class="va">to</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="st">"2023-10-20"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">date</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="va">from</span>, <span class="va">to</span>, by <span class="op">=</span> <span class="st">"day"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">trade</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"[]PCO"</span>, <span class="st">"[]DM"</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu">format_params</span><span class="op">(</span>date <span class="op">=</span> <span class="va">date</span>, trade <span class="op">=</span> <span class="va">trade</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">megamation</span><span class="fu">:::</span><span class="fu">format_params</span><span class="op">(</span>date <span class="op">=</span> <span class="va">date</span>, trade <span class="op">=</span> <span class="va">trade</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $DATE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "&lt;&gt;09-20-2023,10-20-2023"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -96,7 +97,7 @@ field that is filter-enabled
 
 
     <footer><div class="pkgdown-footer-left">
-  <p></p><p>Developed by Adam Sadowski.</p>
+  <p></p><p>Developed by Adam Sadowski, University of Guelph.</p>
 </div>
 
 <div class="pkgdown-footer-right">

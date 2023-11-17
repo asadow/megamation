@@ -18,10 +18,7 @@
     </button>
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
-      <ul class="navbar-nav me-auto"><li class="nav-item">
-  <a class="nav-link" href="../articles/megamation.html">Get started</a>
-</li>
-<li class="active nav-item">
+      <ul class="navbar-nav me-auto"><li class="active nav-item">
   <a class="nav-link" href="../reference/index.html">Reference</a>
 </li>
 <li class="nav-item">
@@ -47,9 +44,9 @@
     </div>
 
     <div class="section level2">
-      <h2 id="all-functions">All functions<a class="anchor" aria-label="anchor" href="#all-functions"></a></h2>
+      <h2 id="get-your-data">Get your data<a class="anchor" aria-label="anchor" href="#get-your-data"></a></h2>
       
-      
+      <p class="section-desc"></p><p>Retrieve data from/about your Megamation tables so you can act on them</p>
 
       
     </div><div id="" class="section level2">
@@ -59,34 +56,51 @@
 
       <dl><dt>
           
-          <code><a href="date_as_between_string.html">date_as_between_string()</a></code> 
-        </dt>
-        <dd>Format sequence of dates</dd>
-      </dl><dl><dt>
-          
-          <code><a href="mm_error_body.html">mm_error_body()</a></code> 
-        </dt>
-        <dd>Extract error body from a Megamation API response</dd>
-      </dl><dl><dt>
-          
           <code><a href="mm_get.html">mm_get()</a></code> 
         </dt>
         <dd>Get data</dd>
       </dl><dl><dt>
           
-          <code><a href="mm_get_names.html">mm_get_names()</a></code> 
+          <code><a href="mm_get_col_info.html">mm_get_col_info()</a></code> <code><a href="mm_get_col_info.html">mm_get_criteria()</a></code> <code><a href="mm_get_col_info.html">mm_get_schema()</a></code> <code><a href="mm_get_col_info.html">mm_get_labels()</a></code> 
         </dt>
-        <dd>Get column names and which are currently filters</dd>
+        <dd>Get column names, filter statuses, descriptions, and types</dd>
+      </dl></div><div class="section level2">
+      <h2 id="authorization">Authorization<a class="anchor" aria-label="anchor" href="#authorization"></a></h2>
+      
+      <p class="section-desc"></p><p>Set credentials</p>
+
+      
+    </div><div id="" class="section level2">
+      
+      
+      
+
+      <dl><dt>
+          
+          <code><a href="mm_authorize.html">mm_authorize()</a></code> 
+        </dt>
+        <dd>Install Megamation credentials in your <code>.Renviron</code> file for repeated use</dd>
+      </dl></div><div class="section level2">
+      <h2 id="programming-around-the-megamation-api">Programming around the Megamation API<a class="anchor" aria-label="anchor" href="#programming-around-the-megamation-api"></a></h2>
+      
+      <p class="section-desc"></p><p>Low-level functions used internally and made available for programming</p>
+
+      
+    </div><div id="" class="section level2">
+      
+      
+      
+
+      <dl><dt>
+          
+          <code><a href="mm_request.html">mm_request()</a></code> 
+        </dt>
+        <dd>Create a Megamation API request</dd>
       </dl><dl><dt>
           
-          <code><a href="mm_next_req.html">mm_next_req()</a></code> 
+          <code><a href="mm_error_body.html">mm_error_body()</a></code> 
         </dt>
-        <dd>Return next request (if existing) from a Megamation API response</dd>
-      </dl><dl><dt>
-          
-          <code><a href="mm_pagebind.html">mm_pagebind()</a></code> 
-        </dt>
-        <dd>Bind multiple Megamation API pages by row before converting to a tibble</dd>
+        <dd>Extract error body from a Megamation API response</dd>
       </dl><dl><dt>
           
           <code><a href="mm_req_append.html">mm_req_append()</a></code> 
@@ -104,9 +118,19 @@
         <dd>Perform a Megamation API request</dd>
       </dl><dl><dt>
           
-          <code><a href="mm_request.html">mm_request()</a></code> 
+          <code><a href="mm_next_req.html">mm_next_req()</a></code> 
         </dt>
-        <dd>Create a Megamation API request</dd>
+        <dd>Return next request (if existing) from a Megamation API response</dd>
+      </dl><dl><dt>
+          
+          <code><a href="mm_resp_parse.html">mm_resp_parse()</a></code> 
+        </dt>
+        <dd>Parse body from Megamation API response</dd>
+      </dl><dl><dt>
+          
+          <code><a href="mm_parsed_extract.html">mm_parsed_extract()</a></code> <code><a href="mm_parsed_extract.html">extract_data()</a></code> <code><a href="mm_parsed_extract.html">extract_criteria_or_labels()</a></code> <code><a href="mm_parsed_extract.html">extract_schema()</a></code> 
+        </dt>
+        <dd>Create tibble from parsed response</dd>
       </dl><dl><dt>
           
           <code><a href="mm_resp_extract.html">mm_resp_extract()</a></code> 
@@ -114,16 +138,37 @@
         <dd>Extract data from Megamation API response</dd>
       </dl><dl><dt>
           
-          <code><a href="mm_set_creds.html">mm_set_creds()</a></code> 
+          <code><a href="mm_pagebind.html">mm_pagebind()</a></code> 
         </dt>
-        <dd>Install Megamation credentials in your <code>.Renviron</code> file for repeated use</dd>
+        <dd>Bind multiple Megamation API pages by row before converting to a tibble</dd>
       </dl><dl><dt>
           
-          <code><a href="remove_api_urls.html">remove_api_urls()</a></code> 
+          <code><a href="mm_has_creds.html">mm_has_creds()</a></code> 
         </dt>
-        <dd>Remove API <code>_links</code> column in data</dd>
+        <dd>Are there credentials on hand?</dd>
+      </dl><dl><dt>
+          
+          <code><a href="mm_key.html">mm_key()</a></code> 
+        </dt>
+        <dd>Get Megamation key</dd>
+      </dl><dl><dt>
+          
+          <code><a href="mm_url.html">mm_url()</a></code> 
+        </dt>
+        <dd>Get Megamaton URL</dd>
+      </dl><dl><dt>
+          
+          <code><a href="mm_get_appendix.html">mm_get_appendix()</a></code> 
+        </dt>
+        <dd>Get endpoint appendix (criteria, schema, labels)</dd>
+      </dl><dl><dt>
+          
+          <code><a href="testing_key.html">testing_key()</a></code> 
+        </dt>
+        <dd>Get testing key</dd>
       </dl></div>
-  </main></div>
+  </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
+    </nav></aside></div>
 
 
     <footer><div class="pkgdown-footer-left">

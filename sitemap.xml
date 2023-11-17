@@ -4,13 +4,10 @@
     <loc>https://asadow.github.io/megamation/404.html</loc>
   </url>
   <url>
+    <loc>https://asadow.github.io/megamation/CODE_OF_CONDUCT.html</loc>
+  </url>
+  <url>
     <loc>https://asadow.github.io/megamation/LICENSE.html</loc>
-  </url>
-  <url>
-    <loc>https://asadow.github.io/megamation/articles/index.html</loc>
-  </url>
-  <url>
-    <loc>https://asadow.github.io/megamation/articles/megamation.html</loc>
   </url>
   <url>
     <loc>https://asadow.github.io/megamation/authors.html</loc>
@@ -25,10 +22,7 @@
     <loc>https://asadow.github.io/megamation/reference/date_as_between_string.html</loc>
   </url>
   <url>
-    <loc>https://asadow.github.io/megamation/reference/get_env_key.html</loc>
-  </url>
-  <url>
-    <loc>https://asadow.github.io/megamation/reference/get_env_url.html</loc>
+    <loc>https://asadow.github.io/megamation/reference/format_params.html</loc>
   </url>
   <url>
     <loc>https://asadow.github.io/megamation/reference/index.html</loc>
@@ -37,19 +31,34 @@
     <loc>https://asadow.github.io/megamation/reference/megamation-package.html</loc>
   </url>
   <url>
+    <loc>https://asadow.github.io/megamation/reference/mm_authorize.html</loc>
+  </url>
+  <url>
     <loc>https://asadow.github.io/megamation/reference/mm_error_body.html</loc>
   </url>
   <url>
     <loc>https://asadow.github.io/megamation/reference/mm_get.html</loc>
   </url>
   <url>
-    <loc>https://asadow.github.io/megamation/reference/mm_get_names.html</loc>
+    <loc>https://asadow.github.io/megamation/reference/mm_get_appendix.html</loc>
+  </url>
+  <url>
+    <loc>https://asadow.github.io/megamation/reference/mm_get_col_info.html</loc>
+  </url>
+  <url>
+    <loc>https://asadow.github.io/megamation/reference/mm_has_creds.html</loc>
+  </url>
+  <url>
+    <loc>https://asadow.github.io/megamation/reference/mm_key.html</loc>
   </url>
   <url>
     <loc>https://asadow.github.io/megamation/reference/mm_next_req.html</loc>
   </url>
   <url>
     <loc>https://asadow.github.io/megamation/reference/mm_pagebind.html</loc>
+  </url>
+  <url>
+    <loc>https://asadow.github.io/megamation/reference/mm_parsed_extract.html</loc>
   </url>
   <url>
     <loc>https://asadow.github.io/megamation/reference/mm_req_append.html</loc>
@@ -67,7 +76,10 @@
     <loc>https://asadow.github.io/megamation/reference/mm_resp_extract.html</loc>
   </url>
   <url>
-    <loc>https://asadow.github.io/megamation/reference/mm_set_creds.html</loc>
+    <loc>https://asadow.github.io/megamation/reference/mm_resp_parse.html</loc>
+  </url>
+  <url>
+    <loc>https://asadow.github.io/megamation/reference/mm_url.html</loc>
   </url>
   <url>
     <loc>https://asadow.github.io/megamation/reference/remove_api_urls.html</loc>
