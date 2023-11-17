@@ -21,7 +21,7 @@
 #' https://apidocs.megamation.com/.
 #' @returns An object of class `httr2_request`.
 #' @keywords internal
-#' @examplesIf httr2::secret_has_key("MEGAMATION_KEY_HTTR2")
+#' @examplesIf megamation:::mm_has_creds()
 #' megamation:::mm_request("timecard")
 #' megamation:::mm_request("trade")
 mm_request <- function(endpoint) {

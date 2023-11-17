@@ -32,7 +32,7 @@ from your \code{.Renviron}.
 }
 }
 \examples{
-\dontshow{if (httr2::secret_has_key("MEGAMATION_KEY_HTTR2")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (megamation:::mm_has_creds()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 megamation:::mm_request("timecard")
 megamation:::mm_request("trade")
 \dontshow{\}) # examplesIf}
