@@ -5,9 +5,9 @@
 #' does the following:
 #'
 #' * Inserts the base URL using the environment variable `MEGAMATION_URL` from
-#'  your `.Renviron`. Your key and base URL can be set using [mm_set_creds()].
+#'  your [.Renviron]. Your key and base URL can be set using [mm_authorize()].
 #' * Appends the URL with the endpoint defined by parameter `endpoint`.
-#' * Sets the user-agent as the GitHub `megamation` package.
+#' * Sets the user-agent as the GitHub [megamation] package.
 #' * Authenticates the request with HTTP basic authentication using
 #'   environment variables `MEGAMATION_KEY` and `MEGAMATION_URL`
 #'   from your `.Renviron`.
@@ -20,19 +20,19 @@
 #' for work orders. All endpoints are listed at
 #' https://apidocs.megamation.com/.
 #' @returns An object of class `httr2_request`.
-#' @export
-#' @examplesIf httr2::secret_has_key("HTTR2_KEY_MEGAMATION")
-#' mm_request("timecard")
-#' mm_request("trade")
+#' @keywords internal
+#' @examplesIf httr2::secret_has_key("MEGAMATION_KEY_HTTR2")
+#' megamation:::mm_request("timecard")
+#' megamation:::mm_request("trade")
 mm_request <- function(endpoint) {
   check_creds()
   check_string(endpoint)
   agent <- "megamation (https://github.com/asadow/megamation)"
   user <- "APIDL"
-  httr2::request(get_env_url()) |>
+  httr2::request(mm_url()) |>
     httr2::req_url_path_append(endpoint) |>
     httr2::req_user_agent(agent) |>
-    httr2::req_auth_basic(user, get_env_key()) |>
+    httr2::req_auth_basic(user, mm_key()) |>
     httr2::req_error(body = mm_error_body) |>
     httr2::req_cache(tempdir(), debug = TRUE)
 }

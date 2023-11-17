@@ -22,15 +22,8 @@ a UTF-8 issue from Megamation's side.
 and extracts data from the parsed object.
 }
 \examples{
-\dontrun{
-# Real example
-# Returns data of interest from a response
-resp <- mm_request("status") |> httr2::req_perform()
-resp |> mm_resp_extract()
-}
-
-# Fake example
 # Returns NULL from an empty response body
 resp <- httr2::response_json()
-resp |> mm_resp_extract()
+resp |> megamation:::mm_resp_extract()
 }
+\keyword{internal}

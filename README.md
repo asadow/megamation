@@ -1,6 +1,9 @@
 
 # megamation <a href="https://asadow.github.io/megamation/"><img src="man/figures/logo.png" alt="megamation website" align="right" height="139"/></a>
 
+**Authors:** [Adam Sadowski](https://adams.quarto.pub/w/) **License:**
+[GPL (\>= 3)](https://www.gnu.org/licenses/licenses.html)
+
 <!-- badges: start -->
 
 [![R-CMD-check](https://github.com/asadow/megamation/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/asadow/megamation/actions/workflows/R-CMD-check.yaml)
@@ -8,7 +11,6 @@
 coverage](https://codecov.io/gh/asadow/megamation/branch/master/graph/badge.svg)](https://app.codecov.io/gh/asadow/megamation?branch=master)
 [![Lifecycle:
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
-[![R-CMD-check](https://github.com/asadow/megamation/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/asadow/megamation/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 ## Overview
@@ -41,21 +43,26 @@ library(megamation)
 
 ## Authorization
 
-`mm_set_creds()` installs your API credentials:
+`mm_authorize()` installs your API credentials in your `.Renviron`, a
+safe place for secrets.
 
 ``` r
-mm_set_creds(
+mm_authorize(
   key = "<YOUR-MEGAMATION_KEY>",
   url = "<YOUR-MEGAMATION_URL>"
 )
 ```
 
+The following functions will automatically use your credentials, so you
+don’t have to expose them in your code.
+
 ## Get Data
 
-`mm_get()` makes a GET request to an endpoint:
+`mm_get()` makes a GET request to an endpoint.
 
 ``` r
 mm_get("status")
+#> Iterating ■■■ 5% | ETA: 43s
 #> # A tibble: 9 × 3
 #>   ampc_required description                              status
 #>   <chr>         <chr>                                    <chr> 
@@ -70,7 +77,7 @@ mm_get("status")
 #> 9 Yes           Waiting for Trade                        WT
 ```
 
-It provides informative R errors (alongside HTTP errors):
+It provides informative R errors (alongside HTTP errors).
 
 ``` r
 mm_get("statuses")
@@ -83,7 +90,7 @@ mm_get("statuses")
 
 `mm_get()` allows you to easily filter requests by fields.
 
-Let’s try to request two work orders by their work order numbers:
+Let’s try to request two work orders by their work order numbers.
 
 ``` r
 mm_get("workorder", wo_no = c("00001", "00002"))
@@ -97,34 +104,45 @@ your Megamation representative to add it.
 
 #### Available Filters
 
-`mm_get_names()` allows you to see which of your fields you can
-currently filter by:
+`mm_get_col_info()` allows you to see which of your fields you can
+currently filter by.
 
 ``` r
-mm_get_names("workorder")
-#> # A tibble: 39 × 5
-#>    field           filter_enabled.x description           type  filter_enabled.y
-#>    <chr>           <lgl>            <chr>                 <chr> <lgl>           
-#>  1 type            TRUE             Type                  VARC… FALSE           
-#>  2 status          TRUE             Status                VARC… FALSE           
-#>  3 date            TRUE             Date - [Month][Day][… DATE  FALSE           
-#>  4 submitted_by    TRUE             Submitted By          VARC… FALSE           
-#>  5 priority        TRUE             Priority              VARC… FALSE           
-#>  6 building_id     TRUE             Building              VARC… FALSE           
-#>  7 eqp_no          TRUE             Equipment#            VARC… FALSE           
-#>  8 assign_to       TRUE             Assign To             VARC… FALSE           
-#>  9 issue_to        TRUE             Issue To              VARC… FALSE           
-#> 10 contractor_name TRUE             Contractor Name       VARC… FALSE           
+mm_get_col_info("workorder")
+#> # A tibble: 39 × 4
+#>    field           filter_enabled description               type          
+#>    <chr>           <lgl>          <chr>                     <chr>         
+#>  1 type            TRUE           Type                      VARCHAR(65531)
+#>  2 status          TRUE           Status                    VARCHAR(65531)
+#>  3 date            TRUE           Date - [Month][Day][Year] DATE          
+#>  4 submitted_by    TRUE           Submitted By              VARCHAR(65531)
+#>  5 priority        TRUE           Priority                  VARCHAR(65531)
+#>  6 building_id     TRUE           Building                  VARCHAR(65531)
+#>  7 eqp_no          TRUE           Equipment#                VARCHAR(65531)
+#>  8 assign_to       TRUE           Assign To                 VARCHAR(65531)
+#>  9 issue_to        TRUE           Issue To                  VARCHAR(65531)
+#> 10 contractor_name TRUE           Contractor Name           VARCHAR(255)  
 #> # ℹ 29 more rows
 ```
 
 #### Modifiers
 
 You can use Megamation’s [modifiers](https://apidocs.megamation.com/) on
-your field values. For example, `[]` means “containing”. Supply
-`<field> = "[]<value>"` to get rows where `<field>` contains `<value>`.
-For example, the following requests all work orders containing trades
-`ADMIN` and `IT`:
+your field values.
+
+- `[]` for containing
+
+- `!!` for not equal
+
+- `>>` for greater than
+
+- `<<` for less than
+
+- `<>` for between.
+
+For example, supply `<field> = "[]<value>"` to get rows where `<field>`
+contains `<value>`. Here’s how you would request all work orders
+containing trades `ADMIN` and `IT`.
 
 ``` r
 admin_and_it <- c("[]ADMIN", "[]IT")
@@ -135,8 +153,8 @@ mm_get("workorder", trade = admin_and_it)
 
 #### Dates
 
-The `date` field argument only accepts values of type `Date`. The
-following requests all work orders from January, 2023:
+Avoid `<>` for dates. Instead, use a sequence of R `Date`’s. Here’s how
+you would request all work orders from January, 2023.
 
 ``` r
 jan_2023 <- seq.Date(
@@ -153,6 +171,11 @@ mm_get("workorder", date = jan_2023)
 
 Please see the package website: <https://asadow.github.io/megamation/>.
 
-``` r
-end_vignette()
-```
+## Code of Conduct
+
+Please note that the megamation project is released with a [Contributor
+Code of
+Conduct](https://asadow.github.io/megamation/CODE_OF_CONDUCT.html). By
+contributing to this project, you agree to abide by its terms. Feedback,
+bug reports (and fixes!), and feature requests are welcome; file issues
+or seek support [here](https://github.com/asadow/megamation/issues).

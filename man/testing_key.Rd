@@ -2,7 +2,7 @@
 % Please edit documentation in R/env.R
 \name{testing_key}
 \alias{testing_key}
-\title{Get personal key}
+\title{Get testing key}
 \usage{
 testing_key()
 }
@@ -10,7 +10,7 @@ testing_key()
 A string of a decrypted key.
 }
 \description{
-testing_key() uses the HTTR2_KEY_MEGAMATION environment
+testing_key() uses the \code{MEGAMATION_KEY_HTTR2} environment
 variable to decrypt a secret.
 }
 \keyword{internal}

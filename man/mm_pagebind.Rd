@@ -31,5 +31,6 @@ page_2 <- page_1 |>
   )
 pages <- list(page_1, page_2)
 # mpg unnests but not cyl
-mm_pagebind(pages)
+megamation:::mm_pagebind(pages)
 }
+\keyword{internal}

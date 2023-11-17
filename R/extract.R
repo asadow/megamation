@@ -8,19 +8,11 @@
 #' After converting these bytes to a string, encoding is done to resolve
 #' a UTF-8 issue from Megamation's side.
 #' @returns A data frame containing the endpoint data.
-#' @export
+#' @keywords internal
 #' @examples
-#' \dontrun{
-#' # Real example
-#' # Returns data of interest from a response
-#' resp <- mm_request("status") |> httr2::req_perform()
-#' resp |> mm_resp_extract()
-#' }
-#'
-#' # Fake example
 #' # Returns NULL from an empty response body
 #' resp <- httr2::response_json()
-#' resp |> mm_resp_extract()
+#' resp |> megamation:::mm_resp_extract()
 mm_resp_extract <- function(resp) {
   .from <- sub(".*/@", "", resp$url) |> tolower()
   .from <- switch(.from,
@@ -31,5 +23,5 @@ mm_resp_extract <- function(resp) {
   )
   resp |>
     mm_resp_parse() |>
-    parsed_extract(.from)
+    mm_parsed_extract(.from)
 }

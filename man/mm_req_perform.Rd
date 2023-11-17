@@ -20,8 +20,4 @@ After creating a request with \code{\link[=mm_request]{mm_request()}},
 call \code{mm_req_perform()} to perform it and fetch
 the results back to R.
 }
-\examples{
-\dontrun{
-mm_request("status") |> mm_req_perform()
-}
-}
+\keyword{internal}

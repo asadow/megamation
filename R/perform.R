@@ -11,11 +11,7 @@
 #' an S3 list with class `httr2_response`. (For more on this class,
 #' see [httr2::response].) If the request was paginated, these
 #' responses correspond to pages.
-#' @export
-#' @examples
-#' \dontrun{
-#' mm_request("status") |> mm_req_perform()
-#' }
+#' @keywords internal
 mm_req_perform <- function(req) {
   check_request(req)
   httr2::req_perform_iterative(req, next_req = mm_next_req)

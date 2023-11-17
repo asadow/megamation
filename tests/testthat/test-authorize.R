@@ -7,7 +7,7 @@ test_that("absence of API key or URL raises an error", {
     "Megamation API key and/or URL need registering:"
   )
   expect_error(
-    get_env_url(),
+    mm_url(),
     "No `MEGAMATION.* found"
   )
 })
@@ -15,27 +15,27 @@ test_that("absence of API key or URL raises an error", {
 test_that("testing key", {
   skip_on_cran()
   expect_equal(
-    get_env_key(),
+    mm_key(),
     testing_key()
   )
 })
 
-test_that("mm_set_creds() gives bad url error", {
+test_that("mm_authorize() gives bad url error", {
   expect_error(
-    mm_set_creds(key = "1", url = "a"),
+    mm_authorize(key = "1", url = "a"),
     "`url` must be of the form"
   )
 })
 
-test_that("mm_set_creds() sets credentials", {
+test_that("mm_authorize() sets credentials", {
   withr::defer({
-    mm_set_creds(
+    mm_authorize(
       key = testing_key(),
       url = "https://api.megamation.com/uog/dl",
       overwrite = TRUE
     )
   })
-  mm_set_creds(
+  mm_authorize(
     key = "1",
     url = "https://api.megamation.com/uw/joe/",
     overwrite = TRUE
@@ -44,11 +44,11 @@ test_that("mm_set_creds() sets credentials", {
     endsWith(Sys.getenv("MEGAMATION_URL"), "/")
   )
   expect_equal(
-    get_env_url(),
+    mm_url(),
     "https://api.megamation.com/uw/joe"
   )
   expect_equal(
-    get_env_key(),
+    mm_key(),
     "1"
   )
 })
@@ -61,7 +61,7 @@ test_that("presence of bad creds raises an error", {
     )
   )
   expect_error(
-    mm_set_creds(
+    mm_authorize(
       key = "1",
       url = "https://api.megamation.com/uw/joe/"
     ),

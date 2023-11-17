@@ -1,4 +1,37 @@
 url: https://asadow.github.io/megamation/
 template:
   bootstrap: 5
-
+reference:
+  - title: "Get your data"
+    desc: >
+      Retrieve data from/about your Megamation tables so you can act on them
+    contents:
+      - mm_get
+      - mm_get_col_info
+      - mm_get_criteria
+      - mm_get_schema
+      - mm_get_labels
+  - title: "Authorization"
+    desc: >
+      Set credentials
+    contents:
+      - mm_authorize
+  - title: "Programming around the Megamation API"
+    desc: >
+      Low-level functions used internally and made available for programming
+    contents:
+      - mm_request
+      - mm_error_body
+      - mm_req_append
+      - mm_req_params
+      - mm_req_perform
+      - mm_next_req
+      - mm_resp_parse
+      - mm_parsed_extract
+      - mm_resp_extract
+      - mm_pagebind
+      - mm_has_creds
+      - mm_key
+      - mm_url
+      - mm_get_appendix
+      - testing_key

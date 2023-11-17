@@ -17,3 +17,39 @@ with_mock_dir("statuses", {
     )
   })
 })
+
+with_mock_dir("status_col_info", {
+  test_that("mm_get_col_info() returns column names and info", {
+    skip_on_cran()
+    got <- mm_get_col_info("status")
+    expect_s3_class(got, "tbl_df")
+    expect_named(got, c("field", "filter_enabled", "description", "type"))
+  })
+})
+
+with_mock_dir("status_col_info", {
+  test_that("mm_get_criteria() returns field and description columns", {
+    skip_on_cran()
+    got <- mm_get_criteria("status")
+    expect_s3_class(got, "tbl_df")
+    expect_named(got, c("field", "description"))
+  })
+})
+
+with_mock_dir("status_col_info", {
+  test_that("mm_get_schema() returns field, description, and type columns", {
+    skip_on_cran()
+    got <- mm_get_schema("status")
+    expect_s3_class(got, "tbl_df")
+    expect_named(got, c("field", "description", "type"))
+  })
+})
+
+with_mock_dir("status_labels", {
+  test_that("mm_get_labels() returns field and description columns", {
+    skip_on_cran()
+    got <- mm_get_labels("status")
+    expect_s3_class(got, "tbl_df")
+    expect_named(got, c("field", "description"))
+  })
+})

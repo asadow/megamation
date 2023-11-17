@@ -11,7 +11,9 @@ mm_req_params(req, ..., allfields = TRUE)
 
 \item{...}{<\code{\link[rlang:dyn-dots]{dynamic-dots}}> Name-value pairs to filter the
 request. The name should be the lower-case name of a field that is
-filter-enabled (in Megamation's words, a criteria).}
+filter-enabled (in Megamation's words, a criteria). These arguments are
+processed with \code{\link[rlang:defusing-advanced]{rlang::quos()}} and support unquote via \code{\link{!!}} and
+unquote-splice via \code{\link{!!!}}.}
 
 \item{allfields}{If \code{TRUE}, return all fields currently available for
 the endpoint.}
@@ -23,16 +25,4 @@ An object of class \code{httr2_request} with a pagination policy.
 \code{mm_req_params()} adds filters to the request. By default, it adds the query
 for all (currently available) fields.
 }
-\examples{
-\dontshow{if (httr2::secret_has_key("HTTR2_KEY_MEGAMATION")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
-# No parameters
-mm_request("status") |> mm_req_params()
-
-# Multiple parameters
-from <- as.Date("2023-09-20")
-to <- as.Date("2023-10-20")
-date <- seq(from, to, by = "day")
-trade <- c("[]PCO", "[]DM")
-mm_request("status") |> mm_req_params(date = date, trade = trade)
-\dontshow{\}) # examplesIf}
-}
+\keyword{internal}

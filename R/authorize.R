@@ -24,18 +24,20 @@
 #' @export
 #' @examples
 #' \dontrun{
-#' mm_set_creds(
+#'
+#' mm_authorize(
 #'   key = "<YOUR-MEGAMATION_KEY>",
 #'   url = "<YOUR-MEGAMATION_URL>"
 #' )
 #' }
-mm_set_creds <- function(key, url, overwrite = FALSE) {
+mm_authorize <- function(key, url, overwrite = FALSE) {
   check_string(key)
   check_bool(overwrite)
   url <- check_url(url)
 
   home <- Sys.getenv("HOME")
   renv <- file.path(home, ".Renviron")
+  regex_creds <- "^(MEGAMATION_KEY|MEGAMATION_URL)(\\s*=.*)?$"
 
   # If needed, backup original .Renviron before doing anything
   if (file.exists(renv)) {
@@ -47,20 +49,19 @@ mm_set_creds <- function(key, url, overwrite = FALSE) {
   } else {
     if (isTRUE(overwrite)) {
       cli::cli_alert_info(
-        "If needed, your original {.file {'.Renviron'}}
-          is backed up and stored in
-          {.file {home}}."
+        "If needed, your original {.file {'.Renviron'}} is backed up and stored
+        in {.file {home}}.",
+        wrap = TRUE
       )
       oldenv <- readLines(renv)
-      newenv <- oldenv[-grep("MEGAMATION_KEY|MEGAMATION_URL", oldenv)]
+      newenv <- oldenv[-grep(regex_creds, oldenv, perl = TRUE)]
       writeLines(newenv, renv)
     } else {
       tv <- readLines(renv)
-      if (any(grepl("MEGAMATION_KEY|MEGAMATION_URL", tv))) {
+      if (any(grepl(regex_creds, tv))) {
         cli::cli_abort(c(
           "Megamation credentials already exist.",
-          "i" = "You can set {.arg overwrite = TRUE}
-              to overwrite them."
+          "i" = "You can set {.arg overwrite = TRUE} to overwrite them."
         ))
       }
     }
@@ -79,4 +80,18 @@ mm_set_creds <- function(key, url, overwrite = FALSE) {
   )
 
   cli::cli_alert_success("Set and loaded Megamation API credentials.")
+}
+
+#' Are there credentials on hand?
+#'
+#' @family low-level API functions
+#' @keywords internal
+#' @returns `TRUE` if user has `MEGAMATION_KEY` and `MEGAMATION_URL` environment
+#' variables.
+mm_has_creds <- function() {
+  creds <- c(
+    key = Sys.getenv("MEGAMATION_KEY"),
+    url = Sys.getenv("MEGAMATION_URL")
+  )
+  !any(creds == "")
 }

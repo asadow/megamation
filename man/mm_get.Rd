@@ -14,13 +14,15 @@ https://apidocs.megamation.com/.}
 
 \item{...}{<\code{\link[rlang:dyn-dots]{dynamic-dots}}> Name-value pairs to filter the
 request. The name should be the lower-case name of a field that is
-filter-enabled (in Megamation's words, a criteria).}
+filter-enabled (in Megamation's words, a criteria). These arguments are
+processed with \code{\link[rlang:defusing-advanced]{rlang::quos()}} and support unquote via \code{\link{!!}} and
+unquote-splice via \code{\link{!!!}}.}
 
 \item{.paginate}{If \code{TRUE}, paginate the request.}
 }
 \value{
 A data frame of class \code{\link[tibble:tbl_df-class]{tbl_df}}
-containing the requested information.
+containing the requested data.
 }
 \description{
 \code{mm_get()} accomplishes the full process of a GET request:
@@ -34,20 +36,20 @@ Where applicable, pagination is automatically applied to the request
 and returned pages are automatically combined.
 }
 \examples{
-\dontrun{
-# You can supply vectors to filtering variables
-mm_get("workorder", wo_no = c("00001", "00002"))
+\dontshow{if (megamation:::mm_has_creds()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+# Get all work orders from Jan. 2023 containing trades ADMIN and IT:
 
-# You can supply API modifiers when filtering
-mm_get("workorder", trade = "[]PCO")
-
-# You must supply date types to the date filter
+# First create a Date-type vector
 jan_2023 <- seq.Date(
   as.Date("2023-01-01"),
   as.Date("2023-01-31"),
   by = "day"
 )
 
-mm_get("employee", date = jan_2023)
-}
+# Then prefix the trade values with the "containing" modifier "[]"
+# since trade is a list column in the work order table
+admin_and_it <- c("[]ADMIN", "[]IT")
+
+mm_get("workorder", date = jan_2023, trade = admin_and_it)
+\dontshow{\}) # examplesIf}
 }

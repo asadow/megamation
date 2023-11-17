@@ -20,3 +20,4 @@ A single string formatted as "<>MM-DD-YYYY,MM-DD-YYYY" where the
 that represents the sequence. The purpose is to simplify the request URL from
 including \code{DATE=X&DATE=Y&DATE=Z} to \verb{DATE = <>X,Z} where X<Y<Z.
 }
+\keyword{internal}

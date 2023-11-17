@@ -23,7 +23,7 @@ Imports:
     cli,
     dplyr,
     glue,
-    httr2 (>= 0.2.3.9000),
+    httr2,
     jsonlite,
     lifecycle,
     lubridate,
@@ -42,5 +42,3 @@ Suggests:
     withr
 Config/testthat/edition: 3
 VignetteBuilder: knitr
-Remotes: 
-    r-lib/httr2

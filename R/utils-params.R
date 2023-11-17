@@ -5,13 +5,13 @@
 #' creating a valid Megamation URL.
 #' @inheritParams mm_req_params
 #' @returns A list of parameter name-value pairs.
-#' @noRd
+#' @keywords internal
 #' @examples
 #' from <- as.Date("2023-09-20")
 #' to <- as.Date("2023-10-20")
 #' date <- seq(from, to, by = "day")
 #' trade <- c("[]PCO", "[]DM")
-#' format_params(date = date, trade = trade)
+#' megamation:::format_params(date = date, trade = trade)
 format_params <- function(...) {
   params <- rlang::list2(...)
   if (rlang::is_empty(params)) {
@@ -50,13 +50,13 @@ format_params <- function(...) {
 #' @noRd
 #' @examples
 #' # Single date
-#' format_date(as.Date("2023-09-20"))
+#' megamation:::format_date(as.Date("2023-09-20"))
 #'
 #' # Sequence of dates
 #' from <- as.Date("2023-09-20")
 #' to <- as.Date("2023-10-20")
 #' date <- seq(from, to, by = "day")
-#' format_date(date)
+#' megamation:::format_date(date)
 format_date <- function(date) {
   .min <- min(date)
   .max <- max(date)
@@ -79,6 +79,7 @@ format_date <- function(date) {
 #' @param .max A maximum Date.
 #' @returns A single string formatted as "<>MM-DD-YYYY,MM-DD-YYYY" where the
 #' "<>" modifiers means "in-between".
+#' @keywords internal
 date_as_between_string <- function(.min, .max) {
   .min <- .min |> format("%m-%d-%Y")
   .max <- .max |> format("%m-%d-%Y")

@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
-      HTTR2_KEY_MEGAMATION: ${{ secrets.HTTR2_KEY_MEGAMATION }}
+      MEGAMATION_KEY_HTTR2: ${{ secrets.MEGAMATION_KEY_HTTR2 }}
     steps:
       - uses: actions/checkout@v3
 

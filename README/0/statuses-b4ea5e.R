@@ -1,0 +1,31 @@
+structure(list(method = "GET", url = "statuses?ALLFIELDS=1", 
+    status_code = 404L, headers = structure(list(`Cache-Control` = "REDACTED", 
+        `Content-Type` = "application/problem+json", Server = "REDACTED", 
+        `X-Powered-By` = "REDACTED", `Access-Control-Allow-Origin` = "REDACTED", 
+        `WWW-Authenticate` = "REDACTED", `X-Powered-By` = "REDACTED", 
+        `X-Robots-Tag` = "REDACTED", Date = "REDACTED", `Content-Length` = "REDACTED", 
+        `Set-Cookie` = "REDACTED", `Strict-Transport-Security` = "REDACTED"), class = "httr2_headers"), 
+    body = as.raw(c(0x7b, 0x22, 0x74, 0x79, 0x70, 0x65, 0x22, 
+    0x3a, 0x22, 0x61, 0x62, 0x6f, 0x75, 0x74, 0x3a, 0x62, 0x6c, 
+    0x61, 0x6e, 0x6b, 0x22, 0x2c, 0x22, 0x74, 0x69, 0x74, 0x6c, 
+    0x65, 0x22, 0x3a, 0x22, 0x4e, 0x6f, 0x74, 0x20, 0x46, 0x6f, 
+    0x75, 0x6e, 0x64, 0x22, 0x2c, 0x22, 0x73, 0x74, 0x61, 0x74, 
+    0x75, 0x73, 0x22, 0x3a, 0x34, 0x30, 0x34, 0x2c, 0x22, 0x64, 
+    0x65, 0x74, 0x61, 0x69, 0x6c, 0x22, 0x3a, 0x22, 0x54, 0x68, 
+    0x69, 0x73, 0x20, 0x69, 0x73, 0x20, 0x6e, 0x6f, 0x74, 0x20, 
+    0x61, 0x20, 0x76, 0x61, 0x6c, 0x69, 0x64, 0x20, 0x77, 0x65, 
+    0x62, 0x20, 0x41, 0x50, 0x49, 0x20, 0x65, 0x6e, 0x64, 0x70, 
+    0x6f, 0x69, 0x6e, 0x74, 0x2e, 0x22, 0x7d, 0x20, 0x0d, 0x0a
+    )), request = structure(list(url = "https://api.megamation.com/uog/dl/statuses?ALLFIELDS=1", 
+        method = NULL, headers = structure(list(Authorization = "REDACTED"), redact = "Authorization"), 
+        body = NULL, fields = list(), options = list(useragent = "megamation (https://github.com/asadow/megamation)"), 
+        policies = list(error_body = function (resp) 
+        {
+            if (!httr2::resp_has_body(resp)) {
+                return("No response body.")
+            }
+            purrr::pluck(httr2::resp_body_json(resp), "detail")
+        }, cache_path = "C:\\Users\\asadowsk\\AppData\\Local\\Temp\\Rtmp4KxLoj", 
+            cache_use_on_error = FALSE, cache_debug = TRUE, cache_max = list(
+                age = Inf, n = Inf, size = 1073741824))), class = "httr2_request"), 
+    cache = new.env(parent = emptyenv())), class = "httr2_response")

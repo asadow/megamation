@@ -12,19 +12,11 @@ mm_n_pages <- function(parsed) {
 #'
 #' @param resp An API response.
 #' @returns A list.
-#' @noRd
+#' @keywords internal
 #' @examples
-#' \dontrun{
-#' # Real example
-#' # Parses response body to return a list
-#' resp <- mm_request("status") |> httr2::req_perform()
-#' resp |> mm_resp_parse()
-#' }
-#'
-#' # Fake example
 #' # Parses empty response body to return an empty list
 #' resp <- httr2::response_json()
-#' resp |> mm_resp_parse()
+#' resp |> megamation:::mm_resp_parse()
 mm_resp_parse <- function(resp) {
   resp |>
     httr2::resp_body_raw() |>
@@ -37,44 +29,33 @@ mm_resp_parse <- function(resp) {
 #'
 #' @description
 #'
-#' `parsed_extract()` extracts a data frame from the parsed
+#' `mm_parsed_extract()` extracts a data frame from the parsed
 #' response body.
 #'
 #' @param parsed Parsed response body.
 #' @param .get Whether the GET request is for the endpoint's `"data"`,
 #' `"criteria"`, `"labels"`, or `"schema"`.
 #' @returns A data frame containing the endpoint data.
-#' @noRd
+#' @keywords internal
 #' @examples
-#' \dontrun{
-#' # Real example
-#' # Returns data of interest from parsed list
-#' resp <- mm_request("status") |> httr2::req_perform()
-#' resp |>
-#'   mm_resp_parse() |>
-#'   parsed_extract()
-#' }
-#'
-#' # Fake example
 #' # Returns NULL from empty list
 #' resp <- httr2::response_json()
 #' resp |>
-#'   mm_resp_parse() |>
-#'   parsed_extract()
-parsed_extract <- function(parsed, .get = "data") {
+#'   megamation:::mm_resp_parse() |>
+#'   megamation:::mm_parsed_extract()
+mm_parsed_extract <- function(parsed, .get = "data") {
   check_string(.get)
   .get <- rlang::arg_match(.get, c("criteria", "labels", "schema", "data"))
 
   switch(.get,
     data = extract_data(parsed),
     labels = ,
-    criteria = extract_criteria(parsed),
+    criteria = extract_criteria_or_labels(parsed),
     schema = extract_schema(parsed)
   )
 }
 
-#' @rdname parsed_extract
-#' @noRd
+#' @rdname mm_parsed_extract
 extract_data <- function(parsed) {
   parsed |>
     purrr::list_flatten() |>
@@ -82,22 +63,19 @@ extract_data <- function(parsed) {
     purrr::pluck(1)
 }
 
-#' @rdname parsed_extract
-#' @noRd
-extract_criteria <- function(parsed) {
+#' @rdname mm_parsed_extract
+extract_criteria_or_labels <- function(parsed) {
   description <- field <- NULL
 
-  not_cols <- c("Table", "Criteria", "Usage")
+  parsed <- parsed |> purrr::discard_at(c("Table", "Criteria", "Usage"))
 
   data.frame(
     field = names(parsed) |> tolower(),
     description = unlist(parsed)
-  ) |>
-    dplyr::filter(!field %in% !!not_cols)
+  )
 }
 
-#' @rdname parsed_extract
-#' @noRd
+#' @rdname mm_parsed_extract
 extract_schema <- function(parsed) {
   type <- description <- field <- NULL
 

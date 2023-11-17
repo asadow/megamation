@@ -9,13 +9,13 @@ with_mock_dir("status_resp", {
 })
 
 with_mock_dir("mm_resp_extract-schema", {
-  test_that("parsed_extract() returns embedded data", {
+  test_that("mm_parsed_extract() returns embedded data", {
     skip_on_cran()
     .from <- "schema"
     parsed <- status_get(.from) |> mm_resp_parse()
     expected_df <- extract_schema(parsed)
 
-    df <- parsed_extract(parsed, .from)
+    df <- mm_parsed_extract(parsed, .from)
     expect_equal(df, expected_df)
   })
 })

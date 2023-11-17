@@ -23,5 +23,6 @@ fake_mm_resp <- httr2::response_json(
     detail = "This is a fake detail/message from the API's response."
   )
 )
-mm_error_body(fake_mm_resp)
+megamation:::mm_error_body(fake_mm_resp)
 }
+\keyword{internal}

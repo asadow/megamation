@@ -15,3 +15,4 @@ A data frame containing the endpoint data without a \verb{_links} column.
 \description{
 Remove API \verb{_links} column in data
 }
+\keyword{internal}

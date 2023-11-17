@@ -9,7 +9,7 @@
 #' @param pages List of data frames representing Megamation API pages.
 #' @returns A data frame of class [`tbl_df`][tibble::tbl_df-class]
 #' representing the bound pages.
-#' @export
+#' @keywords internal
 #' @examples
 #' page_1 <- mtcars |>
 #'   dplyr::mutate(
@@ -21,8 +21,9 @@
 #'   )
 #' pages <- list(page_1, page_2)
 #' # mpg unnests but not cyl
-#' mm_pagebind(pages)
+#' megamation:::mm_pagebind(pages)
 mm_pagebind <- function(pages) {
+  pages <- purrr::compact(pages)
   matrices <- purrr::map(pages, \(x) as.matrix(x))
   m <- purrr::reduce(matrices, rbind)
   data <- m |> tibble::as_tibble()

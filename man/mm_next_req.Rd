@@ -15,14 +15,7 @@ mm_next_req(resp, req)
 An object of class \code{httr2_request} or \code{NULL}.
 }
 \description{
-\code{mm_next_req()} returns the next request based on the next_url given
-by the parsed response.
+\code{mm_next_req()} returns the next request based on the \code{next_url} from
+the parsed response.
 }
-\examples{
-\dontrun{
-mm_request("workorder") |>
-  httr2::req_perform_iterative(
-    next_req = function(resp, req) mm_next_req(resp, req)
-  )
-}
-}
+\keyword{internal}

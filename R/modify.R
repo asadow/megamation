@@ -1,14 +1,11 @@
 #' Append a GET request
 #' @inheritParams mm_next_req
-#' @param x `"criteria"`, `"labels"`, or `"schema"`.
+#' @param appendix `"criteria"`, `"labels"`, or `"schema"`.
 #' @returns An object of class `httr2_request`.
-#' @export
-#' @examplesIf httr2::secret_has_key("HTTR2_KEY_MEGAMATION")
-#' mm_request("workorder") |> mm_req_append("criteria")
-#'
-mm_req_append <- function(req, x) {
-  check_string(x)
-  httr2::req_url_path_append(req, glue::glue("@{toupper(x)}"))
+#' @keywords internal
+mm_req_append <- function(req, appendix) {
+  check_string(appendix)
+  httr2::req_url_path_append(req, glue::glue("@{toupper(appendix)}"))
 }
 
 #' Modify request URL with filtering components
@@ -19,21 +16,13 @@ mm_req_append <- function(req, x) {
 #' @inheritParams mm_next_req
 #' @param ... <[`dynamic-dots`][rlang::dyn-dots]> Name-value pairs to filter the
 #' request. The name should be the lower-case name of a field that is
-#' filter-enabled (in Megamation's words, a criteria).
+#' filter-enabled (in Megamation's words, a criteria). These arguments are
+#' processed with [rlang::quos()] and support unquote via [`!!`] and
+#' unquote-splice via [`!!!`].
 #' @param allfields If `TRUE`, return all fields currently available for
 #' the endpoint.
 #' @returns An object of class `httr2_request` with a pagination policy.
-#' @export
-#' @examplesIf httr2::secret_has_key("HTTR2_KEY_MEGAMATION")
-#' # No parameters
-#' mm_request("status") |> mm_req_params()
-#'
-#' # Multiple parameters
-#' from <- as.Date("2023-09-20")
-#' to <- as.Date("2023-10-20")
-#' date <- seq(from, to, by = "day")
-#' trade <- c("[]PCO", "[]DM")
-#' mm_request("status") |> mm_req_params(date = date, trade = trade)
+#' @keywords internal
 mm_req_params <- function(req, ..., allfields = TRUE) {
   check_bool(allfields)
   params <- format_params(...)
