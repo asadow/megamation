@@ -24,7 +24,7 @@ start_vignette("README")
 # megamation <a href="https://asadow.github.io/megamation/"><img src="man/figures/logo.png" alt="megamation website" align="right" height="139"/></a>
 
 **Authors:** 
-[Adam Sadowski](https://adams.quarto.pub/w/)
+[Adam Sadowski](https://adams.quarto.pub/w/)<br/>
 **License:** 
 [GPL (>= 3)](https://www.gnu.org/licenses/licenses.html)
 

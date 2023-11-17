@@ -1,8 +1,8 @@
 
 # megamation <a href="https://asadow.github.io/megamation/"><img src="man/figures/logo.png" alt="megamation website" align="right" height="139"/></a>
 
-**Authors:** [Adam Sadowski](https://adams.quarto.pub/w/) **License:**
-[GPL (\>= 3)](https://www.gnu.org/licenses/licenses.html)
+**Authors:** [Adam Sadowski](https://adams.quarto.pub/w/)<br/>
+**License:** [GPL (\>= 3)](https://www.gnu.org/licenses/licenses.html)
 
 <!-- badges: start -->
 
@@ -62,7 +62,6 @@ don’t have to expose them in your code.
 
 ``` r
 mm_get("status")
-#> Iterating ■■■ 5% | ETA: 43s
 #> # A tibble: 9 × 3
 #>   ampc_required description                              status
 #>   <chr>         <chr>                                    <chr> 
