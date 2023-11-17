@@ -13,7 +13,7 @@ reference:
       - mm_get_labels
   - title: "Authorization"
     desc: >
-      Set credentials
+      Install credentials for automatic use
     contents:
       - mm_authorize
   - title: "Programming around the Megamation API"
