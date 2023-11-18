@@ -29,10 +29,12 @@ test_that("mm_authorize() gives bad url error", {
 
 test_that("mm_authorize() sets credentials", {
   skip_on_cran()
+  key_original <- mm_key()
+  url_original <- mm_url()
   withr::defer({
     mm_authorize(
-      key = testing_key(),
-      url = "https://api.megamation.com/uog/dl",
+      key = key_original,
+      url = url_original,
       overwrite = TRUE
     )
   })
