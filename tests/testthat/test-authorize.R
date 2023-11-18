@@ -28,6 +28,7 @@ test_that("mm_authorize() gives bad url error", {
 })
 
 test_that("mm_authorize() sets credentials", {
+  skip_on_cran()
   withr::defer({
     mm_authorize(
       key = testing_key(),
