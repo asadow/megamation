@@ -9,7 +9,6 @@ remove_api_urls <- function(.data) {
 # Error on absent MEGAMATION env vars
 cred_error <- function(x) {
   cli::cli_abort(c(
-    "No {.envvar MEGAMATION_{toupper(x)}} found.",
-    "i" = "Did you run {.fun mm_authorize}?"
+    "No {.envvar MEGAMATION_{toupper(x)}} found."
   ))
 }

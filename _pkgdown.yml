@@ -11,11 +11,6 @@ reference:
       - mm_get_criteria
       - mm_get_schema
       - mm_get_labels
-  - title: "Authorization"
-    desc: >
-      Install credentials for automatic use
-    contents:
-      - mm_authorize
   - title: "Programming around the Megamation API"
     desc: >
       Low-level functions used internally and made available for programming
