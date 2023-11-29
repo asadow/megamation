@@ -43,14 +43,12 @@ library(megamation)
 
 ## Authorization
 
-`mm_authorize()` installs your API credentials in your `.Renviron`, a
-safe place for secrets.
+Run `usethis::edit_r_environ()` to install your API credentials in your
+`.Renviron`, a safe place for secrets.
 
 ``` r
-mm_authorize(
-  key = "<YOUR-MEGAMATION_KEY>",
-  url = "<YOUR-MEGAMATION_URL>"
-)
+MEGAMATION_KEY = '<YOUR-MEGAMATION_KEY>'
+MEGAMATION_URL = '<YOUR-MEGAMATION_URL>'
 ```
 
 The following functions will automatically use your credentials, so you

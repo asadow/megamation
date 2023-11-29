@@ -8,12 +8,12 @@ knitr::opts_chunk$set(
   comment = "#>",
   fig.path = "man/figures/README-",
   out.width = "100%",
-  eval = megamation:::mm_has_creds()
+  eval = megamation:::has_creds()
 )
 ```
 
-```{r eval = !megamation:::mm_has_creds(), echo = FALSE, comment = NA}
-message("No credentials available. Code chunks will not be evaluated.")
+```{r eval = !megamation:::has_creds(), echo = FALSE, comment = NA}
+message("Missing credentials. Code chunks will not be evaluated.")
 ```
 
 ```{r, include = FALSE}
@@ -59,13 +59,11 @@ library(megamation)
 
 ## Authorization
 
-`mm_authorize()` installs your API credentials in your `.Renviron`, a safe place for secrets.
+Run `usethis::edit_r_environ()` to install your API credentials in your `.Renviron`, a safe place for secrets.
 
 ``` {r, eval = FALSE}
-mm_authorize(
-  key = "<YOUR-MEGAMATION_KEY>",
-  url = "<YOUR-MEGAMATION_URL>"
-)
+MEGAMATION_KEY = '<YOUR-MEGAMATION_KEY>'
+MEGAMATION_URL = '<YOUR-MEGAMATION_URL>'
 ```
 
 The following functions will automatically use your credentials, so you don't have to expose them in your code.

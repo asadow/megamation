@@ -35,7 +35,7 @@ mm_url <- function() {
 #' @keywords internal
 testing_key <- function() {
   httr2::secret_decrypt(
-    "4E5GlxeUybPJnCQQnwyDGsPIncZI526gyfk",
+    "A0RezbBRC8_7F2uGNHujFBDfSAy5hukOeWU",
     "MEGAMATION_KEY_HTTR2"
   )
 }

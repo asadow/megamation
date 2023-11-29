@@ -20,7 +20,7 @@ An object of class \code{httr2_request}.
 does the following:
 \itemize{
 \item Inserts the base URL using the environment variable \code{MEGAMATION_URL} from
-your \link{.Renviron}. Your key and base URL can be set using \code{\link[=mm_authorize]{mm_authorize()}}.
+your \link{.Renviron}.
 \item Appends the URL with the endpoint defined by parameter \code{endpoint}.
 \item Sets the user-agent as the GitHub \link{megamation} package.
 \item Authenticates the request with HTTP basic authentication using
@@ -32,7 +32,7 @@ from your \code{.Renviron}.
 }
 }
 \examples{
-\dontshow{if (megamation:::mm_has_creds()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (megamation:::has_creds()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 megamation:::mm_request("timecard")
 megamation:::mm_request("trade")
 \dontshow{\}) # examplesIf}

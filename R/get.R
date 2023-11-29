@@ -15,7 +15,7 @@
 #' @returns A data frame of class [`tbl_df`][tibble::tbl_df-class]
 #' containing the endpoint's appendix.
 #' @export
-#' @examplesIf megamation:::mm_has_creds()
+#' @examplesIf megamation:::has_creds()
 #' mm_get_col_info("status")
 mm_get_col_info <- function(endpoint) {
   description <- filter_enabled <- NULL
@@ -82,7 +82,7 @@ mm_get_labels <- function(endpoint) {
 #' @returns A data frame of class [`tbl_df`][tibble::tbl_df-class]
 #' containing the requested data.
 #' @export
-#' @examplesIf megamation:::mm_has_creds()
+#' @examplesIf megamation:::has_creds()
 #' # Get all work orders from Jan. 2023 containing trades ADMIN and IT:
 #'
 #' # First create a Date-type vector

@@ -5,7 +5,7 @@
 #' does the following:
 #'
 #' * Inserts the base URL using the environment variable `MEGAMATION_URL` from
-#'  your [.Renviron]. Your key and base URL can be set using [mm_authorize()].
+#'  your [.Renviron].
 #' * Appends the URL with the endpoint defined by parameter `endpoint`.
 #' * Sets the user-agent as the GitHub [megamation] package.
 #' * Authenticates the request with HTTP basic authentication using
@@ -21,7 +21,7 @@
 #' https://apidocs.megamation.com/.
 #' @returns An object of class `httr2_request`.
 #' @keywords internal
-#' @examplesIf megamation:::mm_has_creds()
+#' @examplesIf megamation:::has_creds()
 #' megamation:::mm_request("timecard")
 #' megamation:::mm_request("trade")
 mm_request <- function(endpoint) {

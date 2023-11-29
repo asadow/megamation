@@ -37,7 +37,7 @@ appendices.
 \code{mm_get_labels()} returns column names and descriptions.
 }
 \examples{
-\dontshow{if (megamation:::mm_has_creds()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (megamation:::has_creds()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 mm_get_col_info("status")
 \dontshow{\}) # examplesIf}
 }

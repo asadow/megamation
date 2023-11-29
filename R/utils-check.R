@@ -1,3 +1,17 @@
+#' Are there credentials on hand?
+#'
+#' @family low-level API functions
+#' @keywords internal
+#' @returns `TRUE` if user has `MEGAMATION_KEY` and `MEGAMATION_URL` environment
+#' variables.
+has_creds <- function() {
+  creds <- c(
+    key = Sys.getenv("MEGAMATION_KEY"),
+    url = Sys.getenv("MEGAMATION_URL")
+  )
+  !any(creds == "")
+}
+
 # Are httr2 parameters well-specified
 check_params <- function(x, call = rlang::caller_env()) {
   np <- names(x)
@@ -46,8 +60,14 @@ check_creds <- function() {
 
   if (any(creds == "")) {
     cli::cli_abort(c(
-      "Megamation API key and/or URL need registering:",
-      i = "Use {.fun mm_authorize}"
+      "Missing credentials.",
+      "i" = "Run {.fun usethis::edit_r_environ} to open your `.Renviron` file.
+      Edit in these lines and restart R to apply your credentials to all
+      sessions.",
+      ">" = "`MEGAMATION_KEY = <your-key>`",
+      ">" = "`MEGAMATION_URL = <your-URL>`",
+      "i" = "`Sys.setenv()` is another option that applies only to the current
+      session."
     ))
   }
 

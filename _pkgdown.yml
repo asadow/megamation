@@ -30,7 +30,7 @@ reference:
       - mm_parsed_extract
       - mm_resp_extract
       - mm_pagebind
-      - mm_has_creds
+      - has_creds
       - mm_key
       - mm_url
       - mm_get_appendix

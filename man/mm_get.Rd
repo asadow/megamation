@@ -36,7 +36,7 @@ Where applicable, pagination is automatically applied to the request
 and returned pages are automatically combined.
 }
 \examples{
-\dontshow{if (megamation:::mm_has_creds()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (megamation:::has_creds()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 # Get all work orders from Jan. 2023 containing trades ADMIN and IT:
 
 # First create a Date-type vector
