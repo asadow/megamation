@@ -5,6 +5,8 @@ headers <- c("Cache-Control", "Server", "X-Powered-By",
 
 function(response) {
   response <- response |>
+    ## To reduce nested folders where mocks are placed
+    gsub_response("https://api.megamation.com/uog/dl/", "", fixed = TRUE) |>
     redact_headers(headers) |>
     redact_cookies()
   response$request <- "REDACTED"

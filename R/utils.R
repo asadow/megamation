@@ -7,8 +7,15 @@ remove_api_urls <- function(.data) {
 }
 
 # Error on absent MEGAMATION env vars
-cred_error <- function(x) {
+stop_missing_cred <- function() {
   cli::cli_abort(c(
-    "No {.envvar MEGAMATION_{toupper(x)}} found."
+    "Missing credentials.",
+    "i" = "Run {.fun usethis::edit_r_environ} to open your `.Renviron` file.
+      Edit in these lines and restart R to apply your credentials to all
+      sessions.",
+    ">" = "`MEGAMATION_KEY = <your-key>`",
+    ">" = "`MEGAMATION_URL = <your-URL>`",
+    "i" = "`Sys.setenv()` is another option that applies only to the current
+      session."
   ))
 }

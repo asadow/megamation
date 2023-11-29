@@ -5,11 +5,9 @@
 #' @returns `TRUE` if user has `MEGAMATION_KEY` and `MEGAMATION_URL` environment
 #' variables.
 has_creds <- function() {
-  creds <- c(
-    key = Sys.getenv("MEGAMATION_KEY"),
-    url = Sys.getenv("MEGAMATION_URL")
-  )
-  !any(creds == "")
+  key <- Sys.getenv("MEGAMATION_KEY")
+  url <- Sys.getenv("MEGAMATION_URL")
+  !identical(key, "") && !identical(url, "")
 }
 
 # Are httr2 parameters well-specified
@@ -46,51 +44,6 @@ check_request <- function(x,
     )
   }
   return()
-}
-
-# Are credentials present
-check_creds <- function() {
-  creds <- c(
-    key = Sys.getenv("MEGAMATION_KEY"),
-    url = Sys.getenv("MEGAMATION_URL")
-  )
-
-  if (any(creds == "")) {
-    cli::cli_abort(c(
-      "Missing credentials.",
-      "i" = "Run {.fun usethis::edit_r_environ} to open your `.Renviron` file.
-      Edit in these lines and restart R to apply your credentials to all
-      sessions.",
-      ">" = "`MEGAMATION_KEY = <your-key>`",
-      ">" = "`MEGAMATION_URL = <your-URL>`",
-      "i" = "`Sys.setenv()` is another option that applies only to the current
-      session."
-    ))
-  }
-
-  check_url(Sys.getenv("MEGAMATION_URL"))
-
-  return()
-}
-
-# Checking and re-formatting URL
-check_url <- function(x,
-                      arg = rlang::caller_arg(x),
-                      call = rlang::caller_env()) {
-  check_string(x)
-
-  base_url <- "https://api.megamation.com/"
-
-  if (!startsWith(x, base_url)) {
-    cli::cli_abort(
-      "{.arg {arg}} must be of the form {.val {base_url}<institution ID>/dl},
-    not {x}."
-    )
-  }
-
-  if (endsWith(x, "/")) x <- sub("/$", "", x)
-
-  return(x)
 }
 
 check_bool <- function(x,

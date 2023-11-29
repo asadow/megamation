@@ -11,7 +11,7 @@ mm_key <- function() {
   if (testthat::is_testing()) {
     return(testing_key())
   } else {
-    cred_error("key")
+    stop_missing_cred()
   }
 }
 
@@ -21,10 +21,21 @@ mm_key <- function() {
 #' @keywords internal
 mm_url <- function() {
   url <- Sys.getenv("MEGAMATION_URL")
-  if (!identical(url, "")) {
-    return(url)
+  base_url <- "https://api.megamation.com/"
+
+  if (identical(url, "")) {
+    stop_missing_cred()
   }
-  cred_error("url")
+
+  if (!startsWith(url, base_url)) {
+    cli::cli_abort(
+      "{.envvar MEGAMATION_URL} must be of the form
+      {.val {base_url}<institution ID>/dl}, not {.val url}."
+    )
+  }
+
+  if (endsWith(url, "/")) sub("/$", "", url) else url
+
 }
 
 #' Get testing key

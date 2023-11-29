@@ -16,3 +16,27 @@ test_that("check_params() errors on dot prefix", {
 test_that("check_string() returns error message", {
   expect_error(check_string(5), "must be a single string")
 })
+
+test_that("absence of API key or URL raises an error", {
+  withr::local_envvar("MEGAMATION_URL" = "")
+  expect_error(
+    mm_url(),
+    "Missing credentials."
+  )
+})
+
+test_that("testing key", {
+  skip_on_cran()
+  expect_equal(
+    mm_key(),
+    testing_key()
+  )
+})
+
+test_that("mm_url() gives bad url error", {
+  withr::local_envvar("MEGAMATION_URL" = "a.com")
+  expect_error(
+    mm_url(),
+    "`MEGAMATION_URL` must be of the form"
+  )
+})

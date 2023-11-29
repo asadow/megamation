@@ -25,7 +25,6 @@
 #' megamation:::mm_request("timecard")
 #' megamation:::mm_request("trade")
 mm_request <- function(endpoint) {
-  check_creds()
   check_string(endpoint)
   agent <- "megamation (https://github.com/asadow/megamation)"
   user <- "APIDL"
