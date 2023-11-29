@@ -25,13 +25,13 @@
     <loc>https://asadow.github.io/megamation/reference/format_params.html</loc>
   </url>
   <url>
+    <loc>https://asadow.github.io/megamation/reference/has_creds.html</loc>
+  </url>
+  <url>
     <loc>https://asadow.github.io/megamation/reference/index.html</loc>
   </url>
   <url>
     <loc>https://asadow.github.io/megamation/reference/megamation-package.html</loc>
-  </url>
-  <url>
-    <loc>https://asadow.github.io/megamation/reference/mm_authorize.html</loc>
   </url>
   <url>
     <loc>https://asadow.github.io/megamation/reference/mm_error_body.html</loc>
@@ -44,9 +44,6 @@
   </url>
   <url>
     <loc>https://asadow.github.io/megamation/reference/mm_get_col_info.html</loc>
-  </url>
-  <url>
-    <loc>https://asadow.github.io/megamation/reference/mm_has_creds.html</loc>
   </url>
   <url>
     <loc>https://asadow.github.io/megamation/reference/mm_key.html</loc>
