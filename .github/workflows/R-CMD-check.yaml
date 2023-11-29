@@ -27,6 +27,7 @@ jobs:
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       MEGAMATION_KEY_HTTR2: ${{ secrets.MEGAMATION_KEY_HTTR2 }}
+      MEGAMATION_URL: ${{ vars.MEGAMATION_URL }}
       R_KEEP_PKG_SOURCE: yes
 
     steps:

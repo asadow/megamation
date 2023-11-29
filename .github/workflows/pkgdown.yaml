@@ -19,7 +19,6 @@ jobs:
       group: pkgdown-${{ github.event_name != 'pull_request' || github.run_id }}
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
-      MEGAMATION_KEY_HTTR2: ${{ secrets.MEGAMATION_KEY_HTTR2 }}
     permissions:
       contents: write
     steps:
