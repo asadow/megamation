@@ -27,5 +27,5 @@ mm_req_params <- function(req, ..., allfields = TRUE) {
   check_bool(allfields)
   params <- format_params(...)
   if (allfields) params <- c(params, "ALLFIELDS" = 1)
-  httr2::req_url_query(req, !!!params)
+  httr2::req_url_query(req, !!!params, .multi = "comma")
 }

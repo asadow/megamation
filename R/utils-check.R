@@ -29,7 +29,7 @@ check_params <- function(x, call = rlang::caller_env()) {
     ))
   }
 
-  return(x)
+  return()
 }
 
 # Is httr2_request

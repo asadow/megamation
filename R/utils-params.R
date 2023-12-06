@@ -2,7 +2,7 @@
 #'
 #' @description
 #' `format_params()` formats supplied name-value pairs toward
-#' creating a valid Megamation URL.
+#' creating a valid and readable Megamation URL.
 #' @inheritParams mm_req_params
 #' @returns A list of parameter name-value pairs.
 #' @keywords internal
@@ -17,27 +17,15 @@ format_params <- function(...) {
   if (rlang::is_empty(params)) {
     return(params)
   }
-  params <- check_params(params)
-
-  if ("date" %in% names(params)) {
-    ## Do not in-line date o.w. when check_date() errors: "params$date must be"
-    date <- params$date
-    check_date(date)
-    params$date <- format_date(date)
-  }
-
+  check_params(params)
   names(params) <- toupper(names(params))
-
-  max_length <- purrr::map_dbl(params, length) |> max()
-
-  valid_list <- 1:max_length |>
-    purrr::map(\(x) purrr::map(params, x)) |>
-    purrr::flatten() |>
-    purrr::compact() |>
-    purrr::map(as.character) |>
-    purrr::map(I)
-
-  valid_list[order(names(valid_list))]
+  if ("DATE" %in% names(params)) {
+    ## Do not in-line date o.w. when check_date() errors: "params$date must be"
+    date <- params$DATE
+    check_date(date)
+    params$DATE <- format_date(date)
+  }
+  return(params)
 }
 
 #' Format date values

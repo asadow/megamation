@@ -18,7 +18,7 @@ A list of parameter name-value pairs.
 }
 \description{
 \code{format_params()} formats supplied name-value pairs toward
-creating a valid Megamation URL.
+creating a valid and readable Megamation URL.
 }
 \examples{
 from <- as.Date("2023-09-20")
