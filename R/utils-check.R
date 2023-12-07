@@ -10,6 +10,38 @@ has_creds <- function() {
   !identical(key, "") && !identical(url, "")
 }
 
+# Checking and re-formatting URL
+check_url <- function(x,
+                      arg = rlang::caller_arg(x),
+                      call = rlang::caller_env()) {
+  check_string(x)
+
+  base_url <- "https://api.megamation.com/"
+
+  if (!startsWith(x, base_url)) {
+    cli::cli_abort(
+      "{.arg {arg}} must be of the form {.val {base_url}<institution ID>/dl},
+    not {x}."
+    )
+  }
+
+  if (endsWith(x, "/")) x <- sub("/$", "", x)
+
+  return(x)
+}
+
+check_bool <- function(x,
+                       arg = rlang::caller_arg(x),
+                       call = rlang::caller_env()) {
+  if (!rlang::is_bool(x)) {
+    cli::cli_abort(
+      "{.arg {arg}} must be
+      either {.val {TRUE}} or {.val {FALSE}}, not {x}."
+    )
+  }
+  return()
+}
+
 # Are httr2 parameters well-specified
 check_params <- function(x, call = rlang::caller_env()) {
   np <- names(x)

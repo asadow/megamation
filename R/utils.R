@@ -10,12 +10,7 @@ remove_api_urls <- function(.data) {
 stop_missing_cred <- function() {
   cli::cli_abort(c(
     "Missing credentials.",
-    "i" = "Run {.fun usethis::edit_r_environ} to open your `.Renviron` file.
-      Edit in these lines and restart R to apply your credentials to all
-      sessions.",
-    ">" = "`MEGAMATION_KEY = <your-key>`",
-    ">" = "`MEGAMATION_URL = <your-URL>`",
-    "i" = "`Sys.setenv()` is another option that applies only to the current
-      session."
+    "i" = "Run {.fun mm_authorize(key = '<your-key>', url = 'your-base-url')} to
+    install your credentials."
   ))
 }
