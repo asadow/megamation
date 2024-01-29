@@ -24,8 +24,6 @@ format_params <- function(...) {
     date <- params$DATE
     check_date(date)
     params$DATE <- format_date(date)
-    tableyear <- lubridate::year(date) |> unique()
-    params$TABLEYEAR <- tableyear[tableyear != lubridate::year(Sys.Date())]
   }
   return(params)
 }

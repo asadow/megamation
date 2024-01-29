@@ -102,6 +102,14 @@ mm_get <- function(endpoint, ..., .paginate = TRUE, .perform = TRUE) {
     mm_req(endpoint) |>
     mm_req_params(!!!params)
 
+  ## TABLEYEAR parameter required for previous years of timecard
+  if (endpoint == "timecard" && "date" %in% tolower(names(params))) {
+    tableyear <- lubridate::year(params$date) |> unique()
+    tableyear <- tableyear[tableyear != lubridate::year(Sys.Date())]
+    request <- request |>
+      httr2::req_url_query(TABLEYEAR = tableyear)
+  }
+
   if (!.perform) {
     return(request)
   }

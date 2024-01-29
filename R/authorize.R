@@ -1,7 +1,7 @@
 #' Install Megamation credentials
 #'
 #' @description
-#' `mm_authorize()` installs your credentials so that `megamation` functions
+#' `mm_auth()` installs your credentials so that `megamation` functions
 #' that need them, like [mm_get()], can use them automatically.
 #'
 #' Specifically, it places your Megamation API key and base URL
@@ -15,12 +15,12 @@
 #' @export
 #' @examples
 #' \dontrun{
-#' mm_authorize(
+#' mm_auth(
 #'   key = "<YOUR-MEGAMATION_KEY>",
 #'   url = "<YOUR-MEGAMATION_URL>"
 #' )
 #' }
-mm_authorize <- function(key, url) {
+mm_auth <- function(key, url) {
   check_string(key)
   check_string(url)
   url <- check_url(url)

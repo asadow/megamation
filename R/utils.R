@@ -10,7 +10,7 @@ remove_api_urls <- function(.data) {
 stop_missing_cred <- function() {
   cli::cli_abort(c(
     "Missing credentials.",
-    "i" = "Run {.fun mm_authorize(key = '<your-key>', url = 'your-base-url')} to
+    "i" = "Run {.fun mm_auth(key = '<your-key>', url = 'your-base-url')} to
     install your credentials."
   ))
 }
