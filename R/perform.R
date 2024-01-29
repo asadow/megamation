@@ -2,7 +2,7 @@
 #'
 #' @description
 #'
-#' After creating a request with [mm_request()],
+#' After creating a request with [mm_req()],
 #' call `mm_req_perform()` to perform it and fetch
 #' the results back to R.
 #'

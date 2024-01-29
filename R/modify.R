@@ -27,5 +27,11 @@ mm_req_params <- function(req, ..., allfields = TRUE) {
   check_bool(allfields)
   params <- format_params(...)
   if (allfields) params <- c(params, "ALLFIELDS" = 1)
+
+# Waiting for httr2 bug to be fixed ---------------------------------------
+  ## https://github.com/r-lib/httr2/issues/404
+  ## Can then remove I() from utils-params.R format_date()
+  ## Can also remove line below and place in format_params()
+  # params <- params |> purrr::map(I)
   httr2::req_url_query(req, !!!params, .multi = "comma")
 }

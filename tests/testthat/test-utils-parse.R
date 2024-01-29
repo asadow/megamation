@@ -1,7 +1,7 @@
 with_mock_dir("status_resp", {
   test_that("mm_resp_parse() for data gives list with '_embedded'", {
     skip_on_cran()
-    resp <- mm_request("status") |> httr2::req_perform()
+    resp <- mm_req("status") |> httr2::req_perform()
     parsed <- resp |> mm_resp_parse()
     expect_type(parsed, "list")
     expect_contains(names(parsed), "_embedded")

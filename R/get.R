@@ -40,7 +40,7 @@ mm_get_col_info <- function(endpoint) {
 #' containing the endpoint's appendix.
 #' @keywords internal
 mm_get_appendix <- function(endpoint, appendix) {
-  mm_request(endpoint) |>
+  mm_req(endpoint) |>
     mm_req_append(appendix) |>
     httr2::req_perform() |>
     mm_resp_extract() |>
@@ -77,8 +77,9 @@ mm_get_labels <- function(endpoint) {
 #' Where applicable, pagination is automatically applied to the request
 #' and returned pages are automatically combined.
 #' @inheritParams mm_req_params
-#' @inheritParams mm_request
+#' @inheritParams mm_req
 #' @param .paginate If `TRUE`, paginate the request.
+#' @param .perform If `TRUE`, perform the request. Otherwise only show.
 #' @returns A data frame of class [`tbl_df`][tibble::tbl_df-class]
 #' containing the requested data.
 #' @export
@@ -92,18 +93,20 @@ mm_get_labels <- function(endpoint) {
 #'   by = "day"
 #' )
 #'
-#' # Then prefix the trade values with the "containing" modifier "[]"
-#' # since trade is a list column in the work order table
-#' admin_and_it <- c("[]ADMIN", "[]IT")
-#'
-#' mm_get("workorder", date = jan_2023, trade = admin_and_it)
-mm_get <- function(endpoint, ..., .paginate = TRUE) {
+#' mm_get("timecard", date = jan_2023)
+mm_get <- function(endpoint, ..., .paginate = TRUE, .perform = TRUE) {
   check_bool(.paginate)
   params <- rlang::list2(...)
 
-  resp <- mm_request(endpoint) |>
-    mm_req_params(!!!params) |>
-    mm_req_perform()
+  request <-
+    mm_req(endpoint) |>
+    mm_req_params(!!!params)
+
+  if (!.perform) {
+    return(request)
+  }
+
+  resp <- request |> mm_req_perform()
 
   page_1 <- resp[[1]] |> mm_resp_extract()
 

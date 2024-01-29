@@ -24,6 +24,8 @@ format_params <- function(...) {
     date <- params$DATE
     check_date(date)
     params$DATE <- format_date(date)
+    tableyear <- lubridate::year(date) |> unique()
+    params$TABLEYEAR <- tableyear[tableyear != lubridate::year(Sys.Date())]
   }
   return(params)
 }
@@ -53,7 +55,7 @@ format_date <- function(date) {
   if (!date_is_sequence) {
     format(date, "%m-%d-%Y")
   } else {
-    date_as_between_string(.min, .max)
+    date_as_between_string(.min, .max) |> I()
   }
 }
 

@@ -1,7 +1,7 @@
 #' Create a Megamation API request
 #'
 #' @description
-#' `mm_request()` creates a request using [httr2::request()] and
+#' `mm_req()` creates a request using [httr2::request()] and
 #' does the following:
 #'
 #' * Inserts the base URL using the environment variable `MEGAMATION_URL` from
@@ -22,9 +22,9 @@
 #' @returns An object of class `httr2_request`.
 #' @keywords internal
 #' @examplesIf megamation:::has_creds()
-#' megamation:::mm_request("timecard")
-#' megamation:::mm_request("trade")
-mm_request <- function(endpoint) {
+#' megamation:::mm_req("timecard")
+#' megamation:::mm_req("trade")
+mm_req <- function(endpoint) {
   check_string(endpoint)
   agent <- "megamation (https://github.com/asadow/megamation)"
   user <- "APIDL"

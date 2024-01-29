@@ -4,7 +4,7 @@
 \alias{mm_get}
 \title{Get data}
 \usage{
-mm_get(endpoint, ..., .paginate = TRUE)
+mm_get(endpoint, ..., .paginate = TRUE, .perform = TRUE)
 }
 \arguments{
 \item{endpoint}{The API endpoint. For example,
@@ -19,6 +19,8 @@ processed with \code{\link[rlang:defusing-advanced]{rlang::quos()}} and support 
 unquote-splice via \code{\link{!!!}}.}
 
 \item{.paginate}{If \code{TRUE}, paginate the request.}
+
+\item{.perform}{If \code{TRUE}, perform the request. Otherwise only show.}
 }
 \value{
 A data frame of class \code{\link[tibble:tbl_df-class]{tbl_df}}
@@ -46,10 +48,6 @@ jan_2023 <- seq.Date(
   by = "day"
 )
 
-# Then prefix the trade values with the "containing" modifier "[]"
-# since trade is a list column in the work order table
-admin_and_it <- c("[]ADMIN", "[]IT")
-
-mm_get("workorder", date = jan_2023, trade = admin_and_it)
+mm_get("timecard", date = jan_2023)
 \dontshow{\}) # examplesIf}
 }

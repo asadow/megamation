@@ -15,7 +15,7 @@ reference:
     desc: >
       Low-level functions used internally and made available for programming
     contents:
-      - mm_request
+      - mm_req
       - mm_error_body
       - mm_req_append
       - mm_req_params
