@@ -26,7 +26,6 @@ check_url <- function(x,
   }
 
   if (endsWith(x, "/")) x <- sub("/$", "", x)
-
   return(x)
 }
 
@@ -60,7 +59,6 @@ check_params <- function(x, call = rlang::caller_env()) {
       "i" = 'Did you mean `{sub("\\\\.", "", dotted[1])} = "<value>"`?'
     ))
   }
-
   return()
 }
 

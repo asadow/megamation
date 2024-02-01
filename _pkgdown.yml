@@ -22,7 +22,6 @@ reference:
       - mm_req
       - mm_error_body
       - mm_req_append
-      - mm_req_params
       - mm_req_perform
       - mm_next_req
       - mm_resp_parse

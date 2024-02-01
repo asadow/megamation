@@ -3,7 +3,7 @@
 #' @description
 #' `format_params()` formats supplied name-value pairs toward
 #' creating a valid and readable Megamation URL.
-#' @inheritParams mm_req_params
+#' @inheritParams mm_req
 #' @returns A list of parameter name-value pairs.
 #' @keywords internal
 #' @examples
@@ -19,13 +19,20 @@ format_params <- function(...) {
   }
   check_params(params)
   names(params) <- toupper(names(params))
-  if ("DATE" %in% names(params)) {
-    ## Do not in-line date o.w. when check_date() errors: "params$date must be"
+
+  if (!"DATE" %in% names(params)) {
+    return(list(params))
+  } else {
     date <- params$DATE
     check_date(date)
-    params$DATE <- format_date(date)
+    params$DATE <- NULL
+
+    ## Create separate param lists for separate years
+    years <- lubridate::year(date) |> unique()
+    years_dates <- purrr::map(years, \(x) date[lubridate::year(date) %in% x])
+    years_dates <- purrr::map(years_dates, format_date)
+    purrr::map(years_dates, \(x) params |> purrr::list_modify(DATE = x))
   }
-  return(params)
 }
 
 #' Format date values
@@ -48,12 +55,13 @@ format_params <- function(...) {
 format_date <- function(date) {
   .min <- min(date)
   .max <- max(date)
-  date_is_sequence <- identical(date, seq(.min, .max, "day")) && .min != .max
+  date_is_sequence <- identical(date, seq.Date(.min, .max, "day")) &&
+    .min != .max
 
   if (!date_is_sequence) {
     format(date, "%m-%d-%Y")
   } else {
-    date_as_between_string(.min, .max) |> I()
+    date_as_between_string(.min, .max)
   }
 }
 

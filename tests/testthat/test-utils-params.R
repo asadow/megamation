@@ -3,9 +3,8 @@ test_that("format_params() formats a sequence of dates", {
   date_end <- as.Date("2023-10-20")
   date <- seq(date_start, date_end, by = "day")
 
-  expected <- list(DATE = structure("<>09-20-2023,10-20-2023",
-                                    class = c("AsIs", "glue", "character")))
-  actual <- format_params(date = date)["DATE"]
+  expected <- list(list(DATE = "<>09-20-2023,10-20-2023"))
+  actual <- format_params(date = date)
   expect_equal(actual, expected)
 })
 
@@ -13,8 +12,8 @@ test_that("format_params() formats dates not in sequence", {
   date <- as.Date("2023-09-20")
   date <- c(date, date + 3)
 
-  expected <- list(DATE = structure(c("09-20-2023", "09-23-2023")))
-  actual <- format_params(date = date)["DATE"]
+  expected <- list(list(DATE = c("09-20-2023", "09-23-2023")))
+  actual <- format_params(date = date)
   expect_equal(actual, expected)
 })
 

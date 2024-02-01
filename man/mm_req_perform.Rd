@@ -17,7 +17,7 @@ responses correspond to pages.
 }
 \description{
 After creating a request with \code{\link[=mm_req]{mm_req()}},
-call \code{mm_req_perform()} to perform it and fetch
+call \code{mm_req_perform()} to perform it with pagination and fetch
 the results back to R.
 }
 \keyword{internal}

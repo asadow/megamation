@@ -4,13 +4,19 @@
 \alias{mm_req}
 \title{Create a Megamation API request}
 \usage{
-mm_req(endpoint)
+mm_req(endpoint, ...)
 }
 \arguments{
 \item{endpoint}{The API endpoint. For example,
 \code{"timecard"} for employee transactions, and \code{"workorder"}
 for work orders. All endpoints are listed at
 https://apidocs.megamation.com/.}
+
+\item{...}{<\code{\link[rlang:dyn-dots]{dynamic-dots}}> Name-value pairs to filter the
+request. The name should be the lower-case name of a field that is
+filter-enabled (in Megamation's words, a criteria). These arguments are
+processed with \code{\link[rlang:defusing-advanced]{rlang::quos()}} and support unquote via \code{\link{!!}} and
+unquote-splice via \code{\link{!!!}}.}
 }
 \value{
 An object of class \code{httr2_request}.

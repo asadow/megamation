@@ -13,3 +13,8 @@ test_that("mm_req() returns class httr2_request", {
   )
   expect_named(req$policies, expected_names)
 })
+
+test_that("mm_req_append() adds '/@CRITERIA' ending to URL", {
+  req <- httr2::request("some_url") |> mm_req_append("criteria")
+  expect_true(req$url |> endsWith("/@CRITERIA"))
+})

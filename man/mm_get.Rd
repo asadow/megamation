@@ -4,7 +4,7 @@
 \alias{mm_get}
 \title{Get data}
 \usage{
-mm_get(endpoint, ..., .paginate = TRUE, .perform = TRUE)
+mm_get(endpoint, ..., allfields = TRUE)
 }
 \arguments{
 \item{endpoint}{The API endpoint. For example,
@@ -18,30 +18,25 @@ filter-enabled (in Megamation's words, a criteria). These arguments are
 processed with \code{\link[rlang:defusing-advanced]{rlang::quos()}} and support unquote via \code{\link{!!}} and
 unquote-splice via \code{\link{!!!}}.}
 
-\item{.paginate}{If \code{TRUE}, paginate the request.}
-
-\item{.perform}{If \code{TRUE}, perform the request. Otherwise only show.}
+\item{allfields}{If \code{TRUE}, return all fields currently available for
+the endpoint.}
 }
 \value{
 A data frame of class \code{\link[tibble:tbl_df-class]{tbl_df}}
 containing the requested data.
 }
 \description{
-\code{mm_get()} accomplishes the full process of a GET request:
-\itemize{
-\item Creates an API request and defines its behaviour.
-\item Performs the request and fetches the response.
-\item Converts the body of the response to a data frame.
-}
+Download Megamation data you own via the API and import the data into R.
 
-Where applicable, pagination is automatically applied to the request
-and returned pages are automatically combined.
+\code{mm_get()} accomplishes a variety of conveniences when fetching data from
+Megamation. It creates the necessary API GET requests, performs them,
+converts response bodies to data frames, and finally binds them
 }
 \examples{
 \dontshow{if (megamation:::has_creds()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
-# Get all work orders from Jan. 2023 containing trades ADMIN and IT:
+# Get all timecard entries from Jan. 2023:
 
-# First create a Date-type vector
+# Create a Date-type vector
 jan_2023 <- seq.Date(
   as.Date("2023-01-01"),
   as.Date("2023-01-31"),

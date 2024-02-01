@@ -1,92 +1,22 @@
-#' Get column names, filter statuses, descriptions, and types
-#'
-#' @description
-#' `mm_get_col_info()` returns column names, filter status, description,
-#' and types. It does so by combining the results of the criteria and schema
-#' appendices.
-#'
-#' `mm_get_criteria()` returns column names and filter status.
-#'
-#' `mm_get_schema()` returns column names, descriptions, and types.
-#'
-#' `mm_get_labels()` returns column names and descriptions.
-#'
-#' @inheritParams mm_get
-#' @returns A data frame of class [`tbl_df`][tibble::tbl_df-class]
-#' containing the endpoint's appendix.
-#' @export
-#' @examplesIf megamation:::has_creds()
-#' mm_get_col_info("status")
-mm_get_col_info <- function(endpoint) {
-  description <- filter_enabled <- NULL
-  data_criteria <- mm_get_criteria(endpoint)
-  data_schema <- mm_get_schema(endpoint)
-  data_criteria$filter_enabled <- TRUE
-
-  data_criteria |>
-    dplyr::select(- description) |>
-    dplyr::right_join(data_schema, by = "field") |>
-    tibble::as_tibble() |>
-    dplyr::mutate(filter_enabled = ifelse(is.na(filter_enabled), FALSE, TRUE))
-}
-
-#' Get endpoint appendix (criteria, schema, labels)
-#'
-#' `mm_get_appendix()` returns the user-supplied appendix.
-#'
-#' @inheritParams mm_get
-#' @inheritParams mm_req_append
-#' @returns A data frame of class [`tbl_df`][tibble::tbl_df-class]
-#' containing the endpoint's appendix.
-#' @keywords internal
-mm_get_appendix <- function(endpoint, appendix) {
-  mm_req(endpoint) |>
-    mm_req_append(appendix) |>
-    httr2::req_perform() |>
-    mm_resp_extract() |>
-    tibble::as_tibble()
-}
-
-#' @rdname mm_get_col_info
-#' @export
-mm_get_criteria <- function(endpoint) {
-  mm_get_appendix(endpoint, "criteria")
-}
-
-#' @rdname mm_get_col_info
-#' @export
-mm_get_schema <- function(endpoint) {
-  mm_get_appendix(endpoint, "schema")
-}
-
-#' @rdname mm_get_col_info
-#' @export
-mm_get_labels <- function(endpoint) {
-  mm_get_appendix(endpoint, "labels")
-}
-
 #' Get data
 #'
 #' @description
-#' `mm_get()` accomplishes the full process of a GET request:
+#' Download Megamation data you own via the API and import the data into R.
 #'
-#' * Creates an API request and defines its behaviour.
-#' * Performs the request and fetches the response.
-#' * Converts the body of the response to a data frame.
+#' `mm_get()` accomplishes a variety of conveniences when fetching data from
+#' Megamation. It creates the necessary API GET requests, performs them,
+#' converts response bodies to data frames, and finally binds them
 #'
-#' Where applicable, pagination is automatically applied to the request
-#' and returned pages are automatically combined.
-#' @inheritParams mm_req_params
 #' @inheritParams mm_req
-#' @param .paginate If `TRUE`, paginate the request.
-#' @param .perform If `TRUE`, perform the request. Otherwise only show.
+#' @param allfields If `TRUE`, return all fields currently available for
+#' the endpoint.
 #' @returns A data frame of class [`tbl_df`][tibble::tbl_df-class]
 #' containing the requested data.
 #' @export
 #' @examplesIf megamation:::has_creds()
-#' # Get all work orders from Jan. 2023 containing trades ADMIN and IT:
+#' # Get all timecard entries from Jan. 2023:
 #'
-#' # First create a Date-type vector
+#' # Create a Date-type vector
 #' jan_2023 <- seq.Date(
 #'   as.Date("2023-01-01"),
 #'   as.Date("2023-01-31"),
@@ -94,41 +24,142 @@ mm_get_labels <- function(endpoint) {
 #' )
 #'
 #' mm_get("timecard", date = jan_2023)
-mm_get <- function(endpoint, ..., .paginate = TRUE, .perform = TRUE) {
-  check_bool(.paginate)
+mm_get <- function(endpoint, ..., allfields = TRUE) {
+  gets <- mm_define_gets(endpoint, ..., allfields = allfields)
+  pages <- gets |>
+    purrr::map(mm_req_perform) |>
+    ## We get a list of pages per request
+    purrr::list_flatten() |>
+    purrr::map(mm_resp_extract)
+
+  data <- pages |> mm_pagebind()
+
+  if (nrow(data) == 0) {
+    cli::cli_alert_info("No data returned.")
+    return()
+  }
+  remove_api_urls(data)
+}
+
+#' Define GET requests
+#'
+#' @description
+#' `mm_define_gets()` will
+#' return the necessary GET requests for fetching the supplied endpoint and
+#' parameters.
+#' Multiple GET requests are sometimes necessary for two reasons.
+#'
+#' One, Megamation does not support common ways of separating multiple
+#' values for a field inside an HTTP URL. These ways include:
+#'
+#' * using a `,`, e.g. `?x=1,2`
+#' * using a `|`, e.g. `?x=1|2`
+#' * turning each element into its own parameter, e.g. `?x=1&x=2`
+#'
+#' For Megamation, the first two ways will result in a 404 error.
+#' The last way fetches data where x is both 1 and 2 (not 1 or 2).
+#' Hence this function creates separate GET requests for each separate value
+#' supplied to a parameter.
+#'
+#' The second reason for multiple GET requests regards the timecard endpoint,
+#' which is unique in that separate GET requests must be made for separate years
+#' of data (e.g. 2022 vs 2023). This is also automatically handled by
+#' `mm_define_gets()`.
+#'
+#' @inheritParams mm_get
+#' @returns A list of GET requests of class `httr2_request`.
+#' @export
+#' @examplesIf megamation:::has_creds()
+#' # Get timecard entries from Jan. 2022 to 2023:
+#'
+#' # Create a Date-type vector
+#' date <- seq.Date(
+#'   as.Date("2022-01-01"),
+#'   as.Date("2023-01-31"),
+#'   by = "day"
+#' )
+#'
+#' mm_define_gets("timecard", date = date)
+mm_define_gets <- function(endpoint, ..., allfields = TRUE) {
+  params <- rlang::list2(...)
+  list_args <- if (rlang::is_empty(params)) {
+    tibble::tibble(endpoint = endpoint) |> list()
+  } else
+    mm_args_for_gets(endpoint, !!!params)
+
+  requests <- list_args |>
+    purrr::map(\(x) purrr::pmap(x, mm_req)) |>
+    purrr::list_flatten()
+
+  if (!allfields) {
+    return(requests)
+  } else {
+    requests |> purrr::map(\(req) httr2::req_url_query(req, ALLFIELDS = 1))
+  }
+}
+
+#' Get arguments for GET request(s)
+#'
+#' @description
+#' For fetching a specified endpoint with parameters, `mm_args_for_gets()` will
+#' return the argument dataframes needed for any GET requests.
+#'
+#' @return A list of dataframes where each column is an argument
+#' to [mm_req()].
+#' @inheritParams mm_get
+#' @examples
+#' # Return arguments needed for timecard GET for Jan. 2022 to 2023:
+#'
+#' # Create a Date-type vector
+#' date <- seq.Date(
+#'   as.Date("2022-01-01"),
+#'   as.Date("2023-01-31"),
+#'   by = "day"
+#' )
+#'
+#' mm_args_for_gets("timecard", date = date)
+mm_args_for_gets <- function(endpoint, ...) {
   params <- rlang::list2(...)
 
-  request <-
-    mm_req(endpoint) |>
-    mm_req_params(!!!params)
-
-  ## TABLEYEAR parameter required for previous years of timecard
-  if (endpoint == "timecard" && "date" %in% tolower(names(params))) {
-    tableyear <- lubridate::year(params$date) |> unique()
-    tableyear <- tableyear[tableyear != lubridate::year(Sys.Date())]
-    request <- request |>
-      httr2::req_url_query(TABLEYEAR = tableyear)
+  requesting_date <- !is.null(params$date)
+  if (requesting_date) {
+    years <- lubridate::year(params$date) |> unique()
   }
 
-  if (!.perform) {
-    return(request)
+  params <- format_params(!!!params)
+  args <- purrr::map(params, \(x) tidyr::crossing(!!!x)) |>
+    purrr::list_rbind() |>
+    ## Why doesn't I() work?
+    dplyr::mutate(
+      dplyr::across(dplyr::everything(), I),
+      endpoint = endpoint
+    )
+
+  if (!requesting_date) {
+    return(list(args))
   }
 
-  resp <- request |> mm_req_perform()
+  ## TABLEYEAR is needed for past timecard years
+  current_year <- lubridate::year(Sys.Date())
+  this_years_timecard <- endpoint == "timecard" &&
+    identical(current_year, years)
 
-  page_1 <- resp[[1]] |> mm_resp_extract()
-
-  if (is.null(page_1)) {
-    cli::cli_alert_info("No data returned.")
-    return(tibble::tibble())
-  }
-
-  tbl_result <- if (!.paginate) {
-    page_1 |> tibble::as_tibble()
+  list_args <- if (endpoint != "timecard" || this_years_timecard) {
+    return(list(args))
   } else {
-    pages <- resp |> purrr::map(\(x) mm_resp_extract(x))
-    pages |> mm_pagebind()
-  }
+    ## Request includes timecard past years, so we add TABLEYEAR
+    args <- args |>
+      dplyr::mutate(TABLEYEAR = DATE |> stringr::str_extract("\\d{4}"))
 
-  remove_api_urls(tbl_result)
+    ## Request may also include this year's timecard, so we separate args
+    args_this_year <- args |>
+      dplyr::filter(TABLEYEAR == !!current_year) |>
+      dplyr::select(- TABLEYEAR)
+
+    args_past_years <- args |>
+      dplyr::filter(TABLEYEAR != !!current_year)
+
+    list(args_this_year, args_past_years)
+  }
+  list_args
 }
