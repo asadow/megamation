@@ -39,7 +39,7 @@ values for a field inside an HTTP URL. These ways include:
 }
 
 For Megamation, the first two ways will result in a 404 error.
-The last way fetches data where x is both 1 and 2 (instead of 1 or 2).
+The last way fetches data where x is both 1 and 2 (not 1 or 2).
 Hence this function creates separate GET requests for each separate value
 supplied to a parameter.
 
