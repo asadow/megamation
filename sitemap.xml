@@ -34,7 +34,10 @@
     <loc>https://asadow.github.io/megamation/reference/megamation-package.html</loc>
   </url>
   <url>
-    <loc>https://asadow.github.io/megamation/reference/mm_authorize.html</loc>
+    <loc>https://asadow.github.io/megamation/reference/mm_auth.html</loc>
+  </url>
+  <url>
+    <loc>https://asadow.github.io/megamation/reference/mm_define_gets.html</loc>
   </url>
   <url>
     <loc>https://asadow.github.io/megamation/reference/mm_error_body.html</loc>
@@ -65,9 +68,6 @@
   </url>
   <url>
     <loc>https://asadow.github.io/megamation/reference/mm_req_append.html</loc>
-  </url>
-  <url>
-    <loc>https://asadow.github.io/megamation/reference/mm_req_params.html</loc>
   </url>
   <url>
     <loc>https://asadow.github.io/megamation/reference/mm_req_perform.html</loc>
