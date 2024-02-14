@@ -25,7 +25,7 @@
 mm_pagebind <- function(pages) {
   pages <- purrr::compact(pages)
   matrices <- purrr::map(pages, \(x) as.matrix(x))
-  m <- purrr::reduce(matrices, rbind)
+  m <- purrr::reduce(matrices, rbind, .init = tibble::tibble())
   data <- m |> tibble::as_tibble()
 
   cols <- names(data)

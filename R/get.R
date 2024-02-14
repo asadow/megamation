@@ -26,18 +26,46 @@
 #' mm_get("timecard", date = jan_2023)
 mm_get <- function(endpoint, ..., allfields = TRUE) {
   gets <- mm_define_gets(endpoint, ..., allfields = allfields)
-  pages <- gets |>
-    purrr::map(mm_req_perform) |>
-    ## We get a list of pages per request
-    purrr::list_flatten() |>
-    purrr::map(mm_resp_extract)
+
+  cli::cli_alert_info("Requesting...")
+
+  responses <- purrr::map(
+    gets |>
+      cli::cli_progress_along(format = "Fulfilling request {cli::pb_current}"),
+    \(x) mm_req_perform(gets[[x]])
+      )  |>
+    purrr::list_flatten()
+
+  errors <- responses |> httr2::resps_failures()
+  errors_occured <- !rlang::is_empty(errors)
+
+  successes <- responses |> httr2::resps_successes()
+  pages <- successes |> purrr::map(mm_resp_extract)
+
+  no_data_i <- pages |> purrr::map_lgl(is.null) |> which()
+
+  if (errors_occured || any(no_data_i)) {
+    cli::cli_alert_info(
+      c("NB: {length(errors) + length(no_data_i)}/{length(responses)}",
+        " requests returned errors or no data.")
+      )
+    for (error in errors) {
+      url <- error$request$url
+      msg <- error$message
+      cli::cli_h1("Errored")
+      glue::glue("{msg} \n {cli::style_bold('GET')} {url}") |>
+        cli::cli_alert_danger()
+    }
+
+    for (i in no_data_i) {
+      url <- successes[[i]]$request$url
+      cli::cli_h1("No Data Returned")
+      glue::glue("\n {cli::style_bold('GET')} {url}") |>
+        cli::cli_alert_danger()
+    }
+  }
 
   data <- pages |> mm_pagebind()
-
-  if (nrow(data) == 0) {
-    cli::cli_alert_info("No data returned.")
-    return()
-  }
   remove_api_urls(data)
 }
 
@@ -81,85 +109,39 @@ mm_get <- function(endpoint, ..., allfields = TRUE) {
 #'
 #' mm_define_gets("timecard", date = date)
 mm_define_gets <- function(endpoint, ..., allfields = TRUE) {
-  params <- rlang::list2(...)
-  list_args <- if (rlang::is_empty(params)) {
-    tibble::tibble(endpoint = endpoint) |> list()
-  } else
-    mm_args_for_gets(endpoint, !!!params)
+  params <- format_params(endpoint, ...)
+  args <- tidyr::crossing(!!!params) |>
+    ## I() does not work here but we can hope
+    dplyr::mutate(
+      endpoint = endpoint,
+      dplyr::across(dplyr::everything(), I)
+    )
 
-  requests <- list_args |>
-    purrr::map(\(x) purrr::pmap(x, mm_req)) |>
+  if (endpoint == "timecard" && "DATE" %in% names(params)) {
+    args <- add_tableyear(args)
+  }
+
+  requests <- args |>
+    purrr::pmap(mm_req) |>
     purrr::list_flatten()
 
   if (!allfields) {
     return(requests)
-  } else {
-    requests |> purrr::map(\(req) httr2::req_url_query(req, ALLFIELDS = 1))
   }
+
+  requests |> purrr::map(\(req) httr2::req_url_query(req, ALLFIELDS = 1))
+
 }
 
-#' Get arguments for GET request(s)
-#'
-#' @description
-#' For fetching a specified endpoint with parameters, `mm_args_for_gets()` will
-#' return the argument dataframes needed for any GET requests.
-#'
-#' @return A list of dataframes where each column is an argument
-#' to [mm_req()].
-#' @inheritParams mm_get
-#' @examples
-#' # Return arguments needed for timecard GET for Jan. 2022 to 2023:
-#'
-#' # Create a Date-type vector
-#' date <- seq.Date(
-#'   as.Date("2022-01-01"),
-#'   as.Date("2023-01-31"),
-#'   by = "day"
-#' )
-#'
-#' mm_args_for_gets("timecard", date = date)
-mm_args_for_gets <- function(endpoint, ...) {
-  params <- rlang::list2(...)
-
-  requesting_date <- !is.null(params$date)
-  if (requesting_date) {
-    years <- lubridate::year(params$date) |> unique()
-  }
-
-  params <- format_params(!!!params)
-  args <- purrr::map(params, \(x) tidyr::crossing(!!!x)) |>
-    purrr::list_rbind() |>
-    ## Why doesn't I() work?
+# Add the TABLEYEAR parameter which is required for past years of the
+# "timecard" endpoint
+add_tableyear <- function(df) {
+  DATE <- NULL
+  df |>
     dplyr::mutate(
-      dplyr::across(dplyr::everything(), I),
-      endpoint = endpoint
-    )
-
-  if (!requesting_date) {
-    return(list(args))
-  }
-
-  ## TABLEYEAR is needed for past timecard years
-  current_year <- lubridate::year(Sys.Date())
-  this_years_timecard <- endpoint == "timecard" &&
-    identical(current_year, years)
-
-  list_args <- if (endpoint != "timecard" || this_years_timecard) {
-    return(list(args))
-  } else {
-    ## Request includes timecard past years, so we add TABLEYEAR
-    args <- args |>
-      dplyr::mutate(TABLEYEAR = DATE |> stringr::str_extract("\\d{4}"))
-
-    ## Request may also include this year's timecard, so we separate args
-    args_this_year <- args |>
-      dplyr::filter(TABLEYEAR == !!current_year) |>
-      dplyr::select(- TABLEYEAR)
-
-    args_past_years <- args |>
-      dplyr::filter(TABLEYEAR != !!current_year)
-
-    list(args_this_year, args_past_years)
-  }
-  list_args
+      TABLEYEAR = DATE |>
+        stringi::stri_extract(regex = "\\d{4}") |>
+        ## Current year does not accept TABLEYEAR parameter
+        dplyr::na_if(Sys.Date() |> lubridate::year() |> as.character())
+      )
 }

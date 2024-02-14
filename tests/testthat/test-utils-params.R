@@ -1,10 +1,10 @@
 test_that("format_params() formats a sequence of dates", {
-  date_start <- as.Date("2023-09-20")
+  date_start <- as.Date("2022-09-20")
   date_end <- as.Date("2023-10-20")
   date <- seq(date_start, date_end, by = "day")
 
-  expected <- list(list(DATE = "<>09-20-2023,10-20-2023"))
-  actual <- format_params(date = date)
+  expected <- list(DATE = c("<>09-20-2022,12-31-2022", "<>01-01-2023,10-20-2023"))
+  actual <- format_params("timecard", !!!list(date = date))
   expect_equal(actual, expected)
 })
 
@@ -12,8 +12,8 @@ test_that("format_params() formats dates not in sequence", {
   date <- as.Date("2023-09-20")
   date <- c(date, date + 3)
 
-  expected <- list(list(DATE = c("09-20-2023", "09-23-2023")))
-  actual <- format_params(date = date)
+  expected <- list(DATE = c("09-20-2023", "09-23-2023"))
+  actual <- format_params("workorder", date = date)
   expect_equal(actual, expected)
 })
 

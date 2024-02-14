@@ -4,9 +4,14 @@
 \alias{format_params}
 \title{Format a list of parameters}
 \usage{
-format_params(...)
+format_params(endpoint, ...)
 }
 \arguments{
+\item{endpoint}{The API endpoint. For example,
+\code{"timecard"} for employee transactions, and \code{"workorder"}
+for work orders. All endpoints are listed at
+https://apidocs.megamation.com/.}
+
 \item{...}{<\code{\link[rlang:dyn-dots]{dynamic-dots}}> Name-value pairs to filter the
 request. The name should be the lower-case name of a field that is
 filter-enabled (in Megamation's words, a criteria). These arguments are
@@ -22,9 +27,9 @@ creating a valid and readable Megamation URL.
 }
 \examples{
 from <- as.Date("2023-09-20")
-to <- as.Date("2023-10-20")
+to <- as.Date("2024-10-20")
 date <- seq(from, to, by = "day")
 trade <- c("[]PCO", "[]DM")
-megamation:::format_params(date = date, trade = trade)
+megamation:::format_params("workorder", date = date, trade = trade)
 }
 \keyword{internal}

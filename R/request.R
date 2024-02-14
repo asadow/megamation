@@ -33,6 +33,11 @@ mm_req <- function(endpoint, ...) {
   check_string(endpoint)
   agent <- "megamation (https://github.com/asadow/megamation)"
   user <- "APIDL"
+  params <- rlang::list2(...)
+
+  if("TABLEYEAR" %in% names(params) && is.na(params$TABLEYEAR)) {
+    params$TABLEYEAR <- NULL
+  }
 
   httr2::request(mm_url()) |>
     httr2::req_url_path_append(endpoint) |>
@@ -40,7 +45,7 @@ mm_req <- function(endpoint, ...) {
     httr2::req_auth_basic(user, mm_key()) |>
     httr2::req_error(body = mm_error_body) |>
     httr2::req_cache(tempdir(), debug = TRUE) |>
-    httr2::req_url_query(...)
+    httr2::req_url_query(!!!params)
 }
 
 #' Append a GET request

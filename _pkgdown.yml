@@ -2,22 +2,22 @@ url: https://asadow.github.io/megamation/
 template:
   bootstrap: 5
 reference:
-  - title: "Authorize access to Megamation"
+  - title: Authorize access to Megamation
     desc: Create environment variables for Megamation credentials
     contents:
       - mm_auth
-  - title: "Get your data"
-    desc: >
-      Retrieve data from/about your Megamation tables so you can act on them
+  - title: GET Requests
+  - subtitle: Perform
+    desc: Retrieve data from/about your Megamation tables so you can act on them
     contents:
       - mm_get
       - mm_get_col_info
-      - mm_get_criteria
-      - mm_get_schema
-      - mm_get_labels
-  - title: "Programming around the Megamation API"
-    desc: >
-      Low-level functions used internally
+  - subtitle: Define
+    desc: See the requests needed to retrieve given endpoints and parameters
+    contents:
+      - mm_define_gets
+  - title: Programming around the Megamation API
+    desc: Low-level functions used internally
     contents:
       - mm_req
       - mm_error_body

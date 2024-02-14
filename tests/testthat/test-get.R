@@ -11,7 +11,7 @@ with_mock_dir("mm_get", {
 with_mock_dir("statuses", {
   test_that("mm_get() returns informative error on invalid endpoint", {
     skip_on_cran()
-    expect_error(
+    expect_message(
       mm_get("statuses"),
       regexp = "This is not a valid web API endpoint."
     )

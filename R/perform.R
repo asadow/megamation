@@ -14,5 +14,5 @@
 #' @keywords internal
 mm_req_perform <- function(req) {
   check_request(req)
-  httr2::req_perform_iterative(req, next_req = mm_next_req)
+  httr2::req_perform_iterative(req, next_req = mm_next_req, on_error = "return")
 }
