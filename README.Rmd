@@ -63,7 +63,7 @@ You have two options.
 
 Either use `mm_authorize()`:
 
-```{r}
+```{r, eval = FALSE}
 mm_authorize(
   key = "<YOUR-MEGAMATION_KEY>",
   url = "<YOUR-MEGAMATION_URL>"

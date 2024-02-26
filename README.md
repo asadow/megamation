@@ -43,23 +43,35 @@ library(megamation)
 
 ## Authorization
 
-Run `usethis::edit_r_environ()` to install your API credentials in your
-`.Renviron`, a safe place for secrets.
+You have two options.
+
+Either use `mm_authorize()`:
+
+``` r
+mm_authorize(
+  key = "<YOUR-MEGAMATION_KEY>",
+  url = "<YOUR-MEGAMATION_URL>"
+)
+```
+
+Or run `usethis::edit_r_environ()` to install your API credentials in
+your `.Renviron`.
 
 ``` r
 MEGAMATION_KEY = '<YOUR-MEGAMATION_KEY>'
 MEGAMATION_URL = '<YOUR-MEGAMATION_URL>'
 ```
 
-The following functions will automatically use your credentials, so you
-don’t have to expose them in your code.
+Now `megamation` functions will automatically use your credentials, so
+you don’t have to expose them in your code.
 
-## Get Data
+## Grabbing Data
 
-`mm_data()` makes a GET request to an endpoint.
+`mm_data()` downloads data from your tables into R.
 
 ``` r
 mm_data("status")
+#> ℹ Requesting...
 #> # A tibble: 9 × 3
 #>   ampc_required description                              status
 #>   <chr>         <chr>                                    <chr> 
@@ -78,22 +90,32 @@ It provides informative R errors (alongside HTTP errors).
 
 ``` r
 mm_data("statuses")
-#> Error in `req_perform()`:
-#> ! HTTP 404 Not Found.
-#> • This is not a valid web API endpoint.
+#> ℹ Requesting...
+#> ℹ NB: 1/1 requests returned errors or no data.
+#> 
+#> ── Errored ─────────────────────────────────────────────────────────────────────
+#> ✖ HTTP 404 Not Found.
+#> • This is not a valid web API endpoint. 
+#> GET https://api.megamation.com/uog/dl/statuses?ALLFIELDS=1
+#> # A tibble: 0 × 0
 ```
 
-### Filter Requests
+### Filtering
 
-`mm_data()` allows you to easily filter requests by fields.
+`mm_data()` allows you to easily filter by fields (also known as
+columns).
 
 Let’s try to request two work orders by their work order numbers.
 
 ``` r
 mm_data("workorder", wo_no = c("00001", "00002"))
-#> Error in `req_perform()`:
-#> ! HTTP 404 Not Found.
-#> • wo_no is not valid for this web API endpoint.
+#> ℹ Requesting...
+#> Error in `purrr::map()`:
+#> ℹ In index: 1.
+#> Caused by error in `stop_request()`:
+#> ! An unexpected request was made:
+#> GET https://api.megamation.com/uog/dl/workorder?WO_NO=00001&ALLFIELDS=1
+#> Expected mock file: workorder-b2612a.*
 ```
 
 Uh oh! `wo_no` is not available as a filterable field (yet). You can ask
@@ -101,8 +123,8 @@ your Megamation representative to add it.
 
 #### Available Filters
 
-`mm_names()` allows you to see which of your fields you can
-currently filter by.
+`mm_names()` allows you to see which columns you can currently use as
+filters.
 
 ``` r
 mm_names("workorder")
@@ -125,7 +147,7 @@ mm_names("workorder")
 #### Modifiers
 
 You can use Megamation’s [modifiers](https://apidocs.megamation.com/) on
-your field values.
+filter values.
 
 - `[]` for containing
 
