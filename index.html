@@ -118,9 +118,9 @@
 <div class="section level2">
 <h2 id="get-data">Get Data<a class="anchor" aria-label="anchor" href="#get-data"></a>
 </h2>
-<p><code><a href="reference/mm_get.html">mm_get()</a></code> makes a GET request to an endpoint.</p>
+<p><code><a href="reference/mm_data.html">mm_data()</a></code> makes a GET request to an endpoint.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="reference/mm_get.html">mm_get</a></span><span class="op">(</span><span class="st">"status"</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="reference/mm_data.html">mm_data</a></span><span class="op">(</span><span class="st">"status"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 9 × 3</span></span>
 <span><span class="co">#&gt;   ampc_required description                              status</span></span>
 <span><span class="co">#&gt;   &lt;chr&gt;         &lt;chr&gt;                                    &lt;chr&gt; </span></span>
@@ -135,17 +135,17 @@
 <span><span class="co">#&gt; 9 Yes           Waiting for Trade                        WT</span></span></code></pre></div>
 <p>It provides informative R errors (alongside HTTP errors).</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="reference/mm_get.html">mm_get</a></span><span class="op">(</span><span class="st">"statuses"</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="reference/mm_data.html">mm_data</a></span><span class="op">(</span><span class="st">"statuses"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Error in `req_perform()`:</span></span>
 <span><span class="co">#&gt; ! HTTP 404 Not Found.</span></span>
 <span><span class="co">#&gt; • This is not a valid web API endpoint.</span></span></code></pre></div>
 <div class="section level3">
 <h3 id="filter-requests">Filter Requests<a class="anchor" aria-label="anchor" href="#filter-requests"></a>
 </h3>
-<p><code><a href="reference/mm_get.html">mm_get()</a></code> allows you to easily filter requests by fields.</p>
+<p><code><a href="reference/mm_data.html">mm_data()</a></code> allows you to easily filter requests by fields.</p>
 <p>Let’s try to request two work orders by their work order numbers.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="reference/mm_get.html">mm_get</a></span><span class="op">(</span><span class="st">"workorder"</span>, wo_no <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"00001"</span>, <span class="st">"00002"</span><span class="op">)</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="reference/mm_data.html">mm_data</a></span><span class="op">(</span><span class="st">"workorder"</span>, wo_no <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"00001"</span>, <span class="st">"00002"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Error in `req_perform()`:</span></span>
 <span><span class="co">#&gt; ! HTTP 404 Not Found.</span></span>
 <span><span class="co">#&gt; • wo_no is not valid for this web API endpoint.</span></span></code></pre></div>
@@ -153,9 +153,9 @@
 <div class="section level4">
 <h4 id="available-filters">Available Filters<a class="anchor" aria-label="anchor" href="#available-filters"></a>
 </h4>
-<p><code><a href="reference/mm_get_col_info.html">mm_get_col_info()</a></code> allows you to see which of your fields you can currently filter by.</p>
+<p><code><a href="reference/mm_names.html">mm_names()</a></code> allows you to see which of your fields you can currently filter by.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="reference/mm_get_col_info.html">mm_get_col_info</a></span><span class="op">(</span><span class="st">"workorder"</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="reference/mm_names.html">mm_names</a></span><span class="op">(</span><span class="st">"workorder"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 39 × 4</span></span>
 <span><span class="co">#&gt;    field           filter_enabled description               type          </span></span>
 <span><span class="co">#&gt;    &lt;chr&gt;           &lt;lgl&gt;          &lt;chr&gt;                     &lt;chr&gt;         </span></span>
@@ -186,7 +186,7 @@
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">admin_and_it</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"[]ADMIN"</span>, <span class="st">"[]IT"</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu"><a href="reference/mm_get.html">mm_get</a></span><span class="op">(</span><span class="st">"workorder"</span>, trade <span class="op">=</span> <span class="va">admin_and_it</span><span class="op">)</span></span>
+<span><span class="fu"><a href="reference/mm_data.html">mm_data</a></span><span class="op">(</span><span class="st">"workorder"</span>, trade <span class="op">=</span> <span class="va">admin_and_it</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # Data Not Shown for Privacy</span></span></code></pre></div>
 </div>
 <div class="section level4">
@@ -200,7 +200,7 @@
 <span>  by <span class="op">=</span> <span class="st">"day"</span></span>
 <span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu"><a href="reference/mm_get.html">mm_get</a></span><span class="op">(</span><span class="st">"workorder"</span>, date <span class="op">=</span> <span class="va">jan_2023</span><span class="op">)</span></span>
+<span><span class="fu"><a href="reference/mm_data.html">mm_data</a></span><span class="op">(</span><span class="st">"workorder"</span>, date <span class="op">=</span> <span class="va">jan_2023</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # Data Not Shown for Privacy</span></span></code></pre></div>
 </div>
 </div>
