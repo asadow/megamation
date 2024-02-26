@@ -7,10 +7,9 @@
 mm_req(endpoint, ...)
 }
 \arguments{
-\item{endpoint}{The API endpoint. For example,
-\code{"timecard"} for employee transactions, and \code{"workorder"}
-for work orders. All endpoints are listed at
-https://apidocs.megamation.com/.}
+\item{endpoint}{The API endpoint. For example, \code{"timecard"} for employee
+transactions, and \code{"workorder"} for work orders. All endpoints are listed
+at \url{https://apidocs.megamation.com/}.}
 
 \item{...}{<\code{\link[rlang:dyn-dots]{dynamic-dots}}> Name-value pairs to filter the
 request. The name should be the lower-case name of a field that is
@@ -22,16 +21,16 @@ unquote-splice via \code{\link{!!!}}.}
 An object of class \code{httr2_request}.
 }
 \description{
-\code{mm_req()} creates a request using \code{\link[httr2:request]{httr2::request()}} and
-does the following:
+\code{mm_req()} creates a request using \code{\link[httr2:request]{httr2::request()}} and does
+the following:
 \itemize{
 \item Inserts the base URL using the environment variable \code{MEGAMATION_URL} from
 your \link{.Renviron}.
 \item Appends the URL with the endpoint defined by parameter \code{endpoint}.
 \item Sets the user-agent as the GitHub \link{megamation} package.
 \item Authenticates the request with HTTP basic authentication using
-environment variables \code{MEGAMATION_KEY} and \code{MEGAMATION_URL}
-from your \code{.Renviron}.
+environment variables \code{MEGAMATION_KEY} and \code{MEGAMATION_URL} from your
+\code{.Renviron}.
 \item Handles HTTP errors so useful information from the response is extracted
 (e.g. "No response body").
 \item Adds caching of responses if available. See \code{\link[httr2:req_cache]{httr2::req_cache()}}.
@@ -40,7 +39,6 @@ from your \code{.Renviron}.
 \examples{
 \dontshow{if (megamation:::has_creds()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 megamation:::mm_req("timecard")
-megamation:::mm_req("trade")
 \dontshow{\}) # examplesIf}
 }
 \keyword{internal}

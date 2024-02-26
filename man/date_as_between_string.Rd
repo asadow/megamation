@@ -16,9 +16,10 @@ A single string formatted as "<>MM-DD-YYYY,MM-DD-YYYY" where the
 "<>" modifiers means "in-between".
 }
 \description{
-\code{date_as_between_string()} formats a sequence of dates to a single string
-that represents the sequence. The purpose is to simplify the request URL from
-including \code{DATE=X&DATE=Y&DATE=Z} to \verb{DATE = <>X,Z} where X<Y<Z. The former
-is not only repetitive but invalid for the Megamation API.
+\code{date_as_between_string()} formats a sequence of dates to a
+single string that represents the sequence. The purpose is to simplify the
+request URL from including \code{DATE=X&DATE=Y&DATE=Z} to \verb{DATE = <>X,Z} where
+X<Y<Z. The former is not only repetitive but invalid for the Megamation
+API.
 }
 \keyword{internal}

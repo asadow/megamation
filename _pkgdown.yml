@@ -5,17 +5,16 @@ reference:
   - title: Authorize access to Megamation
     desc: Create environment variables for Megamation credentials
     contents:
-      - mm_auth
-  - title: GET Requests
-  - subtitle: Perform
-    desc: Retrieve data from/about your Megamation tables so you can act on them
+      - mm_authorize
+  - title: Download
+  - subtitle: Data
+    desc: Retrieve tables
     contents:
-      - mm_get
-      - mm_get_col_info
-  - subtitle: Define
-    desc: See the requests needed to retrieve given endpoints and parameters
+      - mm_data
+  - subtitle: Names
+    desc: Retrieve table column names, filter statuses, descriptions, and types
     contents:
-      - mm_define_gets
+      - mm_names
   - title: Programming around the Megamation API
     desc: Low-level functions used internally
     contents:
@@ -28,6 +27,7 @@ reference:
       - mm_parsed_extract
       - mm_resp_extract
       - mm_pagebind
+      - mm_list_get_reqs
       - has_creds
       - mm_key
       - mm_url

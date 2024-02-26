@@ -1,13 +1,11 @@
 #' Install Megamation credentials
 #'
-#' @description
-#' `mm_auth()` installs your credentials so that `megamation` functions
-#' that need them, like [mm_get()], can use them automatically.
+#' @description `mm_authorize()` installs your credentials so that `megamation`
+#'   functions that need them, like [mm_data()], can use them automatically.
 #'
-#' Specifically, it places your Megamation API key and base URL
-#' in your computer's `megamation` R package configuration files. Then,
-#' whenever the package is loaded, your credentials are available as environment
-#' variables.
+#'   Specifically, it places your Megamation API key and base URL in your
+#'   computer's `megamation` R package configuration files. Then, whenever the
+#'   package is loaded, your credentials are available as environment variables.
 #'
 #' @param key Single string of the Megamation API key.
 #' @param url Single string of the Megamation API base URL.
@@ -15,12 +13,12 @@
 #' @export
 #' @examples
 #' \dontrun{
-#' mm_auth(
+#' mm_authorize(
 #'   key = "<YOUR-MEGAMATION_KEY>",
 #'   url = "<YOUR-MEGAMATION_URL>"
 #' )
 #' }
-mm_auth <- function(key, url) {
+mm_authorize <- function(key, url) {
   check_string(key)
   check_string(url)
   url <- check_url(url)

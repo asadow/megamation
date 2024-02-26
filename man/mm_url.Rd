@@ -2,15 +2,15 @@
 % Please edit documentation in R/env.R
 \name{mm_url}
 \alias{mm_url}
-\title{Get Megamaton URL}
+\title{Get Megamation URL}
 \usage{
 mm_url()
 }
 \value{
-The string value of the \code{MEGAMATION_URL} environment variable
-or an error if none exists.
+The string value of the \code{MEGAMATION_URL} environment variable or an
+error if none exists.
 }
 \description{
-Get Megamaton URL
+Get Megamation URL
 }
 \keyword{internal}

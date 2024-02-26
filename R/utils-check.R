@@ -3,7 +3,7 @@
 #' @family low-level API functions
 #' @keywords internal
 #' @returns `TRUE` if user has `MEGAMATION_KEY` and `MEGAMATION_URL` environment
-#' variables.
+#'   variables.
 has_creds <- function() {
   key <- Sys.getenv("MEGAMATION_KEY")
   url <- Sys.getenv("MEGAMATION_URL")

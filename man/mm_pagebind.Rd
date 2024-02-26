@@ -10,15 +10,15 @@ mm_pagebind(pages)
 \item{pages}{List of data frames representing Megamation API pages.}
 }
 \value{
-A data frame of class \code{\link[tibble:tbl_df-class]{tbl_df}}
-representing the bound pages.
+A data frame of class \code{\link[tibble:tbl_df-class]{tbl_df}} representing
+the bound pages.
 }
 \description{
-\code{mm_pagebind()} is needed as pages can have same-named fields with
-different types. This is because some field(s) of a given page
-may or may not contain vectors  of values in one of its row.
-\code{mm_pagebind()} takes care of this possibility by treating each page
-as a matrix before binding and unnesting their combination.
+\code{mm_pagebind()} is needed as pages can have same-named fields with different
+types. This is because some field(s) of a given page may or may not contain
+vectors  of values in one of its rows. \code{mm_pagebind()} takes care of this
+possibility by treating each page as a matrix before binding and unnesting
+their combinations.
 }
 \examples{
 page_1 <- mtcars |>

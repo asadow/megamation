@@ -13,10 +13,9 @@ mm_resp_parse(resp)
 A list.
 }
 \description{
-\code{mm_resp_parse()} parses the raw bytes from an API response,
-returning an R list object. After converting bytes to characters,
-encoding is done to resolve
-a UTF-8 issue from Megamation's side.
+\code{mm_resp_parse()} parses the raw bytes from an API response, returning an R
+list object. After converting bytes to characters, encoding is done to
+resolve a UTF-8 issue from Megamation's side.
 }
 \examples{
 # Parses empty response body to return an empty list

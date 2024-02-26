@@ -5,10 +5,9 @@ mm_n_pages <- function(parsed) {
 
 #' Parse body from Megamation API response
 #'
-#' `mm_resp_parse()` parses the raw bytes from an API response,
-#' returning an R list object. After converting bytes to characters,
-#' encoding is done to resolve
-#' a UTF-8 issue from Megamation's side.
+#' `mm_resp_parse()` parses the raw bytes from an API response, returning an R
+#' list object. After converting bytes to characters, encoding is done to
+#' resolve a UTF-8 issue from Megamation's side.
 #'
 #' @param resp An API response.
 #' @returns A list.
@@ -29,12 +28,11 @@ mm_resp_parse <- function(resp) {
 #'
 #' @description
 #'
-#' `mm_parsed_extract()` extracts a data frame from the parsed
-#' response body.
+#' `mm_parsed_extract()` extracts a data frame from the parsed response body.
 #'
 #' @param parsed Parsed response body.
 #' @param .get Whether the GET request is for the endpoint's `"data"`,
-#' `"criteria"`, `"labels"`, or `"schema"`.
+#'   `"criteria"`, `"labels"`, or `"schema"`.
 #' @returns A data frame containing the endpoint data.
 #' @keywords internal
 #' @examples

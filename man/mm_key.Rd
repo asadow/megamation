@@ -7,8 +7,8 @@
 mm_key()
 }
 \value{
-The string value of the \code{MEGAMATION_KEY} environment variable
-or an error if none exists.
+The string value of the \code{MEGAMATION_KEY} environment variable or an
+error if none exists.
 }
 \description{
 Get Megamation key

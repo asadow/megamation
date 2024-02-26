@@ -1,6 +1,6 @@
 #' Get Megamation key
-#' @returns The string value of the `MEGAMATION_KEY` environment variable
-#' or an error if none exists.
+#' @returns The string value of the `MEGAMATION_KEY` environment variable or an
+#'   error if none exists.
 #' @keywords internal
 mm_key <- function() {
   key <- Sys.getenv("MEGAMATION_KEY")
@@ -15,9 +15,9 @@ mm_key <- function() {
   }
 }
 
-#' Get Megamaton URL
-#' @returns The string value of the `MEGAMATION_URL` environment variable
-#' or an error if none exists.
+#' Get Megamation URL
+#' @returns The string value of the `MEGAMATION_URL` environment variable or an
+#'   error if none exists.
 #' @keywords internal
 mm_url <- function() {
   url <- Sys.getenv("MEGAMATION_URL")
@@ -40,8 +40,8 @@ mm_url <- function() {
 
 #' Get testing key
 #'
-#' testing_key() uses the `MEGAMATION_KEY_HTTR2` environment
-#' variable to decrypt a secret.
+#' testing_key() uses the `MEGAMATION_KEY_HTTR2` environment variable to decrypt
+#' a secret.
 #' @returns A string of a decrypted key.
 #' @keywords internal
 testing_key <- function() {

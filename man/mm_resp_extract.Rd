@@ -13,13 +13,13 @@ mm_resp_extract(resp)
 A data frame containing the endpoint data.
 }
 \description{
-The body of the response contains raw bytes.
-After converting these bytes to a string, encoding is done to resolve
-a UTF-8 issue from Megamation's side.
+The body of the response contains raw bytes. After converting
+these bytes to a string, encoding is done to resolve a UTF-8 issue from
+Megamation's side.
 }
 \details{
-\code{mm_resp_extract()} parses the raw bytes from an API response,
-and extracts data from the parsed object.
+\code{mm_resp_extract()} parses the raw bytes from an API response, and extracts
+data from the parsed object.
 }
 \examples{
 # Returns NULL from an empty response body

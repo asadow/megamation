@@ -15,7 +15,7 @@ mm_next_req(resp, req)
 An object of class \code{httr2_request} or \code{NULL}.
 }
 \description{
-\code{mm_next_req()} returns the next request based on the \code{next_url} from
-the parsed response.
+\code{mm_next_req()} returns the next request based on the \code{next_url} from the
+parsed response.
 }
 \keyword{internal}

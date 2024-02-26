@@ -1,14 +1,14 @@
 #' Bind multiple Megamation API pages by row before converting to a tibble
 #'
-#' `mm_pagebind()` is needed as pages can have same-named fields with
-#' different types. This is because some field(s) of a given page
-#' may or may not contain vectors  of values in one of its row.
-#' `mm_pagebind()` takes care of this possibility by treating each page
-#' as a matrix before binding and unnesting their combination.
+#' `mm_pagebind()` is needed as pages can have same-named fields with different
+#' types. This is because some field(s) of a given page may or may not contain
+#' vectors  of values in one of its rows. `mm_pagebind()` takes care of this
+#' possibility by treating each page as a matrix before binding and unnesting
+#' their combinations.
 #'
 #' @param pages List of data frames representing Megamation API pages.
-#' @returns A data frame of class [`tbl_df`][tibble::tbl_df-class]
-#' representing the bound pages.
+#' @returns A data frame of class [`tbl_df`][tibble::tbl_df-class] representing
+#'   the bound pages.
 #' @keywords internal
 #' @examples
 #' page_1 <- mtcars |>

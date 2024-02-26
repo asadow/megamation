@@ -56,10 +56,10 @@ don’t have to expose them in your code.
 
 ## Get Data
 
-`mm_get()` makes a GET request to an endpoint.
+`mm_data()` makes a GET request to an endpoint.
 
 ``` r
-mm_get("status")
+mm_data("status")
 #> # A tibble: 9 × 3
 #>   ampc_required description                              status
 #>   <chr>         <chr>                                    <chr> 
@@ -77,7 +77,7 @@ mm_get("status")
 It provides informative R errors (alongside HTTP errors).
 
 ``` r
-mm_get("statuses")
+mm_data("statuses")
 #> Error in `req_perform()`:
 #> ! HTTP 404 Not Found.
 #> • This is not a valid web API endpoint.
@@ -85,12 +85,12 @@ mm_get("statuses")
 
 ### Filter Requests
 
-`mm_get()` allows you to easily filter requests by fields.
+`mm_data()` allows you to easily filter requests by fields.
 
 Let’s try to request two work orders by their work order numbers.
 
 ``` r
-mm_get("workorder", wo_no = c("00001", "00002"))
+mm_data("workorder", wo_no = c("00001", "00002"))
 #> Error in `req_perform()`:
 #> ! HTTP 404 Not Found.
 #> • wo_no is not valid for this web API endpoint.
@@ -101,11 +101,11 @@ your Megamation representative to add it.
 
 #### Available Filters
 
-`mm_get_col_info()` allows you to see which of your fields you can
+`mm_names()` allows you to see which of your fields you can
 currently filter by.
 
 ``` r
-mm_get_col_info("workorder")
+mm_names("workorder")
 #> # A tibble: 39 × 4
 #>    field           filter_enabled description               type          
 #>    <chr>           <lgl>          <chr>                     <chr>         
@@ -144,7 +144,7 @@ containing trades `ADMIN` and `IT`.
 ``` r
 admin_and_it <- c("[]ADMIN", "[]IT")
 
-mm_get("workorder", trade = admin_and_it)
+mm_data("workorder", trade = admin_and_it)
 #> # Data Not Shown for Privacy
 ```
 
@@ -160,7 +160,7 @@ jan_2023 <- seq.Date(
   by = "day"
 )
 
-mm_get("workorder", date = jan_2023)
+mm_data("workorder", date = jan_2023)
 #> # Data Not Shown for Privacy
 ```
 

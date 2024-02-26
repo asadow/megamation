@@ -25,8 +25,7 @@ extract_schema(parsed)
 A data frame containing the endpoint data.
 }
 \description{
-\code{mm_parsed_extract()} extracts a data frame from the parsed
-response body.
+\code{mm_parsed_extract()} extracts a data frame from the parsed response body.
 }
 \examples{
 # Returns NULL from empty list

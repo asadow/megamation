@@ -4,8 +4,8 @@
 #' where Megamation's API includes informative error messages.
 #'
 #' @param resp An API response.
-#' @returns A string from the `detail` index of a named
-#' list (the parsed response).
+#' @returns A string from the `detail` index of a named list (the parsed
+#'   response).
 #' @keywords internal
 #' @examples
 #' fake_mm_resp <- httr2::response_json(

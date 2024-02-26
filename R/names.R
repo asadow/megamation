@@ -1,23 +1,15 @@
-#' Get column names, filter statuses, descriptions, and types
+#' Retrieve column names and details
 #'
-#' @description
-#' `mm_get_col_info()` returns column names, filter status, description,
-#' and types. It does so by combining the results of the criteria and schema
-#' appendices.
+#' @description `mm_names()` returns column names, filter status, description,
+#'   and types through GET requests of the criteria and schema appendices.
 #'
-#' `mm_get_criteria()` returns column names and filter status.
-#'
-#' `mm_get_schema()` returns column names, descriptions, and types.
-#'
-#' `mm_get_labels()` returns column names and descriptions.
-#'
-#' @inheritParams mm_get
-#' @returns A data frame of class [`tbl_df`][tibble::tbl_df-class]
-#' containing the endpoint's appendix.
+#' @inheritParams mm_data
+#' @returns A data frame of class [`tbl_df`][tibble::tbl_df-class] containing
+#'   the endpoint's appendix.
 #' @export
 #' @examplesIf megamation:::has_creds()
-#' mm_get_col_info("status")
-mm_get_col_info <- function(endpoint) {
+#' mm_names("status")
+mm_names <- function(endpoint) {
   description <- filter_enabled <- NULL
   data_criteria <- mm_get_criteria(endpoint)
   data_schema <- mm_get_schema(endpoint)
@@ -34,10 +26,10 @@ mm_get_col_info <- function(endpoint) {
 #'
 #' `mm_get_appendix()` returns the user-supplied appendix.
 #'
-#' @inheritParams mm_get
+#' @inheritParams mm_data
 #' @inheritParams mm_req_append
-#' @returns A data frame of class [`tbl_df`][tibble::tbl_df-class]
-#' containing the endpoint's appendix.
+#' @returns A data frame of class [`tbl_df`][tibble::tbl_df-class] containing
+#'   the endpoint's appendix.
 #' @keywords internal
 mm_get_appendix <- function(endpoint, appendix) {
   mm_req(endpoint) |>
@@ -47,20 +39,17 @@ mm_get_appendix <- function(endpoint, appendix) {
     tibble::as_tibble()
 }
 
-#' @rdname mm_get_col_info
-#' @export
+# `Column names and filter status
 mm_get_criteria <- function(endpoint) {
   mm_get_appendix(endpoint, "criteria")
 }
 
-#' @rdname mm_get_col_info
-#' @export
+# Column names, descriptions, and types
 mm_get_schema <- function(endpoint) {
   mm_get_appendix(endpoint, "schema")
 }
 
-#' @rdname mm_get_col_info
-#' @export
+# Column names and descriptions
 mm_get_labels <- function(endpoint) {
   mm_get_appendix(endpoint, "labels")
 }

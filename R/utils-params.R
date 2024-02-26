@@ -1,8 +1,7 @@
 #' Format a list of parameters
 #'
-#' @description
-#' `format_params()` formats supplied name-value pairs toward
-#' creating a valid and readable Megamation URL.
+#' @description `format_params()` formats supplied name-value pairs toward
+#'   creating a valid and readable Megamation URL.
 #' @inheritParams mm_req
 #' @returns A list of parameter name-value pairs.
 #' @keywords internal
@@ -43,9 +42,8 @@ format_params <- function(endpoint, ...) {
 
 #' Format date values
 #'
-#' @description
-#' `format_date()` formats given date values to be compliant with the API (
-#' MM-DD-YYYY).
+#' @description `format_date()` formats given date values to be compliant with
+#'   the API ( MM-DD-YYYY).
 #' @param date A vector of type Date.
 #' @returns A vector of strings.
 #' @noRd
@@ -79,15 +77,15 @@ format_date_yearly <- function(date, years) {
 
 #' Format sequence of dates
 #'
-#' @description
-#' `date_as_between_string()` formats a sequence of dates to a single string
-#' that represents the sequence. The purpose is to simplify the request URL from
-#' including `DATE=X&DATE=Y&DATE=Z` to `DATE = <>X,Z` where X<Y<Z. The former
-#' is not only repetitive but invalid for the Megamation API.
+#' @description `date_as_between_string()` formats a sequence of dates to a
+#'   single string that represents the sequence. The purpose is to simplify the
+#'   request URL from including `DATE=X&DATE=Y&DATE=Z` to `DATE = <>X,Z` where
+#'   X<Y<Z. The former is not only repetitive but invalid for the Megamation
+#'   API.
 #' @param .min A minimum Date.
 #' @param .max A maximum Date.
 #' @returns A single string formatted as "<>MM-DD-YYYY,MM-DD-YYYY" where the
-#' "<>" modifiers means "in-between".
+#'   "<>" modifiers means "in-between".
 #' @keywords internal
 date_as_between_string <- function(.min, .max) {
   .min <- .min |> format("%m-%d-%Y")
