@@ -109,18 +109,26 @@
 <div class="section level2">
 <h2 id="authorization">Authorization<a class="anchor" aria-label="anchor" href="#authorization"></a>
 </h2>
-<p>Run <code>usethis::edit_r_environ()</code> to install your API credentials in your <code>.Renviron</code>, a safe place for secrets.</p>
+<p>You have two options.</p>
+<p>Either use <code><a href="reference/mm_authorize.html">mm_authorize()</a></code>:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="reference/mm_authorize.html">mm_authorize</a></span><span class="op">(</span></span>
+<span>  key <span class="op">=</span> <span class="st">"&lt;YOUR-MEGAMATION_KEY&gt;"</span>,</span>
+<span>  url <span class="op">=</span> <span class="st">"&lt;YOUR-MEGAMATION_URL&gt;"</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<p>Or run <code>usethis::edit_r_environ()</code> to install your API credentials in your <code>.Renviron</code>.</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">MEGAMATION_KEY</span> <span class="op">=</span> <span class="st">'&lt;YOUR-MEGAMATION_KEY&gt;'</span></span>
 <span><span class="va">MEGAMATION_URL</span> <span class="op">=</span> <span class="st">'&lt;YOUR-MEGAMATION_URL&gt;'</span></span></code></pre></div>
-<p>The following functions will automatically use your credentials, so you don’t have to expose them in your code.</p>
+<p>Now <code>megamation</code> functions will automatically use your credentials, so you don’t have to expose them in your code.</p>
 </div>
 <div class="section level2">
-<h2 id="get-data">Get Data<a class="anchor" aria-label="anchor" href="#get-data"></a>
+<h2 id="grabbing-data">Grabbing Data<a class="anchor" aria-label="anchor" href="#grabbing-data"></a>
 </h2>
-<p><code><a href="reference/mm_data.html">mm_data()</a></code> makes a GET request to an endpoint.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<p><code><a href="reference/mm_data.html">mm_data()</a></code> downloads data from your tables into R.</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/mm_data.html">mm_data</a></span><span class="op">(</span><span class="st">"status"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; ℹ Requesting...</span></span>
 <span><span class="co">#&gt; # A tibble: 9 × 3</span></span>
 <span><span class="co">#&gt;   ampc_required description                              status</span></span>
 <span><span class="co">#&gt;   &lt;chr&gt;         &lt;chr&gt;                                    &lt;chr&gt; </span></span>
@@ -134,27 +142,36 @@
 <span><span class="co">#&gt; 8 No            TRANSFERED                               T     </span></span>
 <span><span class="co">#&gt; 9 Yes           Waiting for Trade                        WT</span></span></code></pre></div>
 <p>It provides informative R errors (alongside HTTP errors).</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="reference/mm_data.html">mm_data</a></span><span class="op">(</span><span class="st">"statuses"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Error in `req_perform()`:</span></span>
-<span><span class="co">#&gt; ! HTTP 404 Not Found.</span></span>
-<span><span class="co">#&gt; • This is not a valid web API endpoint.</span></span></code></pre></div>
-<div class="section level3">
-<h3 id="filter-requests">Filter Requests<a class="anchor" aria-label="anchor" href="#filter-requests"></a>
-</h3>
-<p><code><a href="reference/mm_data.html">mm_data()</a></code> allows you to easily filter requests by fields.</p>
-<p>Let’s try to request two work orders by their work order numbers.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="reference/mm_data.html">mm_data</a></span><span class="op">(</span><span class="st">"statuses"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; ℹ Requesting...</span></span>
+<span><span class="co">#&gt; ℹ NB: 1/1 requests returned errors or no data.</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; ── Errored ─────────────────────────────────────────────────────────────────────</span></span>
+<span><span class="co">#&gt; ✖ HTTP 404 Not Found.</span></span>
+<span><span class="co">#&gt; • This is not a valid web API endpoint. </span></span>
+<span><span class="co">#&gt; GET https://api.megamation.com/uog/dl/statuses?ALLFIELDS=1</span></span>
+<span><span class="co">#&gt; # A tibble: 0 × 0</span></span></code></pre></div>
+<div class="section level3">
+<h3 id="filtering">Filtering<a class="anchor" aria-label="anchor" href="#filtering"></a>
+</h3>
+<p><code><a href="reference/mm_data.html">mm_data()</a></code> allows you to easily filter by fields (also known as columns).</p>
+<p>Let’s try to request two work orders by their work order numbers.</p>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/mm_data.html">mm_data</a></span><span class="op">(</span><span class="st">"workorder"</span>, wo_no <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"00001"</span>, <span class="st">"00002"</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Error in `req_perform()`:</span></span>
-<span><span class="co">#&gt; ! HTTP 404 Not Found.</span></span>
-<span><span class="co">#&gt; • wo_no is not valid for this web API endpoint.</span></span></code></pre></div>
+<span><span class="co">#&gt; ℹ Requesting...</span></span>
+<span><span class="co">#&gt; Error in `purrr::map()`:</span></span>
+<span><span class="co">#&gt; ℹ In index: 1.</span></span>
+<span><span class="co">#&gt; Caused by error in `stop_request()`:</span></span>
+<span><span class="co">#&gt; ! An unexpected request was made:</span></span>
+<span><span class="co">#&gt; GET https://api.megamation.com/uog/dl/workorder?WO_NO=00001&amp;ALLFIELDS=1</span></span>
+<span><span class="co">#&gt; Expected mock file: workorder-b2612a.*</span></span></code></pre></div>
 <p>Uh oh! <code>wo_no</code> is not available as a filterable field (yet). You can ask your Megamation representative to add it.</p>
 <div class="section level4">
 <h4 id="available-filters">Available Filters<a class="anchor" aria-label="anchor" href="#available-filters"></a>
 </h4>
-<p><code><a href="reference/mm_names.html">mm_names()</a></code> allows you to see which of your fields you can currently filter by.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<p><code><a href="reference/mm_names.html">mm_names()</a></code> allows you to see which columns you can currently use as filters.</p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/mm_names.html">mm_names</a></span><span class="op">(</span><span class="st">"workorder"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 39 × 4</span></span>
 <span><span class="co">#&gt;    field           filter_enabled description               type          </span></span>
@@ -174,7 +191,7 @@
 <div class="section level4">
 <h4 id="modifiers">Modifiers<a class="anchor" aria-label="anchor" href="#modifiers"></a>
 </h4>
-<p>You can use Megamation’s <a href="https://apidocs.megamation.com/" class="external-link">modifiers</a> on your field values.</p>
+<p>You can use Megamation’s <a href="https://apidocs.megamation.com/" class="external-link">modifiers</a> on filter values.</p>
 <ul>
 <li><p><code>[]</code> for containing</p></li>
 <li><p><code>!!</code> for not equal</p></li>
@@ -183,7 +200,7 @@
 <li><p><code>&lt;&gt;</code> for between.</p></li>
 </ul>
 <p>For example, supply <code>&lt;field&gt; = "[]&lt;value&gt;"</code> to get rows where <code>&lt;field&gt;</code> contains <code>&lt;value&gt;</code>. Here’s how you would request all work orders containing trades <code>ADMIN</code> and <code>IT</code>.</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">admin_and_it</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"[]ADMIN"</span>, <span class="st">"[]IT"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="reference/mm_data.html">mm_data</a></span><span class="op">(</span><span class="st">"workorder"</span>, trade <span class="op">=</span> <span class="va">admin_and_it</span><span class="op">)</span></span>
@@ -193,7 +210,7 @@
 <h4 id="dates">Dates<a class="anchor" aria-label="anchor" href="#dates"></a>
 </h4>
 <p>Avoid <code>&lt;&gt;</code> for dates. Instead, use a sequence of R <code>Date</code>’s. Here’s how you would request all work orders from January, 2023.</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">jan_2023</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.Date.html" class="external-link">seq.Date</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="st">"2023-01-01"</span><span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="st">"2023-01-31"</span><span class="op">)</span>,</span>
