@@ -102,29 +102,11 @@ mm_data("statuses")
 
 ### Filtering
 
-`mm_data()` allows you to easily filter by fields (also known as
-columns).
-
-Let’s try to request two work orders by their work order numbers.
-
-``` r
-mm_data("workorder", wo_no = c("00001", "00002"))
-#> ℹ Requesting...
-#> Error in `purrr::map()`:
-#> ℹ In index: 1.
-#> Caused by error in `stop_request()`:
-#> ! An unexpected request was made:
-#> GET https://api.megamation.com/uog/dl/workorder?WO_NO=00001&ALLFIELDS=1
-#> Expected mock file: workorder-b2612a.*
-```
-
-Uh oh! `wo_no` is not available as a filterable field (yet). You can ask
-your Megamation representative to add it.
+`mm_data()` allows you to easily filter by fields (columns).
 
 #### Available Filters
 
-`mm_names()` allows you to see which columns you can currently use as
-filters.
+`mm_names()` allows you to see the columns that can act as filters.
 
 ``` r
 mm_names("workorder")
