@@ -155,23 +155,12 @@
 <div class="section level3">
 <h3 id="filtering">Filtering<a class="anchor" aria-label="anchor" href="#filtering"></a>
 </h3>
-<p><code><a href="reference/mm_data.html">mm_data()</a></code> allows you to easily filter by fields (also known as columns).</p>
-<p>Let’s try to request two work orders by their work order numbers.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="reference/mm_data.html">mm_data</a></span><span class="op">(</span><span class="st">"workorder"</span>, wo_no <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"00001"</span>, <span class="st">"00002"</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co">#&gt; ℹ Requesting...</span></span>
-<span><span class="co">#&gt; Error in `purrr::map()`:</span></span>
-<span><span class="co">#&gt; ℹ In index: 1.</span></span>
-<span><span class="co">#&gt; Caused by error in `stop_request()`:</span></span>
-<span><span class="co">#&gt; ! An unexpected request was made:</span></span>
-<span><span class="co">#&gt; GET https://api.megamation.com/uog/dl/workorder?WO_NO=00001&amp;ALLFIELDS=1</span></span>
-<span><span class="co">#&gt; Expected mock file: workorder-b2612a.*</span></span></code></pre></div>
-<p>Uh oh! <code>wo_no</code> is not available as a filterable field (yet). You can ask your Megamation representative to add it.</p>
+<p><code><a href="reference/mm_data.html">mm_data()</a></code> allows you to easily filter by fields (columns).</p>
 <div class="section level4">
 <h4 id="available-filters">Available Filters<a class="anchor" aria-label="anchor" href="#available-filters"></a>
 </h4>
-<p><code><a href="reference/mm_names.html">mm_names()</a></code> allows you to see which columns you can currently use as filters.</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<p><code><a href="reference/mm_names.html">mm_names()</a></code> allows you to see the columns that can act as filters.</p>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/mm_names.html">mm_names</a></span><span class="op">(</span><span class="st">"workorder"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 39 × 4</span></span>
 <span><span class="co">#&gt;    field           filter_enabled description               type          </span></span>
@@ -200,7 +189,7 @@
 <li><p><code>&lt;&gt;</code> for between.</p></li>
 </ul>
 <p>For example, supply <code>&lt;field&gt; = "[]&lt;value&gt;"</code> to get rows where <code>&lt;field&gt;</code> contains <code>&lt;value&gt;</code>. Here’s how you would request all work orders containing trades <code>ADMIN</code> and <code>IT</code>.</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">admin_and_it</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"[]ADMIN"</span>, <span class="st">"[]IT"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="reference/mm_data.html">mm_data</a></span><span class="op">(</span><span class="st">"workorder"</span>, trade <span class="op">=</span> <span class="va">admin_and_it</span><span class="op">)</span></span>
@@ -210,7 +199,7 @@
 <h4 id="dates">Dates<a class="anchor" aria-label="anchor" href="#dates"></a>
 </h4>
 <p>Avoid <code>&lt;&gt;</code> for dates. Instead, use a sequence of R <code>Date</code>’s. Here’s how you would request all work orders from January, 2023.</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">jan_2023</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.Date.html" class="external-link">seq.Date</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="st">"2023-01-01"</span><span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="st">"2023-01-31"</span><span class="op">)</span>,</span>
