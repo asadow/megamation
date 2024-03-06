@@ -8,11 +8,6 @@ test_that("check_bool() errors on TRUE string", {
   expect_error(check_bool(allfields), "`allfields` must be")
 })
 
-test_that("check_params() errors on dot prefix", {
-  params <- list(.allfields = TRUE)
-  expect_error(check_params(params), "Prevented filter")
-})
-
 test_that("check_string() returns error message", {
   expect_error(check_string(5), "must be a single string")
 })

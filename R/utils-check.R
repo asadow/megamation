@@ -47,18 +47,34 @@ check_params <- function(x, call = rlang::caller_env()) {
   if (any(grepl("key", np))) {
     keys <- np[grep("key", np)]
     cli::cli_abort(c(
-      "Prevented filter {.arg keys} from being included in the request URL.",
-      "i" = "Use environment variables for credentials instead."
+      "Prevented filter {.code {keys}} from being included in the request URL.",
+      "i" = "Use {.fun mm_authorize} or environment variables for credentials
+      instead."
       ))
   }
 
-  if (any(startsWith(np, "."))) {
-    dotted <- np[grep("\\.", np)]
+  x_has_bangbang <- x |>
+    purrr::map_lgl(\(y) stringr::str_detect(y, "!!") |> any())
+  x_has_bb_and_more <- x[x_has_bangbang] |> purrr::map_dbl(length) > 1
+
+  if (any(x_has_bb_and_more)) {
+
+    x_ls <- x[x_has_bb_and_more] |>
+      imap_chr(\(x, idx) glue::glue("`{idx}` has length {length(x)}."))
+    names(x_ls) <- rep("x", length(x_ls))
+
     cli::cli_abort(c(
-      "Prevented filter {.arg dotted} from being included in the request URL.",
-      "i" = 'Did you mean `{sub("\\\\.", "", dotted[1])} = "<value>"`?'
+      "{.code {names(x_has_bb_and_more)}} must have length 1 with use of `!!`.",
+      x_ls,
+      "i" = "
+      {.fun mm_data} performs and binds the results of separate GET requests for
+      each value supplied to a parameter (as Megamation's API won't allow
+      multiple values in a single request).
+      Combining the results of a request that uses `!!` with the results of
+      another request can result in duplicate data."
     ))
   }
+
   return()
 }
 
