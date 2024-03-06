@@ -22,6 +22,10 @@ test_that("format_params() does not return accidental key", {
   expect_error(format_params(.keys = "my-secret"), "Prevented")
 })
 
+test_that("format_params() errors on multiple values for a param and !!", {
+  expect_error(format_params(type = c("SWOUR", "!!SWO")), "must have length 1")
+})
+
 test_that("format_params() returns filter type errors", {
   expect_error(format_params(date = 1), "`date` must be a Date")
 })

@@ -54,13 +54,13 @@ check_params <- function(x, call = rlang::caller_env()) {
   }
 
   x_has_bangbang <- x |>
-    purrr::map_lgl(\(y) stringr::str_detect(y, "!!") |> any())
+    purrr::map_lgl(\(y) stringi::stri_detect(y, fixed = "!!") |> any())
   x_has_bb_and_more <- x[x_has_bangbang] |> purrr::map_dbl(length) > 1
 
   if (any(x_has_bb_and_more)) {
 
     x_ls <- x[x_has_bb_and_more] |>
-      imap_chr(\(x, idx) glue::glue("`{idx}` has length {length(x)}."))
+      purrr::imap_chr(\(x, idx) glue::glue("`{idx}` has length {length(x)}."))
     names(x_ls) <- rep("x", length(x_ls))
 
     cli::cli_abort(c(
