@@ -23,7 +23,6 @@
 #'
 #' @inheritParams mm_data
 #' @returns A list of GET requests of class `httr2_request`.
-#' @noRd
 #' @examplesIf megamation:::has_creds()
 #' date <- seq.Date(as.Date("2022-01-01"), as.Date("2023-01-31"), by = "day")
 #' megamation:::mm_list_get_reqs("timecard", date = date)

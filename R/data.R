@@ -57,5 +57,7 @@ mm_data <- function(endpoint, ..., allfields = TRUE) {
   }
 
   data <- pages |> mm_pagebind()
-  remove_api_urls(data)
+  data |>
+    remove_api_urls() |>
+    dplyr::distinct()
 }
