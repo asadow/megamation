@@ -86,3 +86,8 @@ extract_schema <- function(parsed) {
     tidyr::unnest(type) |>
     as.data.frame()
 }
+
+parse_header_date <- function(resp) {
+  tz <- stringr::str_extract(resp, "\\b\\w+$")
+  as.POSIXct(resp, format = "%a, %d %b %Y %H:%M:%S", tz = tz)
+}

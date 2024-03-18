@@ -32,6 +32,9 @@ mm_data <- function(endpoint, ..., allfields = TRUE) {
 
   successes <- responses |> httr2::resps_successes()
   pages <- successes |> purrr::map(mm_resp_extract)
+  timestamps <- successes |>
+    purrr::map(\(x) x |> purrr::pluck("headers", "Date") |> parse_header_date())
+  pages <- purrr::map2(pages, timestamps, \(x, y) x |> dplyr::mutate(ts = !!y))
 
   no_data_i <- pages |> purrr::map_lgl(is.null) |> which()
 

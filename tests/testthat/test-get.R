@@ -4,7 +4,7 @@ with_mock_dir("mm_data", {
     got <- mm_data("status")
 
     expect_s3_class(got, "tbl_df")
-    expect_named(got, c("ampc_required", "description", "status"))
+    expect_named(got, c("ampc_required", "description", "status", "ts"))
   })
 })
 
