@@ -44,18 +44,17 @@ check_bool <- function(x,
 # Are httr2 parameters well-specified
 check_params <- function(x, call = rlang::caller_env()) {
   np <- names(x)
-  if (any(grepl("key", np))) {
-    keys <- np[grep("key", np)]
-    cli::cli_abort(c(
-      "Prevented filter {.code {keys}} from being included in the request URL.",
-      "i" = "Use {.fun mm_authorize} or environment variables for credentials
-      instead."
-      ))
+
+  date_index <- grep("date", np, ignore.case = TRUE)
+  if (!rlang::is_empty(date_index)) {
+    date <- x[[date_index]]
+    check_date(date)
   }
 
-  x_has_bangbang <- x |>
+  ## bb: bang-bang !!
+  x_has_bb_index <- x |>
     purrr::map_lgl(\(y) stringi::stri_detect(y, fixed = "!!") |> any())
-  x_has_bb_and_more <- x[x_has_bangbang] |> purrr::map_dbl(length) > 1
+  x_has_bb_and_more <- x[x_has_bb_index] |> purrr::map_dbl(length) > 1
 
   if (any(x_has_bb_and_more)) {
 
@@ -75,6 +74,15 @@ check_params <- function(x, call = rlang::caller_env()) {
     ))
   }
 
+  key_index <- grep("key", np, ignore.case = TRUE)
+  if (!rlang::is_empty(key_index)) {
+    keys <- np[[key_index]]
+    cli::cli_abort(c(
+      "Prevented filter {.code {keys}} from being included in the request URL.",
+      "i" = "Use {.fun mm_authorize} or environment variables for credentials
+      instead."
+      ))
+  }
   return()
 }
 

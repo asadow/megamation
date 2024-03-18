@@ -25,9 +25,8 @@ format_params <- function(endpoint, ...) {
   if (!"DATE" %in% names(params)) {
     return(params)
   }
-  date <- params$DATE
-  check_date(date)
 
+  date <- params$DATE
   years <- lubridate::year(date) |> unique()
   requesting_one_year <- length(years) == 1
 
