@@ -31,6 +31,7 @@ Imports:
     rlang,
     stringi,
     tibble,
+    tibblify,
     tidyr
 URL: https://github.com/asadow/megamation, https://asadow.github.io/megamation/
 BugReports: https://github.com/asadow/megamation/issues

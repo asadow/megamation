@@ -66,7 +66,7 @@ extract_criteria_or_labels <- function(parsed) {
   description <- field <- NULL
 
   parsed <- parsed |> purrr::discard_at(c("Table", "Criteria", "Usage"))
-
+  ## No use for tibblify() here. parsed is a simple list.
   data.frame(
     field = names(parsed) |> tolower(),
     description = unlist(parsed)
@@ -78,6 +78,13 @@ extract_schema <- function(parsed) {
   type <- description <- field <- NULL
 
   p <- parsed$properties
+
+  ## Can use tibblify() instead
+  # p |>
+  #   tibblify::tibblify() |>
+  #   dplyr::rename(field = .names) |>
+  #   as.data.frame()
+
   tibble::tibble(
     field = names(p) |> tolower(),
     description = purrr::map_chr(p, "description"),
