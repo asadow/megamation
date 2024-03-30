@@ -79,12 +79,6 @@ extract_schema <- function(parsed) {
 
   p <- parsed$properties
 
-  ## Can use tibblify() instead
-  # p |>
-  #   tibblify::tibblify() |>
-  #   dplyr::rename(field = .names) |>
-  #   as.data.frame()
-
   tibble::tibble(
     field = names(p) |> tolower(),
     description = purrr::map_chr(p, "description"),
