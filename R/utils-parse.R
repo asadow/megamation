@@ -79,12 +79,6 @@ extract_schema <- function(parsed) {
 
   p <- parsed$properties
 
-  ## Can use tibblify() instead
-  # p |>
-  #   tibblify::tibblify() |>
-  #   dplyr::rename(field = .names) |>
-  #   as.data.frame()
-
   tibble::tibble(
     field = names(p) |> tolower(),
     description = purrr::map_chr(p, "description"),
@@ -95,6 +89,6 @@ extract_schema <- function(parsed) {
 }
 
 parse_header_date <- function(resp) {
-  tz <- stringr::str_extract(resp, "\\b\\w+$")
+  tz <- stringi::stri_extract(resp, regex = "\\b\\w+$")
   as.POSIXct(resp, format = "%a, %d %b %Y %H:%M:%S", tz = tz)
 }
