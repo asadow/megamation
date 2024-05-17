@@ -18,13 +18,14 @@
 mm_data <- function(endpoint, ..., allfields = TRUE) {
   gets <- mm_list_get_reqs(endpoint, ..., allfields = allfields)
 
-  cli::cli_alert_info("Requesting...")
+  cli::cli_alert_info("Requesting...\n")
 
   responses <- purrr::map(
     gets |>
-      cli::cli_progress_along(format = "Fulfilling request {cli::pb_current}"),
-    \(x) mm_req_perform(gets[[x]])
-      )  |>
+      cli::cli_progress_along(
+        format = "Fulfilling request {cli::pb_current}"),
+        \(x) mm_req_perform(gets[[x]], max_reqs = Inf)
+      ) |>
     purrr::list_flatten()
 
   errors <- responses |> httr2::resps_failures()

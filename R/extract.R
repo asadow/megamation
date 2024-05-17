@@ -14,8 +14,8 @@
 #' resp <- httr2::response_json()
 #' resp |> megamation:::mm_resp_extract()
 mm_resp_extract <- function(resp) {
-  .from <- sub(".*/@", "", resp$url) |> tolower()
-  .from <- switch(.from,
+  .get <- sub(".*/@", "", resp$url) |> tolower()
+  .get <- switch(.get,
     "data",
     labels = "labels",
     criteria = "criteria",
@@ -23,5 +23,5 @@ mm_resp_extract <- function(resp) {
   )
   resp |>
     mm_resp_parse() |>
-    mm_parsed_extract(.from)
+    mm_parsed_extract(.get)
 }

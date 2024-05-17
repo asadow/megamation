@@ -1,3 +1,10 @@
+without_internet({
+  expect_GET(
+    mm_data("workorder") |> suppressMessages(),
+    "https://api.megamation.com/uog/dl/workorder?ALLFIELDS=1"
+  )
+})
+
 with_mock_dir("mm_data", {
   test_that("mm_data() returns a tibble", {
     skip_on_cran()
