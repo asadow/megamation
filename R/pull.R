@@ -33,16 +33,12 @@ mm_data <- function(endpoint, ..., allfields = TRUE) {
 
   successes <- responses |> httr2::resps_successes()
   pages <- successes |> purrr::map(mm_resp_extract)
-  timestamps <- successes |>
-    purrr::map(\(x) x |> purrr::pluck("headers", "Date") |> parse_header_date())
-  pages <- purrr::map2(pages, timestamps, \(x, y) x |> dplyr::mutate(ts = !!y))
-
   no_data_i <- pages |> purrr::map_lgl(is.null) |> which()
 
   if (errors_occured || any(no_data_i)) {
     cli::cli_alert_info(
       c("NB: {length(errors) + length(no_data_i)}/{length(responses)}",
-        " requests returned errors or no data.")
+        " request{?s} returned errors or no data.")
       )
     for (error in errors) {
       url <- error$request$url
@@ -59,6 +55,17 @@ mm_data <- function(endpoint, ..., allfields = TRUE) {
         cli::cli_alert_danger()
     }
   }
+
+  ## Add ts timestamp column
+  timestamps <- successes |>
+    purrr::map(\(x) x |> purrr::pluck("headers", "Date") |> parse_header_date())
+  pages <- purrr::map2(
+    pages,
+    timestamps,
+    \(x, y) if(!is.null(x)) {
+      x |> dplyr::mutate(ts = !!y)
+    } else x
+    )
 
   data <- pages |> mm_pagebind()
   data |>

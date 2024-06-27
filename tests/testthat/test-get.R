@@ -25,6 +25,16 @@ with_mock_dir("statuses", {
   })
 })
 
+with_mock_dir("trade", {
+  test_that("mm_data() returns informative error on no data", {
+    skip_on_cran()
+    expect_message(
+      mm_data("trade", department_code = "f"),
+      regexp = "returned errors or no data."
+    )
+  })
+})
+
 with_mock_dir("status_col_info", {
   test_that("mm_names() returns column names and info", {
     skip_on_cran()
