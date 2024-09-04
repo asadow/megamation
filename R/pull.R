@@ -56,17 +56,6 @@ mm_data <- function(endpoint, ..., allfields = TRUE) {
     }
   }
 
-  ## Add ts timestamp column
-  timestamps <- successes |>
-    purrr::map(\(x) x |> purrr::pluck("headers", "Date") |> parse_header_date())
-  pages <- purrr::map2(
-    pages,
-    timestamps,
-    \(x, y) if(!is.null(x)) {
-      x |> dplyr::mutate(ts = !!y)
-    } else x
-    )
-
   data <- pages |> mm_pagebind()
   data |>
     remove_api_urls() |>
