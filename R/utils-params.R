@@ -12,7 +12,7 @@
 #' trade <- c("[]PCO", "[]DM")
 #' megamation:::format_params("workorder", date = date, trade = trade)
 format_params <- function(endpoint, ...) {
-  DATE <- TABLEYEAR <- NULL
+  DATE <- NULL
   params <- rlang::list2(...)
 
   if (rlang::is_empty(params)) {
